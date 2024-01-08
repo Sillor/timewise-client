@@ -27,10 +27,10 @@ function ResetPassword() {
             <p className="text-light text-[0.85em] text-center">
               Don't have an account?{' '}
               <a
-                href="./SingUp"
+                href="./SignUp"
                 className="text-primary underline active:text-blue-500"
               >
-                Sing up
+                Sign Up
               </a>
             </p>
           </div>
