@@ -21,12 +21,15 @@ function ResetPassword() {
               placeholder="Email address"
               className="w-full h-[34px] mb-4 rounded-md px-2"
             />
-            <button className="bg-secondary text-light w-full h-[48px] mb-4 rounded-md">
+            <button className="bg-secondary text-light w-full h-[48px] mb-4 rounded-md active:bg-yellow-700">
               Submit
             </button>
             <p className="text-light text-[0.85em] text-center">
               Don't have an account?{' '}
-              <a href="./SingUp" className="text-primary underline">
+              <a
+                href="./SingUp"
+                className="text-primary underline active:text-blue-500"
+              >
                 Sing up
               </a>
             </p>
