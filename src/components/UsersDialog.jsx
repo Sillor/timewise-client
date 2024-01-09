@@ -1,5 +1,5 @@
-import { Fragment, useRef } from "react";
-import { Dialog, Transition } from "@headlessui/react";
+import { useRef } from "react";
+import { Dialog } from "@headlessui/react";
 
 const UsersDialog = (props) => {
     const cancelButtonRef = useRef(null)
