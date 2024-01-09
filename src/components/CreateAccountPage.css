@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+* {
+  font-family: "Inter";
+}
+
 .create-account {
   background-image: linear-gradient(
       to bottom,

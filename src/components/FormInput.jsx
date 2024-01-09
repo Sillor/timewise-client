@@ -25,7 +25,7 @@ export default function FormInput(props) {
     <div className="form-input relative flex items-center">
       {props.error && errorDiv}
       <input
-        className={`${isPassword ? "pe-7" : "pe-3"}`}
+        className={`${isPassword ? "pe-7" : "pe-3"} outline-secondary outline-2 focus-visible:outline`}
         type={
           (props.type &&
             (isPassword ? (isHidden ? "password" : "text") : props.type)) ||
@@ -35,12 +35,13 @@ export default function FormInput(props) {
         onChange={props.onChange}
       />
       {isPassword && (
-        <div
-          className="text-primary absolute right-1 h-5 w-5 cursor-pointer"
+        <button
+          type="button"
+          className="text-primary absolute right-1 h-5 w-5 cursor-pointer outline-secondary outline-2 focus-visible:outline rounded-sm"
           onClick={handleEyeClick}
         >
           <PasswordEye hidden={isHidden} />
-        </div>
+        </button>
       )}
     </div>
   );
