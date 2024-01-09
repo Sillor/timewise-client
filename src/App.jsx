@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import Timesheet from './timetracker/Timesheet-main';
+import TimesheetMain from './timetracker/TimesheetMain.jsx';
 
 function App() {
   return (
@@ -10,7 +10,7 @@ function App() {
     
           
        
-        <Timesheet/>
+        <TimesheetMain/>
        
     </div>
     
