@@ -1,7 +1,5 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import pwHidden from "../img/pw-hidden.png";
-import pwVisible from "../img/pw-visible.png";
 import PasswordEye from "./PasswordEye";
 import "./FormInput.css";
 
