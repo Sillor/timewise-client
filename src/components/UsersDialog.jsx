@@ -1,7 +1,7 @@
 import { Fragment, useRef } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 
-const CreateUsersDialog = (props) => {
+const UsersDialog = (props) => {
     return (
         <>
             Create new user
@@ -9,4 +9,4 @@ const CreateUsersDialog = (props) => {
     )
 }
 
-export default CreateUsersDialog;
+export default UsersDialog;
