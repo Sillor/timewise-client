@@ -8,7 +8,7 @@ function TimesheetMain() {
 
     return (
         <div className="app-container">
-           
+           <Navbar />
         </div>
     )
 
