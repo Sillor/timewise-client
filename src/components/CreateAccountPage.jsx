@@ -53,7 +53,8 @@ export default function CreateAccountPage() {
     const validString = /^(?!.*(?:password|123|1234|12345|123456)).*$/.test(
       lowerCase
     );
-    const containsSpecial = /^(?=.*[/!@#$%^&*()_+{}\[\]:;<>,.?~\\-]).*$/.test(
+    // eslint-disable-next-line no-useless-escape
+    const containsSpecial = /^(?=.*[\/!@#$%^&*()_+{}\[\]:;<>,.?~\\-]).*$/.test(
       lowerCase
     );
     if (!validString) {
