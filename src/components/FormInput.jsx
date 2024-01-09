@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import PasswordEye from "./PasswordEye";
-import "./FormInput.css";
 
 export default function FormInput(props) {
   const isPassword = props.type === "password";
@@ -22,10 +21,10 @@ export default function FormInput(props) {
     </div>
   );
   return (
-    <div className="form-input relative flex items-center">
+    <div className="form-input relative flex items-center w-[242px] h-[34px] [&:not(:last-of-type)]:mb-[15px]">
       {props.error && errorDiv}
       <input
-        className={`${isPassword ? "pe-7" : "pe-3"} outline-secondary outline-2 focus-visible:outline`}
+        className={`${isPassword ? "pe-7" : "pe-3"} w-full h-full text-dark rounded-md indent-[11px] size-4 outline-secondary outline-2 focus-visible:outline`}
         type={
           (props.type &&
             (isPassword ? (isHidden ? "password" : "text") : props.type)) ||
