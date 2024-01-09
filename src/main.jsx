@@ -1,11 +1,9 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App.jsx";
-import CreateAccountPage from "./timetracker/components/create-account-page/CreateAccountPage.jsx";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    {/* <App /> */}
-    <CreateAccountPage />
+    <App />
   </React.StrictMode>
 );
