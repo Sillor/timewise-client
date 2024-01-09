@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import FormInput from "./FormInput";
+import FormInput from "../form-components/FormInput";
 import "./CreateAccountPage.css";
 
 export default function CreateAccountPage() {
@@ -125,7 +125,10 @@ export default function CreateAccountPage() {
         </form>
         <div className="text-center mt-4">
           <span>Already Have An Account?</span>
-          <a className="ps-1 underline text-primary hover:text-cyan-300" href="/login">
+          <a
+            className="ps-1 underline text-primary hover:text-cyan-300"
+            href="/login"
+          >
             Sign In
           </a>
         </div>
