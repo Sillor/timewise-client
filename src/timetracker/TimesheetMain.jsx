@@ -1,18 +1,15 @@
-import React from 'react';
-import './TimesheetMain.css';
-import MainContent from './MainContent/MainContent';
-import Navbar from './navbar/Navbar';
-import Sidebar from './sidebar/Sidebar';
+import React from "react";
+import "./TimesheetMain.css";
+import MainContent from "./MainContent/MainContent";
+import Navbar from "./navbar/Navbar";
+import Sidebar from "./sidebar/Sidebar";
 
 function TimesheetMain() {
-
-    return (
-        <div className="app-container">
-           
-        </div>
-    )
-
-
+  return (
+    <div className="app-container">
+      <MainContent />
+    </div>
+  );
 }
 
 export default TimesheetMain;

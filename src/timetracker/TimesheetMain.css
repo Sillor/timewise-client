@@ -1,14 +1,13 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Ubuntu:wght@400;500;700&display=swap");
 .app-container {
-    background-image: url('/Public/Perlin1.png');
-    background-color: #30BCED;
-    color: #fffaff;
-    min-height: 100vh;
-    padding: 3px;
-    min-width: 100vw;
-    
-    background-size: cover;
-    background-repeat: no-repeat;
+  background-image: url("/Public/Perlin1.png");
+  background-color: #30bced;
+  color: #fffaff;
+  min-height: 100vh;
+  padding: 3px;
+  min-width: 100vw;
+  font-family: Inter;
 
-    
+  background-size: cover;
+  background-repeat: no-repeat;
 }
-
