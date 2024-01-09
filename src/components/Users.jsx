@@ -4,9 +4,9 @@ import UsersDialog from "./UsersDialog";
 const Users = () => {
   const [open, setOpen] = useState(false);
 
-  const handleClick = (value) => {
-    setOpen(value);
-  };
+  // const handleClick = (value) => {
+  //   setOpen(value);
+  // };
 
   // Dummy data
   const users = [
@@ -43,10 +43,16 @@ return (
       <h1 className="text-[48px] font-bold mt-[59px] mb-[36px]">Users</h1>
       <button
         className="text-base font-semibold bg-orange-500 hover:bg-orange-600 w-[216px] h-[48px] rounded-[6px] shadow-[0_4px_4px_0_rgba(0,0,0,0.3)] mb-4"
-        onClick={() => handleClick(true)}
+        onClick={() => setOpen(true)}
       >
         Create New User
       </button>
+
+      <UsersDialog 
+        open={open}
+        handleClose={() => setOpen(false)}
+      />
+
       <table className="table-auto text-left sm:min-w-96 md:min-w-[650px] rounded-[4px] overflow-hidden">
         <thead className="text-sm bg-gray-700">
           <tr>
@@ -70,7 +76,6 @@ return (
         </tbody>
       </table>
     </div>
-    {open && <UsersDialog open={open} handleClick={handleClick} />}
   </div>
 );
 };
