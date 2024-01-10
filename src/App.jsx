@@ -6,8 +6,8 @@ import ResetPassword from './timetracker/layout/ResetPassword.jsx';
 function App() {
   return (
     <>
-      <LandingNavBar />
-      <ResetPassword />
+      {/* <LandingNavBar />
+      <ResetPassword /> */}
     </>
   );
 }
