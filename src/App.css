@@ -11,7 +11,7 @@ html {
 }
 
 body {
-  background-image: url('../img/background.png'),
+  background-image: url('./timetracker/components/img/background.png'),
     linear-gradient(to bottom, #2b88aa, #3d90ae, #094baf);
   background-repeat: no-repeat;
   background-attachment: fixed;
