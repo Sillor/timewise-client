@@ -33,7 +33,7 @@ function App() {
 
     const sidebar = (
       <div
-        className={`nav--sidebar fixed bg-orange-500 top-0 w-28 h-full flex flex-col [&>*]:py-1 ${
+        className={`nav--sidebar bg-dark text-white   text-xl w-56 h-[calc(100vh-80px)] fixed overflow-y-auto flex flex-col [&>*]:py-3 [&>*]:ps-12 ${
           !isOpen ? "-translate-x-full" : ""
         } transition shadow-2xl shadow-dark`}
       >
@@ -41,7 +41,7 @@ function App() {
           className="w-full text-center text-3xl cursor-pointer"
           onClick={toggleSidebar}
         >
-          ☰
+          
         </div>
         {links}
       </div>
@@ -49,7 +49,7 @@ function App() {
 
     return (
       <nav className="relative">
-        <div className="nav--header h-10 flex justify-between [&>*]:px-4 [&>*]:cursor-pointer items-center">
+        <div className="nav--header h-20 text-3xl flex justify-between [&>*]:px-4 [&>*]:cursor-pointer items-center">
           {isLoggedIn ? (
             <>
               <div onClick={toggleSidebar}>☰</div>
