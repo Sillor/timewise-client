@@ -4,7 +4,7 @@ import './index.css';
 function ForgotPassword() {
 
     return (
-        <h1>Forgot your password?</h1>
+        <h1 className="text-7xl">Forgot your<br /> password?</h1>
     );
 }
 
