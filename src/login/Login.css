@@ -1,0 +1,41 @@
+.main{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    height: 100vh;
+    padding-bottom: 100px;
+}
+.logIn{
+    font-size: 70px;
+}
+.title-orange{
+    color: orange;
+}
+input{
+    border-radius: 5px;
+    padding:5px 108px 5px 5px;
+    color: black;
+    margin-bottom: 10px;
+}
+.link{
+    color: blue;
+    text-decoration: underline;
+  }
+.signIn{
+    text-align: center;
+}
+.signIn-title{
+    font-size: 50px;
+    margin-bottom: 20px;
+}
+
+.btn-signIn{
+    background-color: orange;
+    border-radius: 5px;
+    padding: 10px 120px;
+    margin-top: 20px;
+    margin-bottom: 5px;
+}
+.signIn-questions{
+    margin-top: 10px;
+}
