@@ -1,0 +1,34 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+* {
+  font-family: 'Inter', sans-serif;
+}
+
+html {
+  height: 100%;
+}
+
+.create-project {
+    background-image: linear-gradient(
+        to bottom,
+        rgba(48, 188, 237, 100%),
+        rgba(63, 141, 169, 61.33%),
+        rgba(0, 102, 255, 25%)
+      ),
+      url(../img/background.png);
+    background-size: cover;
+  }
+.dialog{
+    background-image: linear-gradient(
+        to bottom,
+        rgba(48, 188, 237, 100%),
+        rgba(63, 141, 169, 61.33%),
+        rgba(0, 102, 255, 25%)
+      ),
+      url(../img/background.png);
+    background-size: cover;
+margin: 0;
+
+}
