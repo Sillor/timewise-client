@@ -1,6 +1,10 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { createBrowserRouter, redirect, RouterProvider } from "react-router-dom";
+import {
+  createBrowserRouter,
+  redirect,
+  RouterProvider,
+} from "react-router-dom";
 import App from "./App.jsx";
 import CreateAccountPage from "./timetracker/components/create-account-page/CreateAccountPage.jsx";
 
@@ -11,16 +15,16 @@ const router = createBrowserRouter([
     errorElement: <div>Error was thrown in App</div>,
     children: [
       {
-        errorElement: <div>Error was thrown in view</div>,
+        errorElement: <div>Error was thrown in outlet</div>,
         children: [
           {
             index: true,
-            loader: async ()=>{
-              const isLoggedIn = true
-              if (isLoggedIn) return redirect("/tracker")
-              else return redirect("/login")
+            loader: async () => {
+              const isLoggedIn = false;
+              if (isLoggedIn) return redirect("/tracker");
+              else return redirect("/login");
             },
-            // replace with splash page
+            // possibly replace with splash page
             element: (
               <h1 className="text-4xl font-bold flex items-center justify-center text-white">
                 Hello TimeWise!
@@ -33,12 +37,16 @@ const router = createBrowserRouter([
           },
           {
             path: "/login",
-            element: <div>login</div>
+            element: <div>login</div>,
           },
           {
             path: "/tracker",
-            element: <div>tracker</div>
-          }
+            element: <div>tracker</div>,
+          },
+          {
+            path: "/account",
+            element: <div>account</div>,
+          },
         ],
       },
     ],
