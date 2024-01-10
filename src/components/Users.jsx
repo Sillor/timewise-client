@@ -4,10 +4,6 @@ import UsersDialog from "./UsersDialog";
 const Users = () => {
   const [open, setOpen] = useState(false);
 
-  // const handleClick = (value) => {
-  //   setOpen(value);
-  // };
-
   // Dummy data
   const users = [
     {
