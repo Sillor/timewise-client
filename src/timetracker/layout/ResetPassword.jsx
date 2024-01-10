@@ -1,11 +1,8 @@
 import React from 'react';
 import './ResetPassword.css';
-import Header from '../components/Header.jsx';
-
 function ResetPassword() {
   return (
     <div>
-      <Header />
       <div className="flex justify-center pt-24 md:pt-48">
         <div>
           <h1 className="max-w-[262px] md:max-w-[512px] text-[3em] font-bold text-light mb-8">
