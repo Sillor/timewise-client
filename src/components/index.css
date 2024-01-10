@@ -1,0 +1,40 @@
+.app {
+    display: flex;
+}
+
+html {
+    height: 100%;
+    color: white;
+    font-family: 'Inter';
+}
+
+body {
+    background-image: url("../img/Perlin.png"),
+        linear-gradient(to bottom, #2b88aa, #3d90ae, #094baf);
+    background-repeat: no-repeat;
+    background-size: cover;
+    font-family: 'Inter';
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 15px;
+}
+
+.password-input {
+    border-radius: 5px;
+}
+
+.password-req {
+    color: red;
+}
+
+.submit-button {
+    background-color: #E78B13;
+    cursor: pointer;
+    padding: 10px;
+    width: 160px;
+    border-radius: 6px;
+}
