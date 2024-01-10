@@ -3,6 +3,10 @@ import "./App.css";
 import { Outlet } from "react-router";
 import { Link } from "react-router-dom";
 
+import ProjectsIcon from "./timetracker/icons/ProjectsIcon.jsx";
+import ClockIcon from "./timetracker/icons/ClockIcon.jsx";
+
+
 function App() {
   // remove
   function PlaceholderNavbar() {
@@ -15,10 +19,9 @@ function App() {
     }
 
     const links = [
-      ["/", "Home"],
-      ["/login", "Login"],
-      ["/register", "Sign Up"],
-      ["/tracker", "Tracker"],
+      ["/",  "Home"],
+      ["/projects", "Projects", <ProjectsIcon/>],
+      ["/tracker", "Tracker", <ClockIcon/>],
     ].map((a, i) => (
       <Link
         to={a[0]}
@@ -27,7 +30,7 @@ function App() {
           setIsOpen(false);
         }}
       >
-        {a[1]}
+       <div className="h-4 inline-block">{a[2]}</div> {a[1]}
       </Link>
     ));
 

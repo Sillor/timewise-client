@@ -20,7 +20,7 @@ const router = createBrowserRouter([
           {
             index: true,
             loader: async () => {
-              const isLoggedIn = false;
+              const isLoggedIn = true;
               if (isLoggedIn) return redirect("/tracker");
               else return redirect("/login");
             },
@@ -46,6 +46,10 @@ const router = createBrowserRouter([
           {
             path: "/account",
             element: <div>account</div>,
+          },
+          {
+            path: "/projects",
+            element: <div>projects</div>,
           },
         ],
       },
