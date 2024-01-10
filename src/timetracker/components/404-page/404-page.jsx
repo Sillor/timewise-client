@@ -3,9 +3,9 @@ export default function PageNotFound() {
     return (
         <div className="min-h-screen bg-gray-900 text-white">
             <div className="flex flex-col items-center">
-                <h1 className="text-[48px] font-bold mt-[59px] mb-[36px]">404 Page Not Found</h1>
-                <img src={BrokenRobot}/>
-                <h2>Looks like we hit a snag!</h2>
+                <h1 className="text-[2rem] font-bold mt-[3rem] mb-[1rem] ">404 Page Not Found</h1>
+                <img className='py-10' src={BrokenRobot}/>
+                <p className='text-xl'>Looks like we hit a snag!</p>
             </div>
         </div>
     );
