@@ -41,7 +41,7 @@ const router = createBrowserRouter([
           },
           {
             path: "/tracker",
-            element: <div>tracker</div>,
+            element: <div className="">tracker</div>,
           },
           {
             path: "/account",

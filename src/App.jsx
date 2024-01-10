@@ -52,10 +52,11 @@ function App() {
 
     return (
       <nav className="relative">
-        <div className="nav--header h-20 text-3xl flex justify-between [&>*]:px-4 [&>*]:cursor-pointer items-center">
+        <div className="nav--header bg-dark bg-opacity-45 h-20 text-3xl flex justify-between [&>*]:px-4 [&>*]:cursor-pointer items-center">
           {isLoggedIn ? (
             <>
               <div onClick={toggleSidebar}>☰</div>
+              <div className="TimeWiseHeader size-5 font-bold ">TimeWise</div>
               <Link to="/account">👤</Link>
             </>
           ) : (
@@ -73,7 +74,8 @@ function App() {
       <PlaceholderNavbar />
       {/* Placeholder navbar, replace with real navbar */}
 
-      <div className="bg-dark text-light h-full">
+      <div className="AppBkg bg-dark text-light h-full">
+        
         <Outlet />
       </div>
     </>

@@ -2,9 +2,45 @@
 @tailwind components;
 @tailwind utilities;
 
-html, body {
-  height: 100%;
+
+* {
+  font-family: "Inter";
 }
+
+html, body {
+
+  background-image: linear-gradient(
+      to bottom,
+      rgba(48, 188, 237, 100%),
+      rgba(63, 141, 169, 61.33%),
+      rgba(0, 102, 255, 25%)
+    ),
+    url(../img/background.png);
+  background-size: cover;
+height : 100%;
+  
+}
+
+.TimeWiseHeader{
+  color: white;
+  
+}
+
+.AppBkg {
+  
+  background-image:
+  
+  url("Perlin1.png"),
+  linear-gradient(
+      to bottom,
+      rgba(48, 188, 237, 100%),
+      rgba(63, 141, 169, 61.33%),
+      rgba(0, 102, 255, 25%)
+       );
+    
+  background-size: cover;
+}
+
 
 #root {
   display: flex;
