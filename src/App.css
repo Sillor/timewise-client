@@ -4,7 +4,7 @@
 
 
 * {
-  font-family: "Inter";
+  font-family: 'Inter', sans-serif;
 }
 
 html, body {
@@ -39,6 +39,16 @@ height : 100%;
        );
     
   background-size: cover;
+}
+
+body {
+  background-image: url('./timetracker/components/img/background.png'),
+    linear-gradient(to bottom, #2b88aa, #3d90ae, #094baf);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  margin: 0;
+  height: 100%;
 }
 
 

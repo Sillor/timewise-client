@@ -1,12 +1,10 @@
-import React, { useState } from "react";
-import "./App.css";
-import { Outlet } from "react-router";
-import { Link } from "react-router-dom";
+import React from 'react';
+import './App.css';
+import LandingNavBar from './timetracker/components/Landing-NavBar/landing-navbar.jsx'
 
 import ProjectsIcon from "./timetracker/icons/ProjectsIcon.jsx";
 import ClockIcon from "./timetracker/icons/ClockIcon.jsx";
 import HamburgerMenu from "./timetracker/icons/HamburgerIcon.jsx";
-
 
 function App() {
   // remove
