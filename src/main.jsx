@@ -6,7 +6,9 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import App from "./App.jsx";
-import CreateAccountPage from "./timetracker/components/create-account-page/CreateAccountPage.jsx";
+import CreateAccountPage from "./timetracker/pages/create-account-page/CreateAccountPage.jsx";
+import TimesheetMain from "./timetracker/pages/time-sheet/TimesheetMain.jsx";
+import ResetPassword from "./timetracker/pages/reset-password/ResetPassword.jsx"
 
 const router = createBrowserRouter([
   {
@@ -38,6 +40,14 @@ const router = createBrowserRouter([
           {
             path: "/login",
             element: <div>login</div>,
+          },
+          {
+            path: "/timesheet",
+            element: <TimesheetMain />
+          },
+          {
+            path: "/resetpassword",
+            element: <ResetPassword/>,
           },
           {
             path: "/tracker",

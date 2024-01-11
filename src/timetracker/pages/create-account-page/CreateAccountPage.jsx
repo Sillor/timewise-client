@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import FormInput from "../form-components/FormInput";
+import FormInput from "../../components/form-components/FormInput";
 import "./CreateAccountPage.css";
 
 export default function CreateAccountPage() {
@@ -78,7 +78,7 @@ export default function CreateAccountPage() {
   }
 
   return (
-    <div className="create-account min-h-full min-w-full bg-gray-900 text-white flex items-center justify-center flex-col lg:flex-row lg:justify-evenly">
+    <div className="create-account min-h-full min-w-full flex items-center justify-center flex-col lg:flex-row lg:justify-evenly">
       <div className="create-account--greeting-container">
         <div className="create-account--greeting text-3xl font-bold lg:text-6xl">
           <span className="lg:block">Welcome To </span>

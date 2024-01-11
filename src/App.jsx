@@ -3,9 +3,9 @@ import "./App.css";
 import { Outlet } from "react-router";
 import { Link } from "react-router-dom";
 
-import ProjectsIcon from "./timetracker/icons/ProjectsIcon.jsx";
-import ClockIcon from "./timetracker/icons/ClockIcon.jsx";
-import HamburgerMenu from "./timetracker/icons/HamburgerIcon.jsx";
+import ProjectsIcon from "./timetracker/assets/ProjectsIcon.jsx";
+import ClockIcon from "./timetracker/assets/ClockIcon.jsx";
+import HamburgerMenu from "./timetracker/assets/HamburgerIcon.jsx";
 
 function App() {
   // remove
@@ -20,6 +20,10 @@ function App() {
 
     const links = [
       ["/",  "Home"],
+      ["/timesheet", "Timesheet"],
+      ["/register", "Register"],
+      ["/login", "Login"],
+      ["/resetpassword", "Reset Password"],
       ["/projects", "Projects", <ProjectsIcon/>],
       ["/tracker", "Tracker", <ClockIcon/>],
     ].map((a, i) => (
@@ -76,7 +80,7 @@ function App() {
       <PlaceholderNavbar />
       {/* Placeholder navbar, replace with real navbar */}
 
-      <div className="appBkg bg-dark text-light h-full [&>*:first-child]:min-h-full [&>*:first-child]:min-w-full">
+      <div className="AppBkg bg-dark text-light h-full [&>*:first-child]:min-h-full [&>*:first-child]:min-w-full">
         <Outlet />
       </div>
     </>

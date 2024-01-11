@@ -2,7 +2,6 @@ import React from 'react';
 import './ResetPassword.css';
 function ResetPassword() {
   return (
-    <div>
       <div className="flex justify-center pt-24 md:pt-48">
         <div>
           <h1 className="max-w-[262px] md:max-w-[512px] text-[3em] font-bold text-light mb-8">
@@ -33,7 +32,6 @@ function ResetPassword() {
           </div>
         </div>
       </div>
-    </div>
   );
 }
 
