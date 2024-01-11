@@ -46,7 +46,7 @@ function ConfirmPasswordReset() {
 
     return (
         <div className="app flex justify-center items-center h-screen">
-            <h1 className="text-7xl">Forgot your<br /> password?</h1>
+            <h1 className="text-7xl text-shadow">Forgot your<br /> password?</h1>
             <hr className="border-l mx-40 h-80" />
             <div>
                 <h2 className="text-5xl mb-9">Reset<br /> Password</h2>
@@ -55,7 +55,7 @@ function ConfirmPasswordReset() {
                         <input
                             type="password"
                             placeholder="New Password"
-                            className="password-input p-2 w-full h-9"
+                            className="password-input p-2 w-full h-9 shadow-lg"
                             value={password}
                             onChange={handlePasswordChange}
                         />
@@ -64,7 +64,7 @@ function ConfirmPasswordReset() {
                         <input
                             type="password"
                             placeholder="Confirm Password"
-                            className="password-input p-2 w-full h-9"
+                            className="password-input p-2 w-full h-9 shadow-lg"
                         />
                     </label>
                     {displayPasswordWarning()}
