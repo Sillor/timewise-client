@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 
 import ProjectsIcon from "./timetracker/icons/ProjectsIcon.jsx";
 import ClockIcon from "./timetracker/icons/ClockIcon.jsx";
+import HamburgerMenu from "./timetracker/icons/HamburgerIcon.jsx";
 
 
 function App() {
@@ -36,7 +37,7 @@ function App() {
 
     const sidebar = (
       <div
-        className={`nav--sidebar bg-dark text-white   text-xl w-56 h-[calc(100vh-80px)] fixed overflow-y-auto flex flex-col [&>*]:py-3 [&>*]:ps-12 ${
+        className={`nav--sidebar bg-dark text-white text-xl w-56 h-[calc(100vh-80px)] fixed overflow-y-auto flex flex-col [&>*]:py-3 [&>*]:ps-12 ${
           !isOpen ? "-translate-x-full" : ""
         } transition shadow-2xl shadow-dark`}
       >
@@ -52,15 +53,17 @@ function App() {
 
     return (
       <nav className="relative">
-        <div className="nav--header bg-dark bg-opacity-45 h-20 text-3xl flex justify-between [&>*]:px-4 [&>*]:cursor-pointer items-center">
+        <div className="nav--header bg-dark bg-opacity-45 h-20 text-3xl flex [&>*]:px-4 [&>*]:cursor-pointer items-center">
           {isLoggedIn ? (
             <>
-              <div onClick={toggleSidebar}>☰</div>
-              <div className="TimeWiseHeader size-5 font-bold ">TimeWise</div>
-              <Link to="/account">👤</Link>
+              <div onClick={toggleSidebar} className="h-10 w-[75px] flex items-center justify-center"><HamburgerMenu /></div>
+              <div className="TimeWiseHeader text-5 font-bold flex-grow flex items-center">TimeWise</div>
+              <div className="h-3/5 w-[75px] flex items-center justify-center">
+                <Link to="/account">👤</Link>
+              </div>
             </>
           ) : (
-            <div>🕑TimeWise</div>
+            <div>🕑 TimeWise</div>
           )}
         </div>
         {isLoggedIn && sidebar}
@@ -74,8 +77,7 @@ function App() {
       <PlaceholderNavbar />
       {/* Placeholder navbar, replace with real navbar */}
 
-      <div className="AppBkg bg-dark text-light h-full">
-        
+      <div className="appBkg bg-dark text-light h-full [&>*:first-child]:min-h-full [&>*:first-child]:min-w-full">
         <Outlet />
       </div>
     </>
