@@ -24,6 +24,26 @@ function ConfirmPasswordReset() {
         return true;
     };
 
+    const displayPasswordWarning = () => {
+        if (password && !isPasswordValid()) {
+            return (
+                <div className="password-warning">
+                    <p className="password-req text-red-500 mb-3 leading-5">
+                        Password must be at least 12<br /> characters and must include a special<br /> character.
+                        Passwords cannot include<br /> any of the following strings:<br />
+                    </p>
+                    <ul className="list-disc list-inside mb-3 text-red-500 leading-5">
+                        <li>“password”</li>
+                        <li>“123”</li>
+                        <li>“1234”</li>
+                        <li>“12345”</li>
+                        <li>“123456”</li>
+                    </ul>
+                </div>
+            );
+        }
+    };
+
     return (
         <div className="app flex justify-center items-center h-screen">
             <h1 className="text-7xl">Forgot your<br /> password?</h1>
@@ -47,21 +67,7 @@ function ConfirmPasswordReset() {
                             className="password-input p-2 w-full h-9"
                         />
                     </label>
-                    {isPasswordValid() ? null : (
-                        <div>
-                            <p className="password-req text-red-500 mb-3 leading-5">
-                                Password must be at least 12<br /> characters and must include a special<br /> character.
-                                Passwords cannot include<br /> any of the following strings:<br />
-                            </p>
-                            <ul className="list-disc list-inside mb-3 text-red-500 leading-5">
-                                <li>“password”</li>
-                                <li>“123”</li>
-                                <li>“1234”</li>
-                                <li>“12345”</li>
-                                <li>“123456”</li>
-                            </ul>
-                        </div>
-                    )}
+                    {displayPasswordWarning()}
                     <button type="submit" className="submit-button w-45">Confirm</button>
                     <div className="flex justify-center">
                         <h5>New user?</h5>
