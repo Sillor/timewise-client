@@ -35,7 +35,7 @@ function ConfirmPasswordReset() {
                         <input
                             type="password"
                             placeholder="New Password"
-                            className="password-input p-2 w-full"
+                            className="password-input p-2 w-full h-9"
                             value={password}
                             onChange={handlePasswordChange}
                         />
@@ -61,8 +61,10 @@ function ConfirmPasswordReset() {
                         </p>
                     )}
                     <button type="submit" className="submit-button w-45">Confirm</button>
-                    <h5>New user?</h5>
-                    <a href="./SignUp">Sign Up</a>
+                    <div className="flex justify-center">
+                        <h5>New user?</h5>
+                        <a href="./SignUp" className="ml-1 text-blue-500 underline"> Sign Up</a>
+                    </div>
                 </form>
             </div>
         </div>
