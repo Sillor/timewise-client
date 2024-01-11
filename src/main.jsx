@@ -7,6 +7,7 @@ import {
 } from "react-router-dom";
 import App from "./App.jsx";
 import CreateAccountPage from "./timetracker/components/create-account-page/CreateAccountPage.jsx";
+import TimesheetMain from "./timetracker/TimesheetMain.jsx";
 
 const router = createBrowserRouter([
   {
@@ -41,7 +42,7 @@ const router = createBrowserRouter([
           },
           {
             path: "/tracker",
-            element: <div className="">tracker</div>,
+            element: <TimesheetMain />,
           },
           {
             path: "/account",

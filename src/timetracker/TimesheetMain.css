@@ -3,9 +3,10 @@
   background-image: url("/Public/Perlin1.png");
   background-color: #30bced;
   color: #fffaff;
-  min-height: 100vh;
+  min-height: 100%;
   padding: 3px;
-  min-width: 100vw;
+
+  max-width: 100%;
   font-family: Inter;
 
   background-size: cover;
