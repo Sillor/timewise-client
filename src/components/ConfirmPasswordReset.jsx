@@ -40,7 +40,7 @@ function ConfirmPasswordReset() {
                             onChange={handlePasswordChange}
                         />
                     </label>
-                    <label className="text-black mb-3">
+                    <label className="text-black mb-1">
                         <input
                             type="password"
                             placeholder="Confirm Password"
@@ -48,7 +48,7 @@ function ConfirmPasswordReset() {
                         />
                     </label>
                     {isPasswordValid() ? null : (
-                        <p className="password-req text-red-500 mb-3">
+                        <p className="password-req text-red-500 mb-3 leading-5">
                             Password must be at least 12<br /> characters and must include a special<br /> character.
                             Passwords cannot include<br /> any of the following strings:<br />
                             <ul className="list-disc list-inside">
