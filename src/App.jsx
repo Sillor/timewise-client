@@ -6,7 +6,6 @@ import { Link } from "react-router-dom";
 import ProjectsIcon from "./timetracker/icons/ProjectsIcon.jsx";
 import ClockIcon from "./timetracker/icons/ClockIcon.jsx";
 
-
 function App() {
   // remove
   function PlaceholderNavbar() {
@@ -19,9 +18,9 @@ function App() {
     }
 
     const links = [
-      ["/",  "Home"],
-      ["/projects", "Projects", <ProjectsIcon/>],
-      ["/tracker", "Tracker", <ClockIcon/>],
+      ["/", "Home"],
+      ["/projects", "Projects", <ProjectsIcon />],
+      ["/tracker", "Tracker", <ClockIcon />],
     ].map((a, i) => (
       <Link
         to={a[0]}
@@ -30,7 +29,7 @@ function App() {
           setIsOpen(false);
         }}
       >
-       <div className="h-4 inline-block">{a[2]}</div> {a[1]}
+        <div className="h-4 inline-block">{a[2]}</div> {a[1]}
       </Link>
     ));
 
@@ -43,9 +42,7 @@ function App() {
         <div
           className="w-full text-center text-3xl cursor-pointer"
           onClick={toggleSidebar}
-        >
-          
-        </div>
+        ></div>
         {links}
       </div>
     );
@@ -75,7 +72,6 @@ function App() {
       {/* Placeholder navbar, replace with real navbar */}
 
       <div className="AppBkg bg-dark text-light h-full">
-        
         <Outlet />
       </div>
     </>
@@ -83,4 +79,3 @@ function App() {
 }
 
 export default App;
-

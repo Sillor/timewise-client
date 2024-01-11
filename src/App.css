@@ -2,13 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
-
 * {
   font-family: "Inter";
 }
 
-html, body {
-
+html,
+body {
   background-image: linear-gradient(
       to bottom,
       rgba(48, 188, 237, 100%),
@@ -17,30 +16,24 @@ html, body {
     ),
     url(../img/background.png);
   background-size: cover;
-height : 100%;
-  
+  height: 100%;
 }
 
-.TimeWiseHeader{
+.TimeWiseHeader {
   color: white;
-  
 }
 
 .AppBkg {
-  
-  background-image:
-  
-  url("Perlin1.png"),
-  linear-gradient(
+  background-image: url("Perlin1.png"),
+    linear-gradient(
       to bottom,
       rgba(48, 188, 237, 100%),
       rgba(63, 141, 169, 61.33%),
       rgba(0, 102, 255, 25%)
-       );
-    
+    );
+
   background-size: cover;
 }
-
 
 #root {
   display: flex;
