@@ -48,17 +48,19 @@ function ConfirmPasswordReset() {
                         />
                     </label>
                     {isPasswordValid() ? null : (
-                        <p className="password-req text-red-500 mb-3 leading-5">
-                            Password must be at least 12<br /> characters and must include a special<br /> character.
-                            Passwords cannot include<br /> any of the following strings:<br />
-                            <ul className="list-disc list-inside">
+                        <div>
+                            <p className="password-req text-red-500 mb-3 leading-5">
+                                Password must be at least 12<br /> characters and must include a special<br /> character.
+                                Passwords cannot include<br /> any of the following strings:<br />
+                            </p>
+                            <ul className="list-disc list-inside mb-3 text-red-500 leading-5">
                                 <li>“password”</li>
                                 <li>“123”</li>
                                 <li>“1234”</li>
                                 <li>“12345”</li>
                                 <li>“123456”</li>
                             </ul>
-                        </p>
+                        </div>
                     )}
                     <button type="submit" className="submit-button w-45">Confirm</button>
                     <div className="flex justify-center">
