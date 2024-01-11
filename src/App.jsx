@@ -39,7 +39,7 @@ function App() {
       <div
         className={`nav--sidebar bg-dark text-white text-xl w-56 h-[calc(100vh-80px)] fixed overflow-y-auto flex flex-col [&>*]:py-3 [&>*]:ps-12 ${
           !isOpen ? "-translate-x-full" : ""
-        } transition shadow-2xl shadow-dark`}
+        } transition shadow-2xl shadow-dark border-r-[1px] border-gray-500`}
       >
         <div
           className="w-full text-center text-3xl cursor-pointer"
@@ -57,7 +57,7 @@ function App() {
           {isLoggedIn ? (
             <>
               <div onClick={toggleSidebar} className="h-10 w-[75px] flex items-center justify-center"><HamburgerMenu /></div>
-              <div className="TimeWiseHeader text-5 font-bold flex-grow flex items-center">TimeWise</div>
+              <div className="TimeWiseHeader lg:text-2xl font-bold flex-grow flex items-center">TimeWise</div>
               <div className="h-3/5 w-[75px] flex items-center justify-center">
                 <Link to="/account">👤</Link>
               </div>
