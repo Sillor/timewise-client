@@ -39,6 +39,8 @@ export default function CreateAccountPage() {
       ...prev,
       passwordValue: value,
       passwordError: checkedPassword.error ? checkedPassword.message : '',
+      confirmPasswordError:
+        prev.confirmPasswordValue !== value ? 'Passwords Do Not Match' : '',
     }));
   }
 
