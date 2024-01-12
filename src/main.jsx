@@ -8,7 +8,8 @@ import {
 import App from "./App.jsx";
 import CreateAccountPage from "./timetracker/pages/create-account-page/CreateAccountPage.jsx";
 import TimesheetMain from "./timetracker/pages/time-sheet/TimesheetMain.jsx";
-import ResetPassword from "./timetracker/pages/reset-password/ResetPassword.jsx"
+import ResetPassword from "./timetracker/pages/reset-password/ResetPassword.jsx";
+import Users from "./timetracker/pages/users-page/Users.jsx";
 
 const router = createBrowserRouter([
   {
@@ -65,6 +66,10 @@ const router = createBrowserRouter([
             path: "/projects",
             element: <div>projects</div>,
           },
+          {
+            path: "/users",
+            element: <Users />,
+          }
         ],
       },
     ],
