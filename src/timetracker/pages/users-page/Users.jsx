@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import UsersDialog from "./UsersDialog";
+import UsersDialog from "../../components/users-dialog/UsersDialog";
 import { usersData } from "../../../UsersData";
 
 const Users = () => {

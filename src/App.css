@@ -1,21 +1,51 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
 * {
-  font-family: 'Inter', sans-serif;
+  font-family: "Inter", sans-serif;
 }
 
-html {
+html,
+body {
+  background-image: url(../img/background.png),
+    linear-gradient(
+      to bottom,
+      rgba(48, 188, 237, 100%),
+      rgba(63, 141, 169, 61.33%),
+      rgba(0, 102, 255, 25%)
+    );
+  background-size: cover;
   height: 100%;
 }
 
+.TimeWiseHeader {
+  color: white;
+}
+
+.AppBkg {
+  background-image: url("Perlin1.png"),
+    linear-gradient(
+      to bottom,
+      rgba(48, 188, 237, 100%),
+      rgba(63, 141, 169, 61.33%),
+      rgba(0, 102, 255, 25%)
+    );
+
+  background-size: cover;
+}
+
 body {
-  background-image: url('./timetracker/components/img/background.png'),
+  background-image: url("./timetracker/components/img/background.png"),
     linear-gradient(to bottom, #2b88aa, #3d90ae, #094baf);
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: cover;
   margin: 0;
+  height: 100%;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
   height: 100%;
 }

@@ -1,0 +1,10 @@
+.app-container {
+    color: #fffaff;
+    min-height: 100vh;
+    padding: 3px;
+    min-width: 100vw;
+    
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
