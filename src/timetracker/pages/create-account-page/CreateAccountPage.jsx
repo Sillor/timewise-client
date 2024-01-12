@@ -1,7 +1,7 @@
-import React, { useState } from "react";
-import FormInput from "../../components/form-components/FormInput";
-import checkValidPassword from "../../utils/checkValidPassword"
-import "./CreateAccountPage.css";
+import React, { useState } from 'react';
+import FormInput from '../../components/form-components/FormInput';
+import checkValidPassword from '../../utils/checkValidPassword';
+import './CreateAccountPage.css';
 
 export default function CreateAccountPage() {
   const [inputData, setInputData] = useState({
@@ -20,11 +20,11 @@ export default function CreateAccountPage() {
       setInputData((prev) => ({
         ...prev,
         emailValue: value,
-        emailError: "Invalid Email Format",
+        emailError: 'Invalid Email Format',
       }));
       return;
     } else {
-      setInputData((prev) => ({ ...prev, emailValue: value, emailError: "" }));
+      setInputData((prev) => ({ ...prev, emailValue: value, emailError: '' }));
     }
   }
 
@@ -35,7 +35,7 @@ export default function CreateAccountPage() {
     setInputData((prev) => ({
       ...prev,
       passwordValue: value,
-      passwordError: checkedPassword.error ? checkedPassword.message : "",
+      passwordError: checkedPassword.error ? checkedPassword.message : '',
     }));
   }
 
@@ -45,8 +45,30 @@ export default function CreateAccountPage() {
     setInputData((prev) => ({
       ...prev,
       confirmPasswordValue: value,
-      confirmPasswordError: !passwordsMatch ? "Passwords Do Not Match" : "",
+      confirmPasswordError: !passwordsMatch ? 'Passwords Do Not Match' : '',
     }));
+  }
+
+  function handleSubmit(event) {
+    event.preventDefault();
+    if (
+      inputData.emailError ||
+      inputData.passwordError ||
+      inputData.confirmPasswordError
+    ) {
+      console.log('Error in form');
+      return;
+    }
+    fetch('http://localhost:5000/register', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        email: inputData.emailValue,
+        password: inputData.passwordValue,
+      }),
+    });
   }
 
   return (
@@ -91,6 +113,7 @@ export default function CreateAccountPage() {
             type="submit"
             action="api/register"
             method="post"
+            onClick={handleSubmit}
           >
             Create Account
           </button>
