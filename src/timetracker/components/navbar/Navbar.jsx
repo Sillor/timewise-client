@@ -3,16 +3,18 @@ import { Link } from "react-router-dom";
 
 import Logo from "../../assets/logo.png";
 import HamburgerMenu from "../../assets/HamburgerIcon.jsx";
-import Sidebar from "./Sidebar.jsx";
 import AvatarIcon from "../../assets/AvatarIcon.jsx";
+import Sidebar from "./Sidebar.jsx";
+import AccountPopupMenu from "./AccountPopupMenu.jsx";
 
 export default function Navbar() {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [isAccountMenuOpen, setIsAccountMenuOpen] = useState(true);
 
   const isLoggedIn = true;
 
   function toggleSidebar() {
-    setIsOpen((prev) => !prev);
+    setIsSidebarOpen((prev) => !prev);
   }
 
   return (
@@ -40,16 +42,16 @@ export default function Navbar() {
           </>
         ) : (
           <>
-            <Link to="/" className="flex items-center">
+            <div className="flex items-center">
               <img src={Logo} className="h-8 w-8 inline"></img>
               <span className="text-xl lg:text-2xl font-bold ms-5">
                 TimeWise
               </span>
-            </Link>
+            </div>
           </>
         )}
       </div>
-      {isLoggedIn && <Sidebar isOpen={isOpen} setIsOpen={setIsOpen} />}
+      {isLoggedIn && <><Sidebar isOpen={isSidebarOpen} setIsOpen={setIsSidebarOpen} /><AccountPopupMenu/></>}
     </nav>
   );
 }
