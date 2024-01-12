@@ -5,7 +5,7 @@ import Logo from "../../assets/logo.png";
 import HamburgerMenu from "../../assets/HamburgerIcon.jsx";
 import AvatarIcon from "../../assets/AvatarIcon.jsx";
 import Sidebar from "./Sidebar.jsx";
-import AccountPopupMenu from "./AccountPopupMenu.jsx";
+import AccountPopupMenu from "../account-popup-menu/AccountPopupMenu.jsx";
 
 export default function Navbar() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -17,6 +17,14 @@ export default function Navbar() {
     setIsSidebarOpen((prev) => !prev);
   }
 
+  function toggleAccountMenu() {
+    setIsAccountMenuOpen((prev) => !prev);
+  }
+
+  function clickOnEnterPress(event) {
+    if (event.key === "Enter") event.currentTarget.click();
+  }
+
   return (
     <nav className="relative">
       <div className="bg-[#000B1B] bg-opacity-40 h-16 flex items-center text-light px-5 [&>*]:cursor-pointer">
@@ -25,19 +33,17 @@ export default function Navbar() {
             <div
               onClick={toggleSidebar}
               tabIndex="1"
-              onKeyDown={(event) =>
-                event.key === "Enter" && event.currentTarget.click()
-              }
+              onKeyDown={clickOnEnterPress}
             >
               <HamburgerMenu className="h-8 w-8" />
             </div>
             <div className="text-xl lg:text-2xl font-bold flex flex-grow items-center ms-5">
-              <Link to="/">TimeWise</Link>
+              <Link to="/" tabIndex="2">TimeWise</Link>
             </div>
-            <div className="text-primary">
-              <Link to="/account">
-                <AvatarIcon className="w-9 h-9" />
-              </Link>
+            <div onClick={toggleAccountMenu} tabIndex="2" onKeyDown={clickOnEnterPress}>
+              <AvatarIcon className="w-9 h-9 text-primary" />
+              {/* <Link to="/account">
+              </Link> */}
             </div>
           </>
         ) : (
@@ -51,7 +57,15 @@ export default function Navbar() {
           </>
         )}
       </div>
-      {isLoggedIn && <><Sidebar isOpen={isSidebarOpen} setIsOpen={setIsSidebarOpen} /><AccountPopupMenu/></>}
+      {isLoggedIn && (
+        <>
+          <Sidebar isOpen={isSidebarOpen} setIsOpen={setIsSidebarOpen} />
+          <AccountPopupMenu
+            isOpen={isAccountMenuOpen}
+            setIsOpen={setIsAccountMenuOpen}
+          />
+        </>
+      )}
     </nav>
   );
 }
