@@ -41,7 +41,7 @@ const Users = () => {
   }  
 
   return (
-    <div className="min-h-screen bg-gray-900 text-white p-4">
+    <div className="min-h-screen text-white p-4">
       <div className="flex flex-col items-center">
         <h1 className="text-[48px] font-bold mt-[43px] mb-[36px]">Users</h1>
         <button
