@@ -17,7 +17,7 @@ const UsersDialog = (props) => {
       {/* Container for the dialog panel */}
       <div className="fixed inset-0 flex w-screen items-center justify-center p-4">
         {/* Dialog panel */}
-        <Dialog.Panel className="w-[428px]  rounded bg-gray-800 text-white py-[50px] px-10">
+        <Dialog.Panel className="w-[350px] sm:w-[428px]  rounded bg-gray-800 text-white py-[50px] px-10">
           <Dialog.Title className="text-[32px] mb-4">
             Create new users
           </Dialog.Title>
@@ -44,7 +44,7 @@ const UsersDialog = (props) => {
           <div className="flex justify-between">
             <button
               onClick={props.handleClose}
-              className="bg-gray-500 hover:bg-gray-600 w-[155px] h-[48px] rounded-[6px]"
+              className="bg-gray-500 hover:bg-gray-600 p-2 w-[118px] sm:w-[155px] h-auto sm:h-[48px] rounded-[6px]"
             >
               Cancel
             </button>
@@ -58,7 +58,7 @@ const UsersDialog = (props) => {
                     props.handleClose();
                 }
               }}
-              className="bg-orange-500 hover:bg-orange-600 w-[155px] h-[48px] rounded-[6px]"
+              className="bg-orange-500 hover:bg-orange-600 p-2 w-[118px] sm:w-[155px] h-auto rounded-[6px]"
             >
               Create New User
             </button>
