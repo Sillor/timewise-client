@@ -43,6 +43,10 @@ const router = createBrowserRouter([
             element: <div>login</div>,
           },
           {
+            path: "/users",
+            element: <div>users</div>
+          },
+          {
             path: "/timesheet",
             element: <TimesheetMain />
           },
