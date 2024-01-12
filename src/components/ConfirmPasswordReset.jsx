@@ -45,11 +45,11 @@ function ConfirmPasswordReset() {
     };
 
     return (
-        <div className="app flex justify-center items-center h-screen">
-            <h1 className="text-7xl text-shadow">Forgot your<br /> password?</h1>
-            <hr className="border-l mx-40 h-80" />
+        <div className="app flex justify-center items-center h-screen md:pt-30">
+            <h1 className="text-7xl text-shadow hidden md:block">Forgot your<br /> password?</h1>
+            <hr className="border-l mx-40 h-80 hidden md:block" />
             <div>
-                <h2 className="text-5xl mb-9">Reset<br /> Password</h2>
+                <h2 className="text-5xl mb-9 font-bold justify-center">Reset<br /> Password</h2>
                 <form>
                     <label className="text-black">
                         <input
