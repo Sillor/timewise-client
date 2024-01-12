@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import FormInput from '../../components/form-components/FormInput';
 import checkValidPassword from '../../utils/checkValidPassword';
 import './CreateAccountPage.css';
@@ -12,10 +13,12 @@ export default function CreateAccountPage() {
     confirmPasswordValue: null,
     confirmPasswordError: null,
   });
+  const navigate = useNavigate();
+  const [serverResponse, setServerResponse] = useState(null);
 
   function handleEmailOnChange(event) {
     const value = event.target.value;
-    const isValidEmail = /.+@.+\..+/.test(value);
+    const isValidEmail = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g.test(value);
     if (!isValidEmail) {
       setInputData((prev) => ({
         ...prev,
@@ -49,26 +52,44 @@ export default function CreateAccountPage() {
     }));
   }
 
-  function handleSubmit(event) {
+  async function handleSubmit(event) {
     event.preventDefault();
+    const {
+      emailError,
+      passwordError,
+      confirmPasswordError,
+      emailValue,
+      passwordValue,
+      confirmPasswordValue,
+    } = inputData;
+
     if (
-      inputData.emailError ||
-      inputData.passwordError ||
-      inputData.confirmPasswordError
-    ) {
-      console.log('Error in form');
+      emailError ||
+      passwordError ||
+      confirmPasswordError ||
+      !emailValue ||
+      !passwordValue ||
+      !confirmPasswordValue
+    )
       return;
+
+    try {
+      const response = await fetch('http://localhost:5000/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: emailValue, password: passwordValue }),
+      });
+
+      const data = await response.json();
+      setServerResponse({ message: data.message, success: data.success });
+
+      if (data.success) navigate('/tracker');
+    } catch (error) {
+      setServerResponse({
+        message: `An error occurred: ${error.message}`,
+        success: false,
+      });
     }
-    fetch('http://localhost:5000/register', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        email: inputData.emailValue,
-        password: inputData.passwordValue,
-      }),
-    });
   }
 
   return (
@@ -117,6 +138,17 @@ export default function CreateAccountPage() {
           >
             Create Account
           </button>
+          <div className="mt-4 h-5">
+            {serverResponse && (
+              <div
+                className={`${
+                  serverResponse.success ? 'text-green-500' : 'text-red-500'
+                }`}
+              >
+                {serverResponse.message}
+              </div>
+            )}
+          </div>
         </form>
         <div className="text-center mt-4">
           <span>Already Have An Account?</span>
