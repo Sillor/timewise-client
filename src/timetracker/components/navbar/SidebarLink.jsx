@@ -5,7 +5,7 @@ export default function SidebarLink({to, name, icon, isSidebarOpen, closeSidebar
   return (
     <Link
       to={to}
-      className={"flex items-center hover:bg-zinc-700 focus :bg-zinc-700"}
+      className={"flex items-center rounded-e-md pe-2 hover:bg-zinc-700 focus:bg-zinc-700"}
       tabIndex={isSidebarOpen ? 1 : -1}
       onClick={closeSidebarFunc}
     >
