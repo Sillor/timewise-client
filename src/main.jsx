@@ -52,7 +52,7 @@ const router = createBrowserRouter([
           },
           {
             path: "/resetpassword",
-            element: <ResetPassword/>,
+            element: <ResetPassword />,
           },
           {
             path: "/tracker",
