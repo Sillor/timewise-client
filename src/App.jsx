@@ -25,6 +25,7 @@ function App() {
       ["/login", "Login"],
       ["/resetpassword", "Reset Password"],
       ["/projects", "Projects", <ProjectsIcon/>],
+      ["/users", "Users"],
       ["/tracker", "Tracker", <ClockIcon/>],
     ].map((a, i) => (
       <Link
