@@ -145,7 +145,7 @@ export default function CreateAccountPage() {
               <div
                 className={`${
                   serverResponse.success ? 'text-green-500' : 'text-red-500'
-                }`}
+                } text-center`}
               >
                 {serverResponse.message}
               </div>
