@@ -13,7 +13,7 @@
 
 html,
 body {
-  height: 100%;
+  min-height: 100%;
 }
 
 body {
@@ -33,4 +33,8 @@ body {
   background-size: cover;
   background-repeat: no-repeat;
   background-attachment: fixed;
+}
+
+.app-bg {
+  min-height: calc(100vh - 4rem);
 }
