@@ -1,15 +1,18 @@
-import React from 'react';
-import './App.css';
-import LandingNavBar from './timetracker/components/Landing-NavBar/landing-navbar.jsx';
-import ResetPassword from './timetracker/layout/ResetPassword.jsx';
+import React, { useState } from "react";
+import { Outlet } from "react-router";
+import Navbar from "./timetracker/components/navbar/Navbar.jsx";
+import "./App.css";
 
 function App() {
   return (
     <>
-      {/* <LandingNavBar />
-      <ResetPassword /> */}
+      <Navbar />
+      <div className="app-bg text-light bg-dark h-full [&>*:first-child]:min-h-full [&>*:first-child]:min-w-full">
+        <Outlet />
+      </div>
     </>
   );
 }
 
 export default App;
+
