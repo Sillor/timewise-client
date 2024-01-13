@@ -5,15 +5,11 @@
   font-family: "Inter", sans-serif;
 }
 
-#root {
+html,
+body {
   display: flex;
   flex-direction: column;
   height: 100%;
-}
-
-html,
-body {
-  min-height: 100%;
 }
 
 body {
@@ -36,5 +32,5 @@ body {
 }
 
 .app-bg {
-  min-height: calc(100vh - 4rem);
+  min-height: calc(100vh - 8rem);
 }
