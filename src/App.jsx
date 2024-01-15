@@ -33,6 +33,7 @@ function App() {
         onClick={() => {
           setIsOpen(false);
         }}
+        className="hover:bg-gray-700 hover:text-white"
       >
        <div className="h-4 inline-block">{a[2]}</div> {a[1]}
       </Link>
