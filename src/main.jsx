@@ -10,8 +10,8 @@ import CreateAccountPage from "./timetracker/pages/create-account-page/CreateAcc
 import TimesheetMain from "./timetracker/pages/time-sheet/TimesheetMain.jsx";
 import ResetPassword from "./timetracker/pages/reset-password/ResetPassword.jsx";
 import Users from "./timetracker/pages/users-page/Users.jsx";
-import ConfirmPasswordReset from "./timetracker/pages/confirm-password-reset/ConfirmPasswordReset.jsx"
-
+import CreateProjectPage from "./timetracker/pages/create-project-page/CreateProjectPage.jsx";
+import ConfirmPasswordReset from "./timetracker/pages/confirm-password-reset/ConfirmPasswordReset.jsx";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -65,7 +65,7 @@ const router = createBrowserRouter([
           },
           {
             path: "/projects",
-            element: <div>projects</div>,
+            element: <CreateProjectPage />,
           },
           {
             path: "/confirmresetpassword",
