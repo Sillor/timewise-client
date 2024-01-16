@@ -64,7 +64,7 @@ const Users = () => {
             <tr>
               <th className="px-6 py-3">Name</th>
               <th className="px-6 py-3">Email Address</th>
-              <th className="px-6 py-3">Actions</th>
+              <th className="px-6 py-3 text-center">Actions</th>
             </tr>
           </thead>
           <tbody>
