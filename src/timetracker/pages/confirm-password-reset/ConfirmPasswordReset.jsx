@@ -1,11 +1,18 @@
 import React, { useState } from 'react';
 import './ConfirmPasswordReset.css';
+import PasswordEye from '../../components/form-components/PasswordEye.jsx';
+import { Link } from 'react-router-dom';
 
 function ConfirmPasswordReset() {
     const [password, setPassword] = useState('');
+    const [showPassword, setShowPassword] = useState(false);
 
     const handlePasswordChange = (e) => {
         setPassword(e.target.value);
+    };
+
+    const togglePasswordVisibility = () => {
+        setShowPassword(!showPassword);
     };
 
     const isPasswordValid = () => {
@@ -50,16 +57,19 @@ function ConfirmPasswordReset() {
             <hr className="border-l mx-40 h-80 hidden md:block" />
             <div>
                 <h2 className="text-5xl mb-9 font-bold justify-center">Reset<br /> Password</h2>
-                <form>
-                    <label className="text-black">
-                        <input
-                            type="password"
-                            placeholder="New Password"
-                            className="password-input p-2 w-full h-9 shadow-lg"
-                            value={password}
-                            onChange={handlePasswordChange}
-                        />
-                    </label>
+                <form className="max-w-md w-full mx-auto">
+                    <div className="relative">
+                        <label className="text-black mb-1">
+                            <input
+                                type={showPassword ? 'text' : 'password'}
+                                placeholder="New Password"
+                                className="password-input p-2 w-full h-9 shadow-lg"
+                                value={password}
+                                onChange={handlePasswordChange}
+                            />
+                            <PasswordEye hidden={!showPassword} onClick={togglePasswordVisibility} className="password-icon" />
+                        </label>
+                    </div>
                     <label className="text-black mb-1">
                         <input
                             type="password"
@@ -70,8 +80,8 @@ function ConfirmPasswordReset() {
                     {displayPasswordWarning()}
                     <button type="submit" className="submit-button w-45">Confirm</button>
                     <div className="flex justify-center">
-                        <h5>New user?</h5>
-                        <a href="./SignUp" className="ml-1 text-blue-500 underline"> Sign Up</a>
+                        <h5>New user? </h5>
+                        <Link to="/register" className="ml-1 text-blue-400 underline"> Sign Up</Link>
                     </div>
                 </form>
             </div>
