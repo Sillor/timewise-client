@@ -12,7 +12,6 @@ export default function Sidebar({ isOpen, setIsOpen }) {
     { to: "/tracker", name: "Time Tracker", icon: <ClockIcon /> },
     { to: "/projects", name: "Projects", icon: <ProjectsIcon /> },
     { to: "/users", name: "Users", icon: <UsersIcon /> },
-    { to: "/timesheet", name: "Timesheet" },
     { to: "/register", name: "Register" },
     { to: "/login", name: "Login" },
     { to: "/resetpassword", name: "Reset Password" },
