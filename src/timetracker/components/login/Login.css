@@ -1,0 +1,75 @@
+.main{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    height: 100vh;
+    padding-bottom: 175px;
+    padding-right: 100px;
+    color: white;
+}
+h1{
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+.logIn{
+    font-size: 70px;
+}
+.title-orange{
+    color: orange;
+}
+input{
+    border-radius: 5px;
+    padding:5px 108px 5px 20px;
+    color: black;
+    margin-bottom: 10px;
+}
+.link1{
+    color: rgb(0, 191, 255);
+    text-decoration: underline;
+    padding-left: 130px;
+  }
+.link2{
+    color: rgb(0, 191, 255);
+    text-decoration: underline;
+}
+.signIn{
+    text-align: center;
+}
+.signIn-title{
+    font-size: 50px;
+    margin-bottom: 20px;
+}
+
+.btn-signIn{
+    background-color: rgb(255, 149, 0);
+    border-radius: 5px;
+    padding: 10px 125px;
+    margin-top: 20px;
+    margin-bottom: 5px;
+}
+.signIn-questions{
+    margin-top: 10px;
+}
+
+.password-container {
+    position: relative;
+    display: flex;
+  }
+  
+  .password-input {
+    flex: 1;
+    padding-right: 30px;
+  }
+  
+  .toggle-btn {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-60%);
+    cursor: pointer;
+  }
+  
+  .divider {
+    width: 1px;
+    background-color: #ccc;
+    height: 500px;
+  }

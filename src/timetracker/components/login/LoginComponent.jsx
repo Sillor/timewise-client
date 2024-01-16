@@ -7,6 +7,7 @@ function LoginComponent() {
   return (
     <div className='main'>
       <LogInWords/>
+      <span className="divider"></span>
       <SignIn/>
     </div>
   );
