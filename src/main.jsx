@@ -48,16 +48,12 @@ const router = createBrowserRouter([
             element: <Users />
           },
           {
-            path: "/timesheet",
-            element: <TimesheetMain />
-          },
-          {
             path: "/resetpassword",
             element: <ResetPassword />,
           },
           {
             path: "/tracker",
-            element: <div className="">tracker</div>,
+            element: <TimesheetMain/>,
           },
           {
             path: "/account",
