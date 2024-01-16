@@ -18,10 +18,10 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
-    errorElement: <div>Error was thrown in App</div>,
+    errorElement: <PageNotFound/>,
     children: [
       {
-        errorElement: <div>Error was thrown in outlet</div>,
+        errorElement: <PageNotFound/>,
         children: [
           {
             index: true,
@@ -72,7 +72,7 @@ const router = createBrowserRouter([
           {
             path: "/*",
             element: <PageNotFound/>
-          }
+          },
         ],
       },
     ],
