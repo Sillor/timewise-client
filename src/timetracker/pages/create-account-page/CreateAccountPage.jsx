@@ -52,7 +52,7 @@ export default function CreateAccountPage() {
   return (
     <div className="create-account min-h-full min-w-full flex items-center justify-center flex-col lg:flex-row lg:justify-evenly">
       <div className="create-account--greeting-container">
-        <div className="create-account--greeting text-3xl font-bold lg:text-6xl">
+        <div className="create-account--greeting text-3xl font-bold lg:text-6xl text-center">
           <span className="lg:block">Welcome To </span>
           <span className="text-secondary">TimeWise</span>!
         </div>
