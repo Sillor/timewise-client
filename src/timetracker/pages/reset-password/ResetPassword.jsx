@@ -11,10 +11,6 @@ async function resetPassword(data) {
     body: JSON.stringify(data),
   });
 
-  if (!response.ok) {
-    throw new Error(`HTTP error! status: ${response.status}`);
-  }
-
   return response.json();
 }
 
@@ -27,14 +23,9 @@ function ResetPassword() {
     const formData = new FormData(e.target);
     const data = Object.fromEntries(formData);
 
-    try {
-      const result = await resetPassword(data);
-      setMessage(result.message);
-      setMessageSuccess(result.success ? true : false);
-    } catch (error) {
-      setMessage('An error occurred. Please try again.');
-      setMessageSuccess(false);
-    }
+    const result = await resetPassword(data);
+    setMessage(result.message);
+    setMessageSuccess(result.success ? true : false);
   }
 
   return (
@@ -65,7 +56,7 @@ function ResetPassword() {
           {message && (
             <p
               className={`text-center mx-auto ${
-                messageSuccess ? 'text-green-500' : 'text-red-600'
+                messageSuccess ? 'text-green-500' : 'text-red-500'
               }`}
             >
               {message}
