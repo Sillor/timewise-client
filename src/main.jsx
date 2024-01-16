@@ -70,7 +70,7 @@ const router = createBrowserRouter([
             element: <ConfirmPasswordReset />,
           },
           {
-            path: "/pagenotfound",
+            path: "/*",
             element: <PageNotFound/>
           }
         ],
