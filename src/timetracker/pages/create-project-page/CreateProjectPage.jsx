@@ -14,7 +14,7 @@ const CreateProjectPage = () => {
  }
   return (
     
-    <div className="h-screen flex flex-col items-center">
+    <div className="flex flex-col items-center">
       {(open)?
     <CreateProjectDialog open={open} setOpen={setOpen}/>:''}
       <div className="mt-28">
