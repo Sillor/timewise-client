@@ -16,6 +16,7 @@ export default function Sidebar({ isOpen, setIsOpen }) {
     { to: "/register", name: "Register" },
     { to: "/login", name: "Login" },
     { to: "/resetpassword", name: "Reset Password" },
+    { to: "/pagenotfound", name: "Page Not Found"},
   ].map((link, i) => (
     <SidebarLink
       key={i}

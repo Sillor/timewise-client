@@ -11,6 +11,7 @@ import TimesheetMain from "./timetracker/pages/time-sheet/TimesheetMain.jsx";
 import ResetPassword from "./timetracker/pages/reset-password/ResetPassword.jsx";
 import Users from "./timetracker/pages/users-page/Users.jsx";
 import CreateProjectPage from "./timetracker/pages/create-project-page/CreateProjectPage.jsx";
+import PageNotFound from './timetracker/pages/404-page/404-page.jsx'
 const router = createBrowserRouter([
   {
     path: "/",
@@ -66,6 +67,10 @@ const router = createBrowserRouter([
             path: "/projects",
             element: <CreateProjectPage/>,
           },
+          {
+            path: "/pagenotfound",
+            element: <PageNotFound/>
+          }
         ],
       },
     ],
