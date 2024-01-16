@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import FormInput from "../form-components/FormInput";
+import FormInput from "../../components/form-components/FormInput";
+import checkValidPassword from "../../utils/checkValidPassword"
 import "./CreateAccountPage.css";
 
 export default function CreateAccountPage() {
@@ -48,37 +49,8 @@ export default function CreateAccountPage() {
     }));
   }
 
-  function checkValidPassword(password) {
-    const lowerCase = password.toLowerCase();
-    const validString = /^(?!.*(?:password|123|1234|12345|123456)).*$/.test(
-      lowerCase
-    );
-    // eslint-disable-next-line no-useless-escape
-    const containsSpecial = /^(?=.*[\/!@#$%^&*()_+{}\[\]:;<>,.?~\\-]).*$/.test(
-      lowerCase
-    );
-    if (!validString) {
-      return {
-        error: true,
-        message:
-          "Password must not contain 'password', '123', '1234', '12345', or '123456'",
-      };
-    } else if (lowerCase.length < 12) {
-      return {
-        error: true,
-        message: "Password must be at least 12 characters long",
-      };
-    } else if (!containsSpecial) {
-      return {
-        error: true,
-        message: "Password must contain a special character",
-      };
-    }
-    return { error: false, message: "" };
-  }
-
   return (
-    <div className="create-account min-h-screen bg-gray-900 text-white flex items-center justify-center flex-col lg:flex-row lg:justify-evenly">
+    <div className="create-account min-h-full min-w-full flex items-center justify-center flex-col lg:flex-row lg:justify-evenly">
       <div className="create-account--greeting-container">
         <div className="create-account--greeting text-3xl font-bold lg:text-6xl">
           <span className="lg:block">Welcome To </span>
