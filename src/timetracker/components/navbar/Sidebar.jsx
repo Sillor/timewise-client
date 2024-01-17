@@ -12,7 +12,6 @@ export default function Sidebar({ focusElement, setBlurredAt }) {
     { to: "/tracker", name: "Time Tracker", icon: <ClockIcon /> },
     { to: "/projects", name: "Projects", icon: <ProjectsIcon /> },
     { to: "/users", name: "Users", icon: <UsersIcon /> },
-    { to: "/users", name: "Timesheet" },
     { to: "/register", name: "Register" },
     { to: "/login", name: "Login" },
     { to: "/resetpassword", name: "Reset Password" },
@@ -44,6 +43,5 @@ export default function Sidebar({ focusElement, setBlurredAt }) {
 
 Sidebar.propTypes = {
   focusElement: PropTypes.object,
-  isOpen: PropTypes.object,
   setBlurredAt: PropTypes.func,
 };
