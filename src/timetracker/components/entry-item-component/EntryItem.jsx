@@ -8,7 +8,7 @@
 const EntryItem = ({ props }) => {
     const {date, hours, description, groupName} = props
     return (
-        <table className='w-11/12 md:w-2/5 mx-auto my-3 bg-darkBlue rounded-md'>
+        <table className='w-11/12 md:w-full mx-auto my-3 bg-darkBlue rounded-md'>
             <tbody>
                 <tr>
                     <td className="px-3 pt-3">
