@@ -26,7 +26,7 @@ const router = createBrowserRouter([
           {
             index: true,
             loader: async () => {
-              const isLoggedIn = true;
+              const isLoggedIn = sessionStorage.getItem("timewise_jwt_token")
               if (isLoggedIn) return redirect("/tracker");
               else return redirect("/login");
             },

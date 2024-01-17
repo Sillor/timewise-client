@@ -85,7 +85,10 @@ export default function CreateAccountPage() {
       const data = await response.json();
       setServerResponse({ message: data.message, success: data.success });
 
-      if (data.success) navigate('/tracker');
+      if (data.success) {
+        sessionStorage.setItem("timewise_jwt_token",data.token)
+        navigate('/tracker');
+      }
     } catch (error) {
       setServerResponse({
         message: `An error occurred: ${error.message}`,
