@@ -24,7 +24,9 @@ const Users = () => {
     return { name: "", email: "" }
   }
 
-  function handleCreateUser() {
+  function handleCreateUser(event) {
+    event.preventDefault();
+
     const newUser = {
       id: users.length + 1,
       name: form.name,

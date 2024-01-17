@@ -4,6 +4,12 @@ import { Dialog } from "@headlessui/react";
 const UsersDialog = (props) => {
   const cancelButtonRef = useRef(null);
 
+  function handleKeyPress(event) {
+    if (event.key === "Enter") {
+      event.preventDefault();
+    }
+  }
+
   return (
     <Dialog
       initialFocus={cancelButtonRef}
@@ -21,48 +27,54 @@ const UsersDialog = (props) => {
           <Dialog.Title className="text-[32px] mb-4">
             Create new users
           </Dialog.Title>
-          <input
-            type="text"
-            name="name"
-            id="name"
-            placeholder="Name"
-            value={props.form.name}
-            onChange={event => props.setForm({ ...props.form, name: event.target.value })}
-            required
-            className="text-black w-full mb-4 px-[9px] py-[14px] h-[43px] rounded-[6px]"
-          />
-          <input
-            type="email"
-            name="email"
-            id="email"
-            placeholder="Email address"
-            value={props.form.email}
-            onChange={event => props.setForm({ ...props.form, email: event.target.value })}
-            required
-            className="text-black w-full mb-4 px-[9px] py-[14px] h-[43px] rounded-[6px]"
-          />
-          <div className="flex justify-between">
-            <button
-              onClick={props.handleClose}
-              className="bg-gray-500 hover:bg-gray-600 p-2 w-[118px] sm:w-[155px] h-auto sm:h-[48px] rounded-[6px]"
-            >
-              Cancel
-            </button>
-            <button
-              ref={cancelButtonRef}
-              onClick={() => {
-                if (!props.form.name || !props.form.email) {
-                    console.log("Please enter name and email");
-                } else {
-                    props.handleCreateUser();
-                    props.handleClose();
-                }
-              }}
-              className="bg-orange-500 hover:bg-orange-600 p-2 w-[118px] sm:w-[155px] h-auto rounded-[6px]"
-            >
-              Create New User
-            </button>
-          </div>
+          <form
+            onSubmit={(event) => {
+              props.handleCreateUser(event);
+              props.handleClose();
+            }}
+          >
+            <input
+              type="text"
+              name="name"
+              id="name"
+              placeholder="Name"
+              value={props.form.name}
+              onChange={(event) =>
+                props.setForm({ ...props.form, name: event.target.value })
+              }
+              onKeyDown={handleKeyPress}
+              required
+              className="text-black w-full mb-4 px-[9px] py-[14px] h-[43px] rounded-[6px]"
+            />
+            <input
+              type="email"
+              name="email"
+              id="email"
+              placeholder="Email address"
+              value={props.form.email}
+              onChange={(event) =>
+                props.setForm({ ...props.form, email: event.target.value })
+              }
+              onKeyDown={handleKeyPress}
+              required
+              className="text-black w-full mb-4 px-[9px] py-[14px] h-[43px] rounded-[6px]"
+            />
+            <div className="flex justify-between">
+              <button
+                onClick={props.handleClose}
+                className="bg-gray-500 hover:bg-gray-600 p-2 w-[118px] sm:w-[155px] h-auto sm:h-[48px] rounded-[6px]"
+              >
+                Cancel
+              </button>
+              <button
+                type="submit"
+                ref={cancelButtonRef}
+                className="bg-orange-500 hover:bg-orange-600 p-2 w-[118px] sm:w-[155px] h-auto rounded-[6px]"
+              >
+                Create New User
+              </button>
+            </div>
+          </form>
         </Dialog.Panel>
       </div>
     </Dialog>
