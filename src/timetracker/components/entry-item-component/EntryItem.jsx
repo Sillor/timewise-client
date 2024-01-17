@@ -3,10 +3,12 @@
 //create function that when you click on the time, then you 
 //can change it, if time is not inputted, then do not change
 
+//overflow scroll or pagination -> set max height?
+
 const EntryItem = ({ props }) => {
     const {date, hours, description, groupName} = props
     return (
-        <table className='w-4/5 md:w-2/5 mx-auto my-3 bg-darkBlue rounded-md'>
+        <table className='w-11/12 md:w-2/5 mx-auto my-3 bg-darkBlue rounded-md'>
             <tbody>
                 <tr>
                     <td className="px-3 pt-3">
