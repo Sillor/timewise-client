@@ -3,7 +3,7 @@ import EntryItem from '../../components/entry-item-component/EntryItem';
 
 function TimesheetMain() {
     return (
-        <div className='border flex flex-col content-center'>
+        <div>
             <h1 className='text-center text-4xl font-semibold py-10 drop-shadow-md'>Time Tracker</h1>
             <div className='border mx-auto w-4/5 md:w-2/5 mb-5 text-center p-5'>
                 Placeholder for time input
