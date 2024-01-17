@@ -8,16 +8,20 @@ import {
 import App from "./App.jsx";
 import CreateAccountPage from "./timetracker/pages/create-account-page/CreateAccountPage.jsx";
 import TimesheetMain from "./timetracker/pages/time-sheet/TimesheetMain.jsx";
-import ResetPassword from "./timetracker/pages/reset-password/ResetPassword.jsx"
+import ResetPassword from "./timetracker/pages/reset-password/ResetPassword.jsx";
+import Users from "./timetracker/pages/users-page/Users.jsx";
+import CreateProjectPage from "./timetracker/pages/create-project-page/CreateProjectPage.jsx";
+import PageNotFound from './timetracker/pages/404-page/404-page.jsx'
+import ConfirmPasswordReset from "./timetracker/pages/confirm-password-reset/ConfirmPasswordReset.jsx";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
-    errorElement: <div>Error was thrown in App</div>,
+    errorElement: <PageNotFound/>,
     children: [
       {
-        errorElement: <div>Error was thrown in outlet</div>,
+        errorElement: <PageNotFound/>,
         children: [
           {
             index: true,
@@ -42,16 +46,16 @@ const router = createBrowserRouter([
             element: <div>login</div>,
           },
           {
-            path: "/timesheet",
-            element: <TimesheetMain />
+            path: "/users",
+            element: <Users />
           },
           {
             path: "/resetpassword",
-            element: <ResetPassword/>,
+            element: <ResetPassword />,
           },
           {
             path: "/tracker",
-            element: <div className="">tracker</div>,
+            element: <TimesheetMain/>,
           },
           {
             path: "/account",
@@ -59,7 +63,15 @@ const router = createBrowserRouter([
           },
           {
             path: "/projects",
-            element: <div>projects</div>,
+            element: <CreateProjectPage />,
+          },
+          {
+            path: "/confirmresetpassword",
+            element: <ConfirmPasswordReset />,
+          },
+          {
+            path: "/*",
+            element: <PageNotFound/>
           },
         ],
       },

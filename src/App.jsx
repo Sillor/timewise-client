@@ -1,11 +1,7 @@
 import React, { useState } from "react";
-import "./App.css";
 import { Outlet } from "react-router";
-import { Link } from "react-router-dom";
-
-import ProjectsIcon from "./timetracker/assets/ProjectsIcon.jsx";
-import ClockIcon from "./timetracker/assets/ClockIcon.jsx";
-import HamburgerMenu from "./timetracker/assets/HamburgerIcon.jsx";
+import Navbar from "./timetracker/components/navbar/Navbar.jsx";
+import "./App.css";
 
 function App() {
   // remove
@@ -77,11 +73,8 @@ function App() {
 
   return (
     <>
-      {/* Placeholder navbar, replace with real navbar */}
-      <PlaceholderNavbar />
-      {/* Placeholder navbar, replace with real navbar */}
-
-      <div className="AppBkg bg-dark text-light h-full [&>*:first-child]:min-h-full [&>*:first-child]:min-w-full">
+      <Navbar />
+      <div className="app-bg text-light bg-dark h-full [&>*:first-child]:min-h-full [&>*:first-child]:min-w-full">
         <Outlet />
       </div>
     </>
@@ -89,4 +82,3 @@ function App() {
 }
 
 export default App;
-
