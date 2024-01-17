@@ -63,7 +63,7 @@ function MainContent() {
         value={inputs.TimeEnd} 
         onChange={handleInputChange} 
     />
-    <div className="ml-auto w-1/5">
+    <div className="Date ml-auto w-1/5">
         <input 
             type="date"
             className="w-full p-2 rounded-lg"

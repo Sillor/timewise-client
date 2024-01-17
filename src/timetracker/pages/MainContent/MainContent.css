@@ -5,6 +5,7 @@
     
 }
 
+
 .TimeFields::after {
     content: '-';
     display: block;
@@ -46,5 +47,6 @@ font-weight: 700;
 .appContainer {
     width: 100vw;
     height: 100vh;
-    background-repeat: no-repeat;
+  
+
 }
