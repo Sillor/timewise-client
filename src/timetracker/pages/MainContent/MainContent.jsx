@@ -22,8 +22,8 @@ function MainContent() {
     }
 
     return (
-        <div className="appContainer w-screen">
-            <h1 className=" text-white text-5xl font-bold text-center my-3 mb-5">Time Tracker</h1>
+        <div className="appContainer">
+            <h1 className=" text-white text-5xl font-bold text-center mb-5">Time Tracker</h1>
         <div className ="TrackerContainer rounded-xl h-3/12 w-3/6  mx-auto p-10">
             
             <h2 className="text-3xl font-bold mb-4">New Entry</h2>

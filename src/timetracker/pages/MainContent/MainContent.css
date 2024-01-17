@@ -2,10 +2,11 @@
     background-color: rgba(76, 185, 199, 0.686);
     position: relative;
     background-repeat: no-repeat;
+    background-attachment: fixed;
     
 }
 
-
+    
 .TimeFields::after {
     content: '-';
     display: block;
@@ -42,11 +43,4 @@ left: 0;
 right: 0;
 padding-bottom: 20px;
 font-weight: 700;
-}
-
-.appContainer {
-    width: 100vw;
-    height: 100vh;
-  
-
 }
