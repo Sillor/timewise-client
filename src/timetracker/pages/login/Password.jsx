@@ -10,15 +10,15 @@ const PasswordInput = () => {
   };
 
   return (
-    <div className="password-container">
+    <div className="flex relative">
       <input
         type={showPassword ? 'text' : 'password'}
         value={password}
         onChange={(e) => setPassword(e.target.value)}
         placeholder="Password"
-        className="password-input"
+        className="flex-1 rounded-md pl-3 py-1 text-black mb-2.5"
       />
-      <span className="toggle-btn" onClick={togglePasswordVisibility}>
+      <span className="absolute right-3 translate-y-1/4" onClick={togglePasswordVisibility}>
         {showPassword ? '👀' : '👁️'}
       </span>
     </div>
