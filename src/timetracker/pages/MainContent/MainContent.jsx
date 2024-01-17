@@ -9,6 +9,7 @@ function MainContent() {
     TimeStart: "",
     TimeEnd: "",
     Date: "",
+    id: 12312414
   });
   const [submittedData, setSubmittedData] = useState([]);
 
@@ -25,8 +26,21 @@ function MainContent() {
       TimeStart: "",
       TimeEnd: "",
       Date: "",
+      id: randomNumber()
     });
   };
+
+
+function deleteProject(id) {
+    if(id) {
+            setSubmittedData(prevData => prevData.filter(item => item.id !== id))
+    }
+}
+
+function randomNumber(){
+    const number = Math.ceil(Math.random() * 10000000);
+    return number
+}
 
   return (
     <div className="appContainer">
@@ -59,14 +73,14 @@ function MainContent() {
           <div className="TimeFields flex justify-between items-center gap-[23px]">
             <input
               type="time"
-              className="TimeStart w-2/12 p-2 rounded-lg"
+              className="TimeStart w-3/12 p-2 rounded-lg"
               name="TimeStart"
               value={inputs.TimeStart}
               onChange={handleInputChange}
             />
             <input
               type="time"
-              className="TimeEnd w-2/12 p-2 rounded-lg"
+              className="TimeEnd w-3/12 p-2 rounded-lg"
               name="TimeEnd"
               value={inputs.TimeEnd}
               onChange={handleInputChange}
@@ -92,8 +106,8 @@ function MainContent() {
           </div>
         </form>
         <div>
-          {dummyData.map((value) => {
-            return <EntryItem props={value} key={value.key} />;
+          {submittedData.map((value) => {
+            return <EntryItem props={value} deleteFn={deleteProject} key={value.key} />;
           })}
         </div>
       </div>
@@ -102,78 +116,3 @@ function MainContent() {
 }
 
 export default MainContent;
-
-const dummyData = [
-  {
-    key: 11111111,
-    date: "1/1/2022",
-    project: "Project 1",
-    hours: "10:00am - 1:00pm",
-    description: "Worked on feature 1",
-    groupName: "Cohort 444",
-  },
-  {
-    key: 11111112,
-    date: "5/1/2023",
-    project: "Project 2",
-    hours: "6:00pm - 9:00pm",
-    description: "Worked on feature 21",
-    groupName: "Cohort 444",
-  },
-  {
-    key: 11111113,
-    date: "10/1/2023",
-    project: "Project 4",
-    hours: "1400 - 1700",
-    description: "Worked on feature 3",
-    groupName: "Cohort 444",
-  },
-  {
-    key: 111111114,
-    date: "1/1/2022",
-    project: "Project 1",
-    hours: "10:00am - 1:00pm",
-    description: "Worked on feature 1",
-    groupName: "Cohort 444",
-  },
-  {
-    key: 1111115,
-    date: "5/1/2023",
-    project: "Project 2",
-    hours: "6:00pm - 9:00pm",
-    description: "Worked on feature 21",
-    groupName: "Cohort 444",
-  },
-  {
-    key: 1111116,
-    date: "10/1/2023",
-    project: "Project 4",
-    hours: "1400 - 1700",
-    description: "Worked on feature 3",
-    groupName: "Cohort 444",
-  },
-  {
-    key: 1111111124,
-    date: "1/1/2022",
-    project: "Project 1",
-    hours: "10:00am - 1:00pm",
-    description: "Worked on feature 1",
-    groupName: "Cohort 444",
-  },
-  {
-    key: 11131115,
-    date: "5/1/2023",
-    project: "Project 2",
-    hours: "6:00pm - 9:00pm",
-    description: "Worked on feature 21",
-    groupName: "Cohort 444",
-  },
-  {
-    key: 11411116,
-    date: "10/1/2023",
-    project: "Project 4",
-    hours: "1400 - 1700",
-    description: "Worked on feature 3",
-    groupName: "Cohort 444",
-  },
-];
