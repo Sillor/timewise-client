@@ -16,6 +16,9 @@ export default function Sidebar({ focusElement, setBlurredAt }) {
     { to: "/register", name: "Register" },
     { to: "/login", name: "Login" },
     { to: "/resetpassword", name: "Reset Password" },
+    { to: "/confirmresetpassword", name: "Confirm password reset" },
+    { to: "/pagenotfound", name: "Page Not Found"},
+    
   ].map((link, i) => (
     <SidebarLink key={i} to={link.to} name={link.name} icon={link.icon} />
   ));
