@@ -7,7 +7,7 @@
 import TrashIcon from "../../assets/TrashIcon"
 
 const EntryItem = ({ props, deleteFn }) => {
-    const {Summary, Project, TimeStart, TimeEnd, Date, id } = props
+    const {Description, Project, Hours, Date, id } = props
     return (
         <table className='w-11/12 md:w-full mx-auto my-3 bg-darkBlue rounded-md'>
             <tbody>
@@ -23,12 +23,12 @@ const EntryItem = ({ props, deleteFn }) => {
                 </tr>
                 <tr>
                     <td className="px-3"> 
-                        <span>{TimeStart} - {TimeEnd}</span>
+                        <span>{Hours}</span>
                     </td>
                 </tr>
                 <tr>
                     <td className="px-3">
-                        <span>{Summary}</span>
+                        <span>{Description}</span>
                     </td>
                 </tr>
                 <tr>

@@ -21,10 +21,11 @@ function MainContent() {
     e.preventDefault();
     const newEntry = {
       key: new Date().getTime(), 
-      date: inputs.Date,
-      project: inputs.Project,
-      hours: `${inputs.TimeStart} - ${inputs.TimeEnd}`,
-      description: inputs.Summary,
+      Date: inputs.Date,
+      Project: inputs.Project,
+      Hours: `${inputs.TimeStart} - ${inputs.TimeEnd}`,
+      Description: inputs.Summary,
+      id: randomNumber(),
     };
     setSubmittedData([...submittedData, newEntry]);
     setInputs({
@@ -33,7 +34,7 @@ function MainContent() {
       TimeStart: "",
       TimeEnd: "",
       Date: "",
-      id: randomNumber()
+      id: "",
     });
   };
 
