@@ -15,9 +15,12 @@ const EntryItem = ({ props, deleteFn }) => {
                     <td className="px-3 pt-3">
                         <span>{Date}</span>
                     </td>
-                    <td align="right" className="p-3 ">
-                        <span onClick={() => deleteFn(id)}>
-                            <TrashIcon className="hover:cursor-pointer w-[1.2rem] h-[1.2rem]"/>
+                    <td align="right" className="p-3  ">
+                    <span className="w-[1.2rem] h-[1.2rem]">
+                            <TrashIcon 
+                                className="hover:cursor-pointer w-[1.2rem] h-[1.2rem]"
+                                onClick={() => deleteFn(id)}
+                            />
                         </span>
                     </td>
                 </tr>
