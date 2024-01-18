@@ -39,14 +39,16 @@ function ResetPassword() {
             Enter the email address associated with your account and a link will
             be sent to reset your password.
           </p>
-          <input
-            name="email"
-            type="email"
-            placeholder="Email address"
-            pattern="^[a-zA-Z0-9._\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}$"
-            required
-            className="w-full h-[34px] mb-4 rounded-md px-2 text-dark"
-          />
+          <label className="text-black">
+            <input
+              name="email"
+              type="email"
+              placeholder="Email address"
+              pattern="^[a-zA-Z0-9._\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}$"
+              required
+              className="w-full h-[34px] mb-4 rounded-md px-2 text-dark"
+            />
+          </label>
           <button
             type="submit"
             className="bg-secondary text-light w-full h-[48px] mb-4 rounded-md active:bg-yellow-700"
@@ -55,9 +57,8 @@ function ResetPassword() {
           </button>
           {message && (
             <p
-              className={`text-center mx-auto ${
-                messageSuccess ? 'text-green-500' : 'text-red-500'
-              }`}
+              className={`text-center mx-auto ${messageSuccess ? 'text-green-500' : 'text-red-500'
+                }`}
             >
               {message}
             </p>
