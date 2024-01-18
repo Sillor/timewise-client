@@ -1,15 +1,17 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import Logo from "../../assets/logo.png";
 import HamburgerMenu from "../../assets/HamburgerIcon.jsx";
 import Sidebar from "./Sidebar.jsx";
 import AvatarIcon from "../../assets/AvatarIcon.jsx";
+import { isLoggedIn as checkLoggedIn } from "../../utils/apiHandler.js";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const navigate = useNavigate();
 
-  const isLoggedIn = true;
+  const isLoggedIn = checkLoggedIn();
 
   function toggleSidebar() {
     setIsOpen((prev) => !prev);
