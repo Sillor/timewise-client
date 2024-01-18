@@ -54,7 +54,7 @@ function ConfirmPasswordReset() {
             <div>
                 <h2 className="text-5xl mb-9 font-bold justify-center">Reset<br /> Password</h2>
                 <form className="max-w-md w-full mx-auto">
-                    <div className="relative">
+                    <div className="">
                         <label className="text-black mb-1">
                             <FormInput
                                 type={showPassword ? 'text' : 'password'}
