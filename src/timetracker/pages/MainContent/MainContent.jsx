@@ -9,6 +9,7 @@ function MainContent() {
     TimeStart: "",
     TimeEnd: "",
     Date: "",
+    id: 12312414
   });
   const [submittedData, setSubmittedData] = useState([]);
 
@@ -32,9 +33,21 @@ function MainContent() {
       TimeStart: "",
       TimeEnd: "",
       Date: "",
+      id: randomNumber()
     });
   };
 
+
+function deleteProject(id) {
+    if(id) {
+            setSubmittedData(prevData => prevData.filter(item => item.id !== id))
+    }
+}
+
+function randomNumber(){
+    const number = Math.ceil(Math.random() * 10000000);
+    return number
+}
 
   return (
     <div className="appContainer">
@@ -67,14 +80,14 @@ function MainContent() {
           <div className="TimeFields flex justify-between items-center gap-[23px]">
             <input
               type="time"
-              className="TimeStart w-2/12 p-2 rounded-lg"
+              className="TimeStart w-3/12 p-2 rounded-lg"
               name="TimeStart"
               value={inputs.TimeStart}
               onChange={handleInputChange}
             />
             <input
               type="time"
-              className="TimeEnd w-2/12 p-2 rounded-lg"
+              className="TimeEnd w-3/12 p-2 rounded-lg"
               name="TimeEnd"
               value={inputs.TimeEnd}
               onChange={handleInputChange}
@@ -101,7 +114,7 @@ function MainContent() {
         </form>
         <div>
           {submittedData.map((value) => {
-            return <EntryItem props={value} key={value.key} />;
+            return <EntryItem props={value} deleteFn={deleteProject} key={value.key} />;
           })}
         </div>
       </div>
