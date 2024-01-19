@@ -63,13 +63,16 @@ export async function login(email, password) {
 
 export async function logout() {
   try {
-    const response = await fetch("http://localhost:5000/logout", {
+    await fetch("http://localhost:5000/logout", {
       method: "POST"
     })
     setIsAuthenticated(false);
     return history.navigate("/login");
 
   } catch (error) {
-    console.error(error)
+    return {
+      success: false,
+      message: `An error occurred: ${error.message}`
+    }
   }
 }
