@@ -1,23 +1,22 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
+import React from 'react';
+import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
-import ProjectsIcon from "../../assets/ProjectsIcon.jsx";
-import ClockIcon from "../../assets/ClockIcon.jsx";
-import SidebarLink from "./SidebarLink.jsx";
-import UsersIcon from "../../assets/UsersIcon.jsx";
+import ProjectsIcon from '../../assets/ProjectsIcon.jsx';
+import ClockIcon from '../../assets/ClockIcon.jsx';
+import SidebarLink from './SidebarLink.jsx';
+import UsersIcon from '../../assets/UsersIcon.jsx';
 
 export default function Sidebar({ isOpen, setIsOpen }) {
   const links = [
-    { to: "/tracker", name: "Time Tracker", icon: <ClockIcon /> },
-    { to: "/projects", name: "Projects", icon: <ProjectsIcon /> },
-    { to: "/users", name: "Users", icon: <UsersIcon /> },
-    { to: "/register", name: "Register" },
-    { to: "/login", name: "Login" },
-    { to: "/resetpassword", name: "Reset Password" },
-    { to: "/confirmresetpassword", name: "Confirm password reset" },
-    { to: "/pagenotfound", name: "Page Not Found"},
-    
+    { to: '/tracker', name: 'Time Tracker', icon: <ClockIcon /> },
+    { to: '/projects', name: 'Projects', icon: <ProjectsIcon /> },
+    { to: '/users', name: 'Users', icon: <UsersIcon /> },
+    { to: '/register', name: 'Register' },
+    { to: '/login', name: 'Login' },
+    { to: '/resetpassword', name: 'Reset Password' },
+    { to: '/reset-password', name: 'Confirm password reset' },
+    { to: '/pagenotfound', name: 'Page Not Found' },
   ].map((link, i) => (
     <SidebarLink
       key={i}
@@ -35,7 +34,7 @@ export default function Sidebar({ isOpen, setIsOpen }) {
         fixed overflow-y-auto flex flex-col transition pt-3 z-10
         shadow-dark border-r-[1px] border-gray-500 pe-10
         [&>*]:py-3 [&>*]:ps-5
-        ${!isOpen ? "-translate-x-full" : "shadow-2xl"}`}
+        ${!isOpen ? '-translate-x-full' : 'shadow-2xl'}`}
     >
       {links}
     </div>

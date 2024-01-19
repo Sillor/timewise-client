@@ -1,34 +1,34 @@
-import React from "react";
-import ReactDOM from "react-dom/client";
+import React from 'react';
+import ReactDOM from 'react-dom/client';
 import {
   createBrowserRouter,
   redirect,
   RouterProvider,
-} from "react-router-dom";
-import App from "./App.jsx";
-import CreateAccountPage from "./timetracker/pages/create-account-page/CreateAccountPage.jsx";
-import TimesheetMain from "./timetracker/pages/time-sheet/TimesheetMain.jsx";
-import ResetPassword from "./timetracker/pages/reset-password/ResetPassword.jsx";
-import Users from "./timetracker/pages/users-page/Users.jsx";
-import CreateProjectPage from "./timetracker/pages/create-project-page/CreateProjectPage.jsx";
-import PageNotFound from './timetracker/pages/404-page/404-page.jsx'
-import ConfirmPasswordReset from "./timetracker/pages/confirm-password-reset/ConfirmPasswordReset.jsx";
+} from 'react-router-dom';
+import App from './App.jsx';
+import CreateAccountPage from './timetracker/pages/create-account-page/CreateAccountPage.jsx';
+import TimesheetMain from './timetracker/pages/time-sheet/TimesheetMain.jsx';
+import ResetPassword from './timetracker/pages/reset-password/ResetPassword.jsx';
+import Users from './timetracker/pages/users-page/Users.jsx';
+import CreateProjectPage from './timetracker/pages/create-project-page/CreateProjectPage.jsx';
+import PageNotFound from './timetracker/pages/404-page/404-page.jsx';
+import ConfirmPasswordReset from './timetracker/pages/confirm-password-reset/ConfirmPasswordReset.jsx';
 
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: '/',
     element: <App />,
-    errorElement: <PageNotFound/>,
+    errorElement: <PageNotFound />,
     children: [
       {
-        errorElement: <PageNotFound/>,
+        errorElement: <PageNotFound />,
         children: [
           {
             index: true,
             loader: async () => {
               const isLoggedIn = true;
-              if (isLoggedIn) return redirect("/tracker");
-              else return redirect("/login");
+              if (isLoggedIn) return redirect('/tracker');
+              else return redirect('/login');
             },
             // possibly replace with splash page
             element: (
@@ -38,40 +38,40 @@ const router = createBrowserRouter([
             ),
           },
           {
-            path: "/register",
+            path: '/register',
             element: <CreateAccountPage />,
           },
           {
-            path: "/login",
+            path: '/login',
             element: <div>login</div>,
           },
           {
-            path: "/users",
-            element: <Users />
+            path: '/users',
+            element: <Users />,
           },
           {
-            path: "/resetpassword",
+            path: '/resetpassword',
             element: <ResetPassword />,
           },
           {
-            path: "/tracker",
-            element: <TimesheetMain/>,
+            path: '/tracker',
+            element: <TimesheetMain />,
           },
           {
-            path: "/account",
+            path: '/account',
             element: <div>account</div>,
           },
           {
-            path: "/projects",
+            path: '/projects',
             element: <CreateProjectPage />,
           },
           {
-            path: "/confirmresetpassword",
+            path: '/reset-password',
             element: <ConfirmPasswordReset />,
           },
           {
-            path: "/*",
-            element: <PageNotFound/>
+            path: '/*',
+            element: <PageNotFound />,
           },
         ],
       },
