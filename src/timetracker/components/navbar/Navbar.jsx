@@ -5,7 +5,7 @@ import Logo from "../../assets/logo.png";
 import HamburgerMenu from "../../assets/HamburgerIcon.jsx";
 import Sidebar from "./Sidebar.jsx";
 import AvatarIcon from "../../assets/AvatarIcon.jsx";
-import { isLoggedIn as checkLoggedIn } from "../../utils/apiHandler.js";
+import { isLoggedIn as checkLoggedIn } from "../../utils/authHandler.js";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);

@@ -1,9 +1,13 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router";
-import { login } from "../../utils/apiHandler";
+import { login } from "../../utils/authHandler";
 
 export default function TempLogin() {
-  const [data, setData] = useState({ email: "test@test.com", password: "testtesttest!!!", error: "" });
+  const [data, setData] = useState({
+    email: "test@test.com",
+    password: "testtesttest!!!",
+    error: "",
+  });
   const navigate = useNavigate();
 
   function handleEmail(event) {
@@ -23,7 +27,7 @@ export default function TempLogin() {
   return (
     <div className="text-black">
       <input type="text" value={data.email} onChange={handleEmail} />
-      <br/>
+      <br />
       <input type="text" value={data.password} onChange={handlePassword} />
       <br />
       {data.error}

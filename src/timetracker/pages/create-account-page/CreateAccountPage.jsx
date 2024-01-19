@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { register } from '../../utils/apiHandler';
+import { register } from '../../utils/authHandler';
 import FormInput from '../../components/form-components/FormInput';
 import PasswordResetForm from '../../components/password-reset-form/PasswordResetForm';
 import './CreateAccountPage.css';

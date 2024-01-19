@@ -2,12 +2,20 @@ export const history = {
   navigate: null,
 };
 
-function getJWT() {
-  return sessionStorage.getItem("timewise_jwt_token");
+function setIsAuthenticated(value) {
+  if (value) {
+    sessionStorage.setItem("timewise_is_authenticated", true);
+  } else {
+    sessionStorage.removeItem("timewise_is_authenticated");
+  }
+}
+
+function getIsAuthenticated() {
+  return !!sessionStorage.getItem("timewise_is_authenticated");
 }
 
 export function isLoggedIn() {
-  return !!sessionStorage.getItem("timewise_is_authenticated");
+  return getIsAuthenticated();
 }
 
 export async function register(email, password) {
@@ -20,16 +28,15 @@ export async function register(email, password) {
 
     const data = await response.json();
     if (data.success) {
-      sessionStorage.setItem("timewise_is_authenticated", true);
-      sessionStorage.setItem("timewise_jwt_token", data.token);
+      setIsAuthenticated(true);
       history.navigate("/tracker");
     }
-    return data
+    return data;
   } catch (error) {
     return {
       message: `An error occurred: ${error.message}`,
       success: false,
-    }
+    };
   }
 }
 
@@ -42,8 +49,7 @@ export async function login(email, password) {
     });
     const data = await response.json();
     if (data.success) {
-      sessionStorage.setItem("timewise_is_authenticated", true);
-      sessionStorage.setItem("timewise_jwt_token", data.token);
+      setIsAuthenticated(true);
       history.navigate("/tracker");
     }
     return data;
@@ -51,12 +57,19 @@ export async function login(email, password) {
     return {
       success: false,
       message: `An error occurred: ${error.message}`,
-    }
+    };
   }
 }
 
-export function logout() {
-  sessionStorage.removeItem("timewise_is_authenticated");
-  sessionStorage.removeItem("timewise_jwt_token");
-  return history.navigate("/login");
+export async function logout() {
+  try {
+    const response = await fetch("http://localhost:5000/logout", {
+      method: "POST"
+    })
+    setIsAuthenticated(false);
+    return history.navigate("/login");
+
+  } catch (error) {
+    console.error(error)
+  }
 }

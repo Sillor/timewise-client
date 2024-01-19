@@ -5,7 +5,7 @@ import {
   redirect,
   RouterProvider,
 } from "react-router-dom";
-import { isLoggedIn } from "./timetracker/utils/apiHandler.js";
+import { isLoggedIn } from "./timetracker/utils/authHandler.js";
 import App from "./App.jsx";
 import CreateAccountPage from "./timetracker/pages/create-account-page/CreateAccountPage.jsx";
 import TimesheetMain from "./timetracker/pages/time-sheet/TimesheetMain.jsx";
@@ -73,7 +73,7 @@ const router = createBrowserRouter([
           },
           {
             path: "/account",
-            element: <div>account <button onClick={async ()=>(await import("./timetracker/utils/apiHandler.js")).logout()}>logout</button></div>,
+            element: <div>account <button onClick={async ()=>(await import("./timetracker/utils/authHandler.js")).logout()}>logout</button></div>,
           },
           {
             path: "/projects",
