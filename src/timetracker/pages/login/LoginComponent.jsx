@@ -5,9 +5,9 @@ import SignIn from './SignIn.jsx';
 
 function LoginComponent() {
   return (
-    <div className='flex justify-evenly items-center'>
+    <div className='lg:flex lg:flex-row lg:justify-evenly lg:items-center lg:pb-0 flex flex-col justify-center items-center pb-64'>
       <LogInWords/>
-      <span className="h-96 w-px bg-white"></span>
+      <span className="lg:h-96 lg:w-px lg:bg-white"></span>
       <SignIn/>
     </div>
   );

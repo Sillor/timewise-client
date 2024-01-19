@@ -5,3 +5,9 @@
 h1{
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
+@media (min-width: 1024px) {
+.content1::before{
+    content: "\a";
+    white-space: pre;
+    }
+}
