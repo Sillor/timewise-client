@@ -49,7 +49,7 @@ export async function login(email, password) {
     return data;
   } catch (error) {
     return {
-      success: false
+      success: false,
       message: `An error occurred: ${error.message}`,
     }
   }
