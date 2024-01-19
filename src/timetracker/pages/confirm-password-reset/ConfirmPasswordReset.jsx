@@ -70,7 +70,7 @@ function ConfirmPasswordReset() {
             inputData={inputData}
             setInputData={setInputData}
           />
-          <button type="submit" className="submit-button w-45">
+          <button type="submit" className="submit-button w-45 bg-secondary">
             Confirm
           </button>
           <p
