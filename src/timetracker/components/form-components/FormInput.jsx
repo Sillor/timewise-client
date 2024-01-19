@@ -26,7 +26,7 @@ export default function FormInput(props) {
       <input
         className={`${
           isPassword ? "pe-7" : "pe-3"
-        } w-full h-full text-dark rounded-md indent-[11px] size-4 outline-secondary outline-2 focus-visible:outline`}
+        } w-full h-full text-dark rounded-md indent-[11px] size-4 outline-secondary outline-2 focus-visible:outline z-0`}
         type={
           (props.type &&
             (isPassword ? (isHidden ? "password" : "text") : props.type)) ||
