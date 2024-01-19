@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { register } from '../../utils/apiHandler';
 import FormInput from '../../components/form-components/FormInput';
 import PasswordResetForm from '../../components/password-reset-form/PasswordResetForm';
 import './CreateAccountPage.css';
@@ -13,7 +13,6 @@ export default function CreateAccountPage() {
     confirmPasswordValue: null,
     confirmPasswordError: null,
   });
-  const navigate = useNavigate();
   const [serverResponse, setServerResponse] = useState(null);
 
   function handleEmailOnChange(event) {
@@ -46,31 +45,15 @@ export default function CreateAccountPage() {
       passwordError ||
       confirmPasswordError ||
       emailError ||
-      !emailValue || 
+      !emailValue ||
       !passwordValue ||
-      !confirmPasswordValue){
+      !confirmPasswordValue
+    ) {
+      setServerResponse({ success: false, message: "Invalid Fields" });
       return;
     }
-    try {
-      const response = await fetch('http://localhost:5000/register', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: emailValue, password: passwordValue}),
-      });
-
-      const data = await response.json();
-      setServerResponse({ message: data.message, success: data.success });
-
-      if (data.success) {
-        sessionStorage.setItem("timewise_jwt_token",data.token)
-        navigate('/tracker');
-      }
-    } catch (error) {
-      setServerResponse({
-        message: `An error occurred: ${error.message}`,
-        success: false,
-      });
-    }
+    const data = await register(emailValue, passwordValue)
+    if (!data.success) setServerResponse({success: data.success ,message: data.message})
   }
 
   return (

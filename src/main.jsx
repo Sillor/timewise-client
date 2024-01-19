@@ -14,10 +14,10 @@ import Users from "./timetracker/pages/users-page/Users.jsx";
 import CreateProjectPage from "./timetracker/pages/create-project-page/CreateProjectPage.jsx";
 import PageNotFound from "./timetracker/pages/404-page/404-page.jsx";
 import ConfirmPasswordReset from "./timetracker/pages/confirm-password-reset/ConfirmPasswordReset.jsx";
+import TempLogin from "./timetracker/pages/login-page/TempLogin.jsx";
 
 function checkLoggedIn() {
   const loggedIn = isLoggedIn();
-  console.log(loggedIn);
   if (loggedIn) return { loggedIn };
   return redirect("/login");
 }
@@ -51,7 +51,7 @@ const router = createBrowserRouter([
           },
           {
             path: "/login",
-            element: <div>login</div>,
+            element: <div><TempLogin /></div>,
           },
           {
             path: "/users",
@@ -73,7 +73,7 @@ const router = createBrowserRouter([
           },
           {
             path: "/account",
-            element: <div>account</div>,
+            element: <div>account <button onClick={async ()=>(await import("./timetracker/utils/apiHandler.js")).logout()}>logout</button></div>,
           },
           {
             path: "/projects",

@@ -1,9 +1,11 @@
 import React, { useState } from "react";
-import { Outlet } from "react-router";
+import { Outlet, useNavigate } from "react-router";
 import Navbar from "./timetracker/components/navbar/Navbar.jsx";
+import { history } from "./timetracker/utils/apiHandler.js";
 import "./App.css";
 
 function App() {
+  history.navigate = useNavigate()
   return (
     <>
       <Navbar />
