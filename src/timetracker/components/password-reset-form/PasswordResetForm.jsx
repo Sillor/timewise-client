@@ -1,9 +1,7 @@
-
 import FormInput from '../../components/form-components/FormInput';
 import checkValidPassword from '../../utils/checkValidPassword';
 
-export default function PasswordResetForm({inputData, setInputData}) {
-
+export default function PasswordResetForm({ inputData, setInputData }) {
   function handlePasswordOnChange(event) {
     const value = event.target.value;
     const checkedPassword = checkValidPassword(value);
@@ -28,20 +26,20 @@ export default function PasswordResetForm({inputData, setInputData}) {
   }
 
   return (
-        <div>
-          <FormInput
-            type="password"
-            placeholder="Password"
-            error={inputData.passwordError}
-            onChange={handlePasswordOnChange}
-          />
+    <div>
+      <FormInput
+        type="password"
+        placeholder="Password"
+        error={inputData.passwordError}
+        onChange={handlePasswordOnChange}
+      />
 
-          <FormInput
-            type="password"
-            placeholder="Confirm Password"
-            error={inputData.confirmPasswordError}
-            onChange={handleConfirmPasswordOnChange}
-          />
-      </div>
+      <FormInput
+        type="password"
+        placeholder="Confirm Password"
+        error={inputData.confirmPasswordError}
+        onChange={handleConfirmPasswordOnChange}
+      />
+    </div>
   );
 }
