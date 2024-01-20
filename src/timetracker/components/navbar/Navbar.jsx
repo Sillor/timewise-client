@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { Link } from "react-router-dom";
 
 import Logo from "../../assets/logo.png";
@@ -7,12 +7,14 @@ import Sidebar from "./Sidebar.jsx";
 import AvatarIcon from "../../assets/AvatarIcon.jsx";
 
 export default function Navbar() {
-  const [isOpen, setIsOpen] = useState(false);
+  const [blurredAt, setBlurredAt] = useState(Date.now());
+  const sidebar = useRef(null);
 
   const isLoggedIn = true;
 
   function toggleSidebar() {
-    setIsOpen((prev) => !prev);
+    if (Date.now() - blurredAt > 200) sidebar.current.focus();
+    else sidebar.current.blur();
   }
 
   return (
@@ -49,7 +51,12 @@ export default function Navbar() {
           </>
         )}
       </div>
-      {isLoggedIn && <Sidebar isOpen={isOpen} setIsOpen={setIsOpen} />}
+      {isLoggedIn && (
+        <Sidebar
+          focusElement={sidebar}
+          setBlurredAt={setBlurredAt}
+        />
+      )}
     </nav>
   );
 }
