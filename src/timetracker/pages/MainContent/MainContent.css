@@ -1,9 +1,7 @@
 .TrackerContainer {
     background-color: rgba(76, 185, 199, 0.686);
     position: relative;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    
+    z-index: 0;
 }
 
 
