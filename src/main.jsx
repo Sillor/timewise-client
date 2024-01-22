@@ -13,6 +13,7 @@ import Users from "./timetracker/pages/users-page/Users.jsx";
 import CreateProjectPage from "./timetracker/pages/create-project-page/CreateProjectPage.jsx";
 import PageNotFound from './timetracker/pages/404-page/404-page.jsx'
 import ConfirmPasswordReset from "./timetracker/pages/confirm-password-reset/ConfirmPasswordReset.jsx";
+import LoginComponent from "./timetracker/pages/login/LoginComponent.jsx";
 
 const router = createBrowserRouter([
   {
@@ -43,7 +44,7 @@ const router = createBrowserRouter([
           },
           {
             path: "/login",
-            element: <div>login</div>,
+            element: <LoginComponent />,
           },
           {
             path: "/users",

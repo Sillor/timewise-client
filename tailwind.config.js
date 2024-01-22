@@ -13,6 +13,9 @@ export default {
         light: '#FFFAFF'
         
       },
+      backgroundImage: {
+        perlin: "url(src/timetracker/assets/background.png)"
+      }
     },
   },
   plugins: [],

@@ -1,9 +1,4 @@
-import { useRef } from "react";
-import { Dialog } from "@headlessui/react";
-
 const UsersDialog = (props) => {
-  const cancelButtonRef = useRef(null);
-
   function handleKeyPress(event) {
     if (event.key === "Enter") {
       event.preventDefault();
@@ -11,73 +6,68 @@ const UsersDialog = (props) => {
   }
 
   return (
-    <Dialog
-      initialFocus={cancelButtonRef}
-      open={props.open}
-      onClose={props.handleClose}
-      className="relative z-50"
-    >
-      {/* Backdrop */}
-      <div className="fixed inset-0 bg-black/30" aria-hidden="true" />
-
-      {/* Container for the dialog panel */}
-      <div className="fixed inset-0 flex w-screen items-center justify-center p-4">
-        {/* Dialog panel */}
-        <Dialog.Panel className="w-[350px] sm:w-[428px]  rounded bg-gray-800 text-white py-[50px] px-10">
-          <Dialog.Title className="text-[32px] mb-4">
-            Create new users
-          </Dialog.Title>
-          <form
-            onSubmit={(event) => {
-              props.handleCreateUser(event);
-              props.handleClose();
-            }}
-          >
-            <input
-              type="text"
-              name="name"
-              id="name"
-              placeholder="Name"
-              value={props.form.name}
-              onChange={(event) =>
-                props.setForm({ ...props.form, name: event.target.value })
-              }
-              onKeyDown={handleKeyPress}
-              required
-              className="text-black w-full mb-4 px-[9px] py-[14px] h-[43px] rounded-[6px]"
-            />
-            <input
-              type="email"
-              name="email"
-              id="email"
-              placeholder="Email address"
-              value={props.form.email}
-              onChange={(event) =>
-                props.setForm({ ...props.form, email: event.target.value })
-              }
-              onKeyDown={handleKeyPress}
-              required
-              className="text-black w-full mb-4 px-[9px] py-[14px] h-[43px] rounded-[6px]"
-            />
-            <div className="flex justify-between">
-              <button
-                onClick={props.handleClose}
-                className="bg-gray-500 hover:bg-gray-600 p-2 w-[118px] sm:w-[155px] h-auto sm:h-[48px] rounded-[6px]"
-              >
-                Cancel
-              </button>
-              <button
-                type="submit"
-                ref={cancelButtonRef}
-                className="bg-orange-500 hover:bg-orange-600 p-2 w-[118px] sm:w-[155px] h-auto rounded-[6px]"
-              >
-                Create New User
-              </button>
-            </div>
-          </form>
-        </Dialog.Panel>
+    // Container for dialog panel
+    <div className="fixed z-50 inset-0 bg-black bg-opacity-50 w-screen h-screen flex justify-center items-center">
+      {/* Dialog panel */}
+      <div className="dialog rounded-md shadow-md p-8 sm:w-[428px]">
+        {/* Dialog header */}
+        <h1 className="text-light text-center text-[20px] font-bold lg:text-[32px] mb-5">
+          Create New User
+        </h1>
+        {/* Form */}
+        <form
+          onSubmit={(event) => {
+            props.handleCreateUser(event);
+            props.handleClose();
+          }}
+        >
+          {/* Name field */}
+          <input
+            id="name"
+            type="text"
+            name="name"
+            placeholder="Name"
+            className="text-black rounded-md p-3 outline-none w-full mb-5"
+            value={props.form.name}
+            onKeyDown={handleKeyPress}
+            required
+            onChange={(event) =>
+              props.setForm({ ...props.form, name: event.target.value })
+            }
+          />
+          {/* Email field */}
+          <input
+            id="email"
+            type="email"
+            name="email"
+            placeholder="Email address"
+            className="text-black rounded-md p-3 outline-none w-full mb-5"
+            value={props.form.email}
+            onKeyDown={handleKeyPress}
+            required
+            onChange={(event) =>
+              props.setForm({ ...props.form, email: event.target.value })
+            }
+          />
+          <div className="flex justify-between space-x-5">
+            {/* Cancel button */}
+            <button
+              className="bg-[#303036] text-light py-2 px-2 md:px-4 rounded-md font-semibold shadow-md w-full"
+              onClick={props.handleClose}
+            >
+              Cancel
+            </button>
+            {/* Create new user button */}
+            <button
+              type="submit"
+              className="bg-secondary text-light px-2 py-2 md:px-4 rounded-md font-semibold shadow-md w-full"
+            >
+              Create New User
+            </button>
+          </div>
+        </form>
       </div>
-    </Dialog>
+    </div>
   );
 };
 

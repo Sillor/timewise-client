@@ -26,9 +26,7 @@ export default function Sidebar({ focusElement, setBlurredAt }) {
   }
   return (
     <div
-      onBlur={handleOnBlur}
-      ref={sidebarElement}
-      className={`nav--sidebar bg-dark text-white text-xl h-[calc(100vh-64px)]
+      className={`bg-dark text-white text-xl h-[calc(100vh-64px)]
         fixed overflow-y-auto flex flex-col transition pt-3 z-10
         shadow-dark border-r-[1px] border-gray-500 pe-10
         [&>:not([aria-hidden])]:py-3 [&>:not([aria-hidden])]:ps-5 
