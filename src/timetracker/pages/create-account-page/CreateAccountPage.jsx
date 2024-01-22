@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import FormInput from '../../components/form-components/FormInput';
-import checkValidPassword from '../../utils/checkValidPassword';
+import PasswordResetForm from '../../components/password-reset-form/PasswordResetForm';
 import './CreateAccountPage.css';
 
 export default function CreateAccountPage() {
@@ -31,55 +31,31 @@ export default function CreateAccountPage() {
     }
   }
 
-  function handlePasswordOnChange(event) {
-    const value = event.target.value;
-    const checkedPassword = checkValidPassword(value);
-
-    setInputData((prev) => ({
-      ...prev,
-      passwordValue: value,
-      passwordError: checkedPassword.error ? checkedPassword.message : '',
-      confirmPasswordError:
-        prev.confirmPasswordValue !== value ? 'Passwords Do Not Match' : '',
-    }));
-  }
-
-  function handleConfirmPasswordOnChange(event) {
-    const value = event.target.value;
-    const passwordsMatch = inputData.passwordValue === value;
-    setInputData((prev) => ({
-      ...prev,
-      confirmPasswordValue: value,
-      confirmPasswordError: !passwordsMatch ? 'Passwords Do Not Match' : '',
-    }));
-  }
-
   async function handleSubmit(event) {
     event.preventDefault();
     const {
       emailError,
+      emailValue,
       passwordError,
       confirmPasswordError,
-      emailValue,
       passwordValue,
       confirmPasswordValue,
     } = inputData;
 
     if (
-      emailError ||
       passwordError ||
       confirmPasswordError ||
-      !emailValue ||
+      emailError ||
+      !emailValue || 
       !passwordValue ||
-      !confirmPasswordValue
-    )
+      !confirmPasswordValue){
       return;
-
+    }
     try {
       const response = await fetch('http://localhost:5000/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: emailValue, password: passwordValue }),
+        body: JSON.stringify({ email: emailValue, password: passwordValue}),
       });
 
       const data = await response.json();
@@ -97,7 +73,7 @@ export default function CreateAccountPage() {
   return (
     <div className="create-account min-h-full min-w-full flex items-center justify-center flex-col lg:flex-row lg:justify-evenly">
       <div className="create-account--greeting-container">
-        <div className="create-account--greeting text-3xl font-bold lg:text-6xl">
+        <div className="greeting-text-shadow text-3xl font-bold lg:text-6xl">
           <span className="lg:block">Welcome To </span>
           <span className="text-secondary">TimeWise</span>!
         </div>
@@ -116,21 +92,7 @@ export default function CreateAccountPage() {
             error={inputData.emailError}
             onChange={handleEmailOnChange}
           />
-
-          <FormInput
-            type="password"
-            placeholder="Password"
-            error={inputData.passwordError}
-            onChange={handlePasswordOnChange}
-          />
-
-          <FormInput
-            type="password"
-            placeholder="Confirm Password"
-            error={inputData.confirmPasswordError}
-            onChange={handleConfirmPasswordOnChange}
-          />
-
+          <PasswordResetForm inputData={inputData} setInputData={setInputData}/>
           <button
             className="bg-secondary create-account--form-button font-semibold hover:bg-amber-500"
             type="submit"
