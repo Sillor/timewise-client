@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from  "react";
 import "./MainContent.css";
 import EntryItem from "../../components/entry-item-component/EntryItem";
 
@@ -37,8 +37,15 @@ useEffect(() => {
     setInputs({ ...inputs, [e.target.name]: e.target.value });
   };
 
+
+
+
+  const [animateNewItem, setAnimateNewItem] = useState(false)
+
+
   const handleSubmit = (e) => {
     e.preventDefault();
+    setAnimateNewItem(true);     //trigger animation
     const newEntry = {
       key: new Date().getTime(), 
       Date: inputs.Date,
@@ -46,7 +53,8 @@ useEffect(() => {
       Hours: `${inputs.TimeStart} - ${inputs.TimeEnd}`,
       Description: inputs.Summary,
       id: randomNumber(),
-    };
+  };
+    
     setSubmittedData([...submittedData, newEntry]);
     setInputs({
       Summary: "",
@@ -56,6 +64,8 @@ useEffect(() => {
       Date: "",
       id: "",
     });
+
+    setTimeout(() => setAnimateNewItem(false), 2000);
   };
 
 
@@ -138,9 +148,14 @@ function randomNumber(){
           </div>
         </form>
         <div>
-          {submittedData.map((value) => {
-            return <EntryItem props={value} deleteFn={deleteProject} key={value.key} />;
-          })}
+        {submittedData.map((value, index) => {
+  return <EntryItem 
+    props={value} 
+    deleteFn={deleteProject} 
+    key={value.key}
+    className={index === submittedData.length - 1 && animateNewItem ? 'animate-slideDown' : ""}  //handles animation placement
+  />;
+})}
         </div>
       </div>
     </div>
