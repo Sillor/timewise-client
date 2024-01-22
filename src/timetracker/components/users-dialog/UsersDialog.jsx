@@ -5,9 +5,18 @@ const UsersDialog = (props) => {
     }
   }
 
+  function handleClick(event) {
+    const dialog = document.querySelector(".dialog")
+
+    // Close dialog if the click target is not a descendant of dialog
+    if (!dialog.contains(event.target)) {
+      props.handleClose();
+    }
+  }
+
   return (
     // Container for dialog panel
-    <div className="fixed z-50 inset-0 bg-black bg-opacity-50 w-screen h-screen flex justify-center items-center">
+    <div className="fixed z-50 inset-0 bg-black bg-opacity-50 w-screen h-screen flex justify-center items-center" onClick={handleClick}>
       {/* Dialog panel */}
       <div className="dialog rounded-md shadow-md p-8 sm:w-[428px]">
         {/* Dialog header */}

@@ -3,13 +3,13 @@ import "./CreateProjectPage.css";
 import CreateProjectDialog from "./CreateProjectDialog";
 
 const CreateProjectPage = () => {
-  let projects = [
+  const projects = [
     { id: 1, name: "project1", hours: "2.00h" },
     { id: 2, name: "project2", hours: "55.56h" },
     { id: 3, name: "project3", hours: "23.00h" },
   ];
 
-  let [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(false);
 
   let clickHandler = () => {
     open ? setOpen(false) : setOpen(true);
