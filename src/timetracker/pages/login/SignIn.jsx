@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import PasswordInput from './Password';
 import './Login.css';
 
@@ -39,12 +39,12 @@ function SignIn() {
       />
       <PasswordInput password={password} setPassword={setPassword} />
       <h2>
-        <a
+        <Link
           className="text-xs lg:text-xs text-sky-500 underline pl-28 lg:pl-28"
-          href="_blank"
+          to="/resetpassword"
         >
           Forgot your password?
-        </a>
+        </Link>
       </h2>
       {errorMessage && <p className="text-red-500">{errorMessage}</p>}
       <button
