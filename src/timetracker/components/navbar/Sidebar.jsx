@@ -12,10 +12,12 @@ export default function Sidebar({ isOpen, setIsOpen }) {
     { to: "/tracker", name: "Time Tracker", icon: <ClockIcon /> },
     { to: "/projects", name: "Projects", icon: <ProjectsIcon /> },
     { to: "/users", name: "Users", icon: <UsersIcon /> },
-    { to: "/timesheet", name: "Timesheet" },
     { to: "/register", name: "Register" },
     { to: "/login", name: "Login" },
     { to: "/resetpassword", name: "Reset Password" },
+    { to: "/confirmresetpassword", name: "Confirm password reset" },
+    { to: "/pagenotfound", name: "Page Not Found"},
+    
   ].map((link, i) => (
     <SidebarLink
       key={i}
@@ -29,7 +31,7 @@ export default function Sidebar({ isOpen, setIsOpen }) {
 
   return (
     <div
-      className={`nav--sidebar bg-dark text-white text-xl h-[calc(100vh-64px)]
+      className={`bg-dark text-white text-xl h-[calc(100vh-64px)]
         fixed overflow-y-auto flex flex-col transition pt-3 z-10
         shadow-dark border-r-[1px] border-gray-500 pe-10
         [&>*]:py-3 [&>*]:ps-5

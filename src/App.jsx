@@ -7,7 +7,7 @@ function App() {
   return (
     <>
       <Navbar />
-      <div className="app-bg text-light bg-dark h-full [&>*:first-child]:min-h-full [&>*:first-child]:min-w-full">
+      <div className="app-bg text-light bg-dark h-full mt-16 [&>*:first-child]:min-h-full [&>*:first-child]:min-w-full">
         <Outlet />
       </div>
     </>
@@ -15,4 +15,3 @@ function App() {
 }
 
 export default App;
-

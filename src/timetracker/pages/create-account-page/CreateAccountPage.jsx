@@ -1,7 +1,8 @@
-import React, { useState } from "react";
-import FormInput from "../../components/form-components/FormInput";
-import checkValidPassword from "../../utils/checkValidPassword"
-import "./CreateAccountPage.css";
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import FormInput from '../../components/form-components/FormInput';
+import PasswordResetForm from '../../components/password-reset-form/PasswordResetForm';
+import './CreateAccountPage.css';
 
 export default function CreateAccountPage() {
   const [inputData, setInputData] = useState({
@@ -12,47 +13,67 @@ export default function CreateAccountPage() {
     confirmPasswordValue: null,
     confirmPasswordError: null,
   });
+  const navigate = useNavigate();
+  const [serverResponse, setServerResponse] = useState(null);
 
   function handleEmailOnChange(event) {
     const value = event.target.value;
-    const isValidEmail = /.+@.+\..+/.test(value);
+    const isValidEmail = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g.test(value);
     if (!isValidEmail) {
       setInputData((prev) => ({
         ...prev,
         emailValue: value,
-        emailError: "Invalid Email Format",
+        emailError: 'Invalid Email Format',
       }));
       return;
     } else {
-      setInputData((prev) => ({ ...prev, emailValue: value, emailError: "" }));
+      setInputData((prev) => ({ ...prev, emailValue: value, emailError: '' }));
     }
   }
 
-  function handlePasswordOnChange(event) {
-    const value = event.target.value;
-    const checkedPassword = checkValidPassword(value);
+  async function handleSubmit(event) {
+    event.preventDefault();
+    const {
+      emailError,
+      emailValue,
+      passwordError,
+      confirmPasswordError,
+      passwordValue,
+      confirmPasswordValue,
+    } = inputData;
 
-    setInputData((prev) => ({
-      ...prev,
-      passwordValue: value,
-      passwordError: checkedPassword.error ? checkedPassword.message : "",
-    }));
-  }
+    if (
+      passwordError ||
+      confirmPasswordError ||
+      emailError ||
+      !emailValue || 
+      !passwordValue ||
+      !confirmPasswordValue){
+      return;
+    }
+    try {
+      const response = await fetch('http://localhost:5000/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: emailValue, password: passwordValue}),
+      });
 
-  function handleConfirmPasswordOnChange(event) {
-    const value = event.target.value;
-    const passwordsMatch = inputData.passwordValue === value;
-    setInputData((prev) => ({
-      ...prev,
-      confirmPasswordValue: value,
-      confirmPasswordError: !passwordsMatch ? "Passwords Do Not Match" : "",
-    }));
+      const data = await response.json();
+      setServerResponse({ message: data.message, success: data.success });
+
+      if (data.success) navigate('/tracker');
+    } catch (error) {
+      setServerResponse({
+        message: `An error occurred: ${error.message}`,
+        success: false,
+      });
+    }
   }
 
   return (
     <div className="create-account min-h-full min-w-full flex items-center justify-center flex-col lg:flex-row lg:justify-evenly">
       <div className="create-account--greeting-container">
-        <div className="create-account--greeting text-3xl font-bold lg:text-6xl text-center">
+        <div className="greeting-text-shadow text-3xl font-bold lg:text-6xl text-center">
           <span className="lg:block">Welcome To </span>
           <span className="text-secondary">TimeWise</span>!
         </div>
@@ -71,29 +92,27 @@ export default function CreateAccountPage() {
             error={inputData.emailError}
             onChange={handleEmailOnChange}
           />
-
-          <FormInput
-            type="password"
-            placeholder="Password"
-            error={inputData.passwordError}
-            onChange={handlePasswordOnChange}
-          />
-
-          <FormInput
-            type="password"
-            placeholder="Confirm Password"
-            error={inputData.confirmPasswordError}
-            onChange={handleConfirmPasswordOnChange}
-          />
-
+          <PasswordResetForm inputData={inputData} setInputData={setInputData}/>
           <button
             className="bg-secondary create-account--form-button font-semibold hover:bg-amber-500"
             type="submit"
             action="api/register"
             method="post"
+            onClick={handleSubmit}
           >
             Create Account
           </button>
+          <div className="mt-4 h-5">
+            {serverResponse && (
+              <div
+                className={`${
+                  serverResponse.success ? 'text-green-500' : 'text-red-500'
+                } text-center`}
+              >
+                {serverResponse.message}
+              </div>
+            )}
+          </div>
         </form>
         <div className="text-center mt-4">
           <span>Already Have An Account?</span>
