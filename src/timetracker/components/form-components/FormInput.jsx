@@ -32,6 +32,7 @@ export default function FormInput(props) {
             (isPassword ? (isHidden ? "password" : "text") : props.type)) ||
           "text"
         }
+        value={props.value ? props.value : ""}
         placeholder={props.placeholder ? props.placeholder : ""}
         onChange={props.onChange}
       />
@@ -50,6 +51,7 @@ export default function FormInput(props) {
 
 FormInput.propTypes = {
   type: PropTypes.string,
+  value: PropTypes.string,
   placeholder: PropTypes.string,
   error: PropTypes.string,
   onChange: PropTypes.func,
