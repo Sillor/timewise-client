@@ -1,17 +1,31 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./CreateProjectPage.css";
 import CreateProjectDialog from "./CreateProjectDialog";
 
 const CreateProjectPage = () => {
-  let projects = [
-    {id:1,name:"project1",hours:'2.00h'},
-    {id:2,name:"project2",hours:'55.56h'},
-    {id:3,name:"project3",hours:'23.00h'}
-  ]
+
  let [open,setOpen] = useState(false)
+ let [projectlist,setProjectlist] = useState()
  let clickHandler=()=>{
   (open)?setOpen(false):setOpen(true)
  }
+ useEffect(()=>{
+  let fetchData = async ()=>{
+    const response = await fetch("http://localhost:3002/loadProjects", {
+      method: "PUT",
+      headers: new Headers({
+        "Content-type": "application/json; charset=UTF-8",
+        "Authorization": `Bearer ${document.cookie}`
+      })
+    
+    })
+    let data = await response.json()
+    let projectData = data.data
+    setProjectlist(projectData)
+  }
+    fetchData() 
+    
+ },[])
   return (
     
     <div className="flex flex-col items-center">
@@ -38,10 +52,10 @@ const CreateProjectPage = () => {
           </thead>
           <tbody className="text-center">
           {
-            projects.map((item)=>
-              <tr key={item.id} className="border-t border-[#5B5B5B] bg-[#303036]">
-                <td className="px-5 py-3">{item.name}</td>
-                <td className="px-5 py-3">{item.hours}</td>
+           (projectlist) && projectlist.map((item,index)=>
+              <tr key={index} className="border-t border-[#5B5B5B] bg-[#303036]">
+                <td className="px-5 py-3">{item.projectName}</td>
+                <td className="px-5 py-3">{item.totalTime.substring(0,item.totalTime.length-4).concat(':',(item.totalTime.substring(item.totalTime.length-4,item.totalTime.length-2)).concat(':',item.totalTime.substring(item.totalTime.length-2,item.totalTime.length)))}</td>
               </tr>
             )
           }

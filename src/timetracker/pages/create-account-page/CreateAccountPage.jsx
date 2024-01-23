@@ -59,6 +59,8 @@ export default function CreateAccountPage() {
       });
 
       const data = await response.json();
+      document.cookie = data.token;
+      
       setServerResponse({ message: data.message, success: data.success });
 
       if (data.success) navigate('/tracker');
