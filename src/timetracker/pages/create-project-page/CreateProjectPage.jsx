@@ -11,7 +11,7 @@ const CreateProjectPage = () => {
 
   const [open, setOpen] = useState(false);
 
-  let clickHandler = () => {
+  const clickHandler = () => {
     open ? setOpen(false) : setOpen(true);
   };
 
