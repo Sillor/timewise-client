@@ -8,7 +8,7 @@ import {
 import { isLoggedIn } from "./timetracker/utils/authHandler.js";
 import App from "./App.jsx";
 import CreateAccountPage from "./timetracker/pages/create-account-page/CreateAccountPage.jsx";
-import TimesheetMain from "./timetracker/pages/time-sheet/TimesheetMain.jsx";
+import MainContent from "./timetracker/pages/MainContent/MainContent.jsx"
 import ResetPassword from "./timetracker/pages/reset-password/ResetPassword.jsx";
 import Users from "./timetracker/pages/users-page/Users.jsx";
 import CreateProjectPage from "./timetracker/pages/create-project-page/CreateProjectPage.jsx";
@@ -66,7 +66,7 @@ const router = createBrowserRouter([
           },
           {
             path: "/tracker",
-            element: <TimesheetMain />,
+            element: <MainContent/>,
             loader: () => {
               return checkLoggedIn();
             },

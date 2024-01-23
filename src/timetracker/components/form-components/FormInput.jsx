@@ -21,12 +21,10 @@ export default function FormInput(props) {
     </div>
   );
   return (
-    <div className="form-input relative flex items-center w-[242px] h-[34px] [&:not(:last-of-type)]:mb-[15px]">
+    <div className="form-input flex items-center w-[242px] h-[34px] [&:not(:last-of-type)]:mb-[15px] bg-white rounded-md">
       {props.error && errorDiv}
       <input
-        className={`${
-          isPassword ? "pe-7" : "pe-3"
-        } w-full h-full text-dark rounded-md indent-[11px] size-4 outline-secondary outline-2 focus-visible:outline`}
+        className={`w-full h-full text-dark rounded-l-md indent-[11px] outline-secondary outline-2 only:rounded-r-md focus-visible:outline`}
         type={
           (props.type &&
             (isPassword ? (isHidden ? "password" : "text") : props.type)) ||
@@ -39,10 +37,10 @@ export default function FormInput(props) {
       {isPassword && (
         <button
           type="button"
-          className="text-primary absolute right-1 h-5 w-5 cursor-pointer outline-secondary outline-2 focus-visible:outline rounded-sm"
+          className="text-primary flex items-center justify-center h-full w-[34px] ms-1 cursor-pointer outline-secondary outline-2 focus-visible:outline rounded-r-md bg-white"
           onClick={handleEyeClick}
         >
-          <PasswordEye hidden={isHidden} />
+          <PasswordEye hidden={isHidden} className="w-4 h-5"/>
         </button>
       )}
     </div>
