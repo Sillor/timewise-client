@@ -55,9 +55,9 @@ function SignIn() {
       </button>
       <h2 className="mt-2.5">
         New user?{' '}
-        <a className="text-sky-500 underline" href="_blank">
-          Sign up
-        </a>
+        <Link className="text-sky-500 underline" to="/register">
+          Sign Up
+        </Link>
       </h2>
     </div>
   );
