@@ -1,4 +1,16 @@
+import { useEffect } from "react";
+
 const UsersDialog = (props) => {
+  useEffect(() => {
+    // Add 'overflow-hidden' to body when the dialog is open
+    document.body.classList.add("overflow-hidden");
+
+    // Remove 'overflow-hidden' from body when the dialog is closed
+    return () => {
+      document.body.classList.remove("overflow-hidden")
+    }
+  }, []);
+
   function handleKeyPress(event) {
     if (event.key === "Enter") {
       event.preventDefault();

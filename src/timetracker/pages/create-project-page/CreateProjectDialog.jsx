@@ -1,7 +1,17 @@
 /* eslint-disable react/prop-types */
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const CreateProjectDialog = (props) => {
+  useEffect(() => {
+    // Add 'overflow-hidden' to body when the dialog is open
+    document.body.classList.add("overflow-hidden");
+
+    // Remove 'overflow-hidden' from body when the dialog is closed
+    return () => {
+      document.body.classList.remove("overflow-hidden")
+    }
+  }, []);
+
   const [projectname, setProjectName] = useState({ projectname: "" });
 
   const changeHandler = (e) => {
