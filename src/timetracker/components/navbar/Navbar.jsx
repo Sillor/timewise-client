@@ -18,7 +18,7 @@ export default function Navbar() {
   }
 
   return (
-    <nav className="fixed w-full top-0 left-0">
+    <nav className="z-10 fixed w-full top-0 left-0">
       <div className="bg-[#2a4f64] bg-fixed bg-perlin h-16 flex items-center text-light px-5 [&>*]:cursor-pointer">
         {isLoggedIn ? (
           <>
