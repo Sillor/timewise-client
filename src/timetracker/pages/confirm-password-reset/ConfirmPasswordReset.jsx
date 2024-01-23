@@ -12,8 +12,8 @@ function ConfirmPasswordReset() {
       });
 
     return (
-        <div className="app flex justify-center items-center h-screen md:pt-30">
-            <h1 className="text-7xl text-shadow hidden md:block">Forgot your<br /> password?</h1>
+        <div className="app flex justify-center items-center md:pt-30">
+            <h1 className="text-7xl greeting-text-shadow hidden md:block">Forgot your<br /> password?</h1>
             <hr className="border-l mx-40 h-80 hidden md:block" />
             <div>
                 <h2 className="text-5xl mb-9 font-bold justify-center">Reset<br /> Password</h2>
