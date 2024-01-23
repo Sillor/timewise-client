@@ -10,6 +10,8 @@ body {
   display: flex;
   flex-direction: column;
   height: 100%;
+  background-attachment: fixed;
+  
 }
 
 body {
@@ -33,4 +35,8 @@ body {
 
 .app-bg {
   min-height: calc(100vh - 8rem);
+}
+
+.greeting-text-shadow {
+  text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
 }
