@@ -14,7 +14,7 @@ function SignIn() {
           />
         <FormInput
             type="password"
-            placeholder="Email Address"
+            placeholder="Password"
           />
         <h2> <a className='text-xs lg:text-xs text-sky-500 underline pl-28 lg:pl-28' href='/resetpassword'> Forgot your password?</a></h2>
         <button className='bg-amber-500 rounded-md px-24 py-2.5 mt-3 mb-1.5'>Sign In</button>
