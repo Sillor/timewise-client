@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { Link } from "react-router-dom";
 
 import Logo from "../../assets/logo.png";
@@ -7,14 +7,12 @@ import Sidebar from "./Sidebar.jsx";
 import AvatarIcon from "../../assets/AvatarIcon.jsx";
 
 export default function Navbar() {
-  const [blurredAt, setBlurredAt] = useState(Date.now());
   const sidebar = useRef(null);
-
   const isLoggedIn = true;
+  const [openSidebar, setOpenSidebar] = useState(false);
 
   function toggleSidebar() {
-    if (Date.now() - blurredAt > 200) sidebar.current.focus();
-    else sidebar.current.blur();
+    setOpenSidebar(!openSidebar);
   }
 
   return (
@@ -32,7 +30,14 @@ export default function Navbar() {
               <HamburgerMenu className="h-8 w-8" />
             </div>
             <div className="text-xl lg:text-2xl font-bold flex flex-grow items-center ms-5">
-              <Link to="/">TimeWise</Link>
+              <Link
+                to="/"
+                onClick={() => {
+                  openSidebar && setOpenSidebar(false);
+                }}
+              >
+                TimeWise
+              </Link>
             </div>
             <div className="text-primary">
               <Link to="/account">
@@ -54,7 +59,8 @@ export default function Navbar() {
       {isLoggedIn && (
         <Sidebar
           focusElement={sidebar}
-          setBlurredAt={setBlurredAt}
+          open={openSidebar}
+          handleToggle={setOpenSidebar}
         />
       )}
     </nav>
