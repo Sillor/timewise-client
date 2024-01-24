@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 import Logo from "../../assets/logo.png";
@@ -7,7 +7,7 @@ import Sidebar from "./Sidebar.jsx";
 import AvatarIcon from "../../assets/AvatarIcon.jsx";
 
 export default function Navbar() {
-  const sidebar = useRef(null);
+  const menuIcon = useRef(null);
   const isLoggedIn = true;
   const [openSidebar, setOpenSidebar] = useState(false);
 
@@ -26,6 +26,7 @@ export default function Navbar() {
               onKeyDown={(event) =>
                 event.key === "Enter" && event.currentTarget.click()
               }
+              ref={menuIcon}
             >
               <HamburgerMenu className="h-8 w-8" />
             </div>
@@ -58,9 +59,9 @@ export default function Navbar() {
       </div>
       {isLoggedIn && (
         <Sidebar
-          focusElement={sidebar}
           open={openSidebar}
           handleToggle={setOpenSidebar}
+          focusMenu={menuIcon}
         />
       )}
     </nav>

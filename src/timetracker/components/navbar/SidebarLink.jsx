@@ -9,7 +9,7 @@ export default function SidebarLink({ to, name, icon, handleToggle }) {
       }
       tabIndex={2}
       onClick={() => {
-        handleToggle();
+        handleToggle(false);
       }}
     >
       {icon && <div className="inline-block w-6 h-6">{icon}</div>}

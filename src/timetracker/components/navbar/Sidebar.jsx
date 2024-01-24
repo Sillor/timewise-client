@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
 import PropTypes from "prop-types";
 
 import ProjectsIcon from "../../assets/ProjectsIcon.jsx";
@@ -6,7 +6,7 @@ import ClockIcon from "../../assets/ClockIcon.jsx";
 import SidebarLink from "./SidebarLink.jsx";
 import UsersIcon from "../../assets/UsersIcon.jsx";
 
-export default function Sidebar({ focusElement, open, handleToggle }) {
+export default function Sidebar({ open, handleToggle, focusMenu }) {
   const sidebarElement = useRef(null);
   const links = [
     { to: "/tracker", name: "Time Tracker", icon: <ClockIcon /> },
@@ -27,39 +27,41 @@ export default function Sidebar({ focusElement, open, handleToggle }) {
     />
   ));
 
-  function handleClick(event) {
-    const sidebar = document.querySelector("menu");
+  useEffect(() => {
+    const handler = (event) => {
+      // Close sidebar if the click target is not within the menu icon and is outside the sidebar
+      if (!focusMenu.current.contains(event.target) && !sidebarElement.current.contains(event.target)) {
+        handleToggle(false);
+      }
+    };
 
-    // Close sidebar if the click target is not a descendant of sidebar
-    if (!sidebar.contains(event.target)) {
-      handleToggle();
+    document.addEventListener("mousedown", handler);
+
+    return () => {
+      document.removeEventListener("mousedown", handler);
     }
-  }
+  });
 
   return (
-    <div
-      className={`${open && "fixed z-50 inset-x-0 w-screen h-screen"}`}
-      onClick={handleClick}
+    <menu
+      className={`bg-dark text-white text-xl h-[calc(100vh-64px)] 
+      fixed overflow-y-auto flex flex-col transition-all pt-3 z-10 
+      shadow-dark border-r-[1px] border-gray-500 
+      pe-10 [&>:not([aria-hidden])]:py-3 [&>:not([aria-hidden])]:ps-5 
+      [&:has(>:focus)]:shadow-2xl
+      ${open ? "translate-x-0" : "-translate-x-full"}
+      ease-in-out duration-200
+      `}
+      ref={sidebarElement}
     >
-      <menu
-        className={`bg-dark text-white text-xl h-[calc(100vh-64px)] 
-        fixed overflow-y-auto flex flex-col transition-all pt-3 z-10 
-        shadow-dark border-r-[1px] border-gray-500 
-        pe-10 [&>:not([aria-hidden])]:py-3 [&>:not([aria-hidden])]:ps-5 
-        [&:has(>:focus)]:shadow-2xl
-        ${open ? "translate-x-0" : "-translate-x-full"}
-        ease-in-out duration-200
-        `}
-      >
-        <a aria-hidden ref={focusElement} tabIndex={-1}></a>
-        {links}
-      </menu>
-    </div>
+      <a aria-hidden tabIndex={-1}></a>
+      {links}
+    </menu>
   );
 }
 
 Sidebar.propTypes = {
-  focusElement: PropTypes.object,
-  open: PropTypes.func,
-  handleToggle: PropTypes.func
+  open: PropTypes.bool,
+  handleToggle: PropTypes.func,
+  focusMenu: PropTypes.object
 };
