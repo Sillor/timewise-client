@@ -27,16 +27,24 @@ const CreateProjectPage = () => {
     
  },[])
   return (
-    
     <div className="flex flex-col items-center">
-      {(open)?
-    <CreateProjectDialog open={open} setOpen={setOpen}/>:''}
+      {open && (
+        <CreateProjectDialog
+          open={open}
+          setOpen={setOpen}
+          handleClose={clickHandler}
+        />
+      )}
       <div className="mt-28">
-        <h1 className="font-bold text-light text-[48px] lg:text-[68px]">Projects</h1>
+        <h1 className="font-bold text-light text-[48px] lg:text-[68px]">
+          Projects
+        </h1>
       </div>
       <div className="flex flex-col items-center md:w-3/4 md:flex-none md:items-start">
-      
-        <button className="md:ms-3 bg-secondary text-light py-2 px-4 rounded-md font-semibold md:text-[24px] m-8 shadow-md " onClick={clickHandler} >
+        <button
+          className="md:ms-3 bg-secondary text-light py-2 px-4 rounded-md font-semibold md:text-[24px] m-8 shadow-md "
+          onClick={clickHandler}
+        >
           Create New Project
         </button>
     
@@ -57,13 +65,10 @@ const CreateProjectPage = () => {
                 <td className="px-5 py-3">{item.projectName}</td>
                 <td className="px-5 py-3">{item.totalTime.substring(0,item.totalTime.length-4).concat(':',(item.totalTime.substring(item.totalTime.length-4,item.totalTime.length-2)).concat(':',item.totalTime.substring(item.totalTime.length-2,item.totalTime.length)))}</td>
               </tr>
-            )
-          }
-         
-           </tbody>
-       
-        </table>
-      </div>
+           )}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   );
