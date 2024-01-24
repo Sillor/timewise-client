@@ -1,21 +1,42 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
 * {
-  font-family: 'Inter', sans-serif;
+  font-family: "Inter", sans-serif;
 }
 
-html {
+html,
+body {
+  display: flex;
+  flex-direction: column;
   height: 100%;
+  background-attachment: fixed;
+  
 }
 
 body {
-  background-image: url('./timetracker/components/img/background.png'),
-    linear-gradient(to bottom, #2b88aa, #3d90ae, #094baf);
+  margin: 0;
+}
+
+.app-bg,
+body {
+  background-image: url(./timetracker/assets/background.png),
+    linear-gradient(
+      to bottom,
+      rgba(48, 188, 237, 100%),
+      rgba(63, 141, 169, 61.33%),
+      rgba(0, 102, 255, 25%)
+    );
+
+  background-size: cover;
   background-repeat: no-repeat;
   background-attachment: fixed;
-  background-size: cover;
-  margin: 0;
-  height: 100%;
+}
+
+.app-bg {
+  min-height: calc(100vh - 8rem);
+}
+
+.greeting-text-shadow {
+  text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
 }
