@@ -20,11 +20,17 @@ const Users = () => {
     sessionStorage.setItem("users", JSON.stringify(users));
   }, [users]);
 
+  const clickHandler = () => {
+    open ? setOpen(false) : setOpen(true);
+  };
+
   function initializeForm() {
     return { name: "", email: "" }
   }
 
-  function handleCreateUser() {
+  function handleCreateUser(event) {
+    event.preventDefault();
+
     const newUser = {
       id: users.length + 1,
       name: form.name,
@@ -46,34 +52,41 @@ const Users = () => {
         <h1 className="text-[48px] font-bold mt-[43px] mb-[36px]">Users</h1>
         <button
           className="text-base font-semibold bg-orange-500 hover:bg-orange-600 w-[216px] h-[48px] rounded-[6px] shadow-[0_4px_4px_0_rgba(0,0,0,0.3)] mb-4"
-          onClick={() => setOpen(true)}
+          onClick={clickHandler}
         >
           Create New User
         </button>
 
-        <UsersDialog 
-          open={open}
-          handleClose={() => setOpen(false)}
-          handleCreateUser={handleCreateUser}
-          form={form}
-          setForm={setForm}
-        />
+        {open && (
+          <UsersDialog
+            handleClose={clickHandler}
+            handleCreateUser={handleCreateUser}
+            form={form}
+            setForm={setForm}
+          />
+        )}
 
         <table className="table-auto text-left max-w-72 sm:min-w-96 md:min-w-[650px] lg:min-w-[950px] rounded-[4px] overflow-hidden">
           <thead className="text-sm bg-gray-700">
             <tr>
               <th className="px-6 py-3">Name</th>
               <th className="px-6 py-3">Email Address</th>
-              <th className="px-6 py-3">Actions</th>
+              <th className="px-6 py-3 text-center">Actions</th>
             </tr>
           </thead>
           <tbody>
             {users.map((user) => (
-              <tr key={user.id} className="border-t bg-gray-800 border-gray-700">
+              <tr
+                key={user.id}
+                className="border-t bg-gray-800 border-gray-700"
+              >
                 <td className="px-6 py-3 break all">{user.name}</td>
                 <td className="px-6 py-3 break-all">{user.email}</td>
                 <td className="px-6 py-3 text-center">
-                  <span className="material-symbols-outlined cursor-pointer select-none" onClick={() => handleDeleteUser(user.id)}>
+                  <span
+                    className="material-symbols-outlined cursor-pointer select-none"
+                    onClick={() => handleDeleteUser(user.id)}
+                  >
                     delete
                   </span>
                 </td>

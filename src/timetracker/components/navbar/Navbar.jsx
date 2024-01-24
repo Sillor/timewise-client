@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 import Logo from "../../assets/logo.png";
@@ -8,12 +8,12 @@ import AvatarIcon from "../../assets/AvatarIcon.jsx";
 import { isLoggedIn as checkLoggedIn } from "../../utils/authHandler.js";
 
 export default function Navbar() {
-  const [isOpen, setIsOpen] = useState(false);
-
+  const menuIcon = useRef(null);
   const isLoggedIn = checkLoggedIn();
+  const [openSidebar, setOpenSidebar] = useState(false);
 
   function toggleSidebar() {
-    setIsOpen((prev) => !prev);
+    setOpenSidebar(!openSidebar);
   }
 
   return (
@@ -27,11 +27,19 @@ export default function Navbar() {
               onKeyDown={(event) =>
                 event.key === "Enter" && event.currentTarget.click()
               }
+              ref={menuIcon}
             >
               <HamburgerMenu className="h-8 w-8" />
             </div>
             <div className="text-xl lg:text-2xl font-bold flex flex-grow items-center ms-5">
-              <Link to="/">TimeWise</Link>
+              <Link
+                to="/"
+                onClick={() => {
+                  openSidebar && setOpenSidebar(false);
+                }}
+              >
+                TimeWise
+              </Link>
             </div>
             <div className="text-primary">
               <Link to="/account">
@@ -50,7 +58,13 @@ export default function Navbar() {
           </>
         )}
       </div>
-      {isLoggedIn && <Sidebar isOpen={isOpen} setIsOpen={setIsOpen} />}
+      {isLoggedIn && (
+        <Sidebar
+          open={openSidebar}
+          handleToggle={setOpenSidebar}
+          focusMenu={menuIcon}
+        />
+      )}
     </nav>
   );
 }
