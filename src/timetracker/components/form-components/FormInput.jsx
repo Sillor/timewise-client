@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import PasswordEye from "./PasswordEye";
 
 export default function FormInput(props) {
+  const {type, error, className, onChange, placeholder, ...others} = props
   const isPassword = props.type === "password";
   const [isHidden, setIsHidden] = useState(true);
 
@@ -14,25 +15,25 @@ export default function FormInput(props) {
     <div className="form-input--error-popup absolute w-6 h-6 bg-red-500 -left-8 rounded-full flex items-center justify-center group">
       <span>!</span>
       <div className="form-input--error-message hidden absolute left-7 z-10 bg-red-500 rounded-md px-2 min-w-60 text-center group-hover:block group-active:block">
-        {typeof props.error === "string"
-          ? props.error
-          : JSON.stringify(props.error)}
+        {typeof error === "string"
+          ? error
+          : JSON.stringify(error)}
       </div>
     </div>
   );
   return (
-    <div className="form-input flex items-center w-[242px] h-[34px] [&:not(:last-of-type)]:mb-[15px] bg-white rounded-md">
-      {props.error && errorDiv}
+    <div className={`form-input relative flex items-center w-[242px] h-[34px] bg-white rounded-md ${className}`}>
+      {error && errorDiv}
       <input
-        className={`w-full h-full text-dark rounded-l-md indent-[11px] outline-secondary outline-2 only:rounded-r-md focus-visible:outline`}
+        className={`w-full h-full text-dark rounded-l-md indent-[11px] outline-secondary outline-2 ${!isPassword?"rounded-r-md":""} focus-visible:outline`}
         type={
-          (props.type &&
-            (isPassword ? (isHidden ? "password" : "text") : props.type)) ||
+          (type &&
+            (isPassword ? (isHidden ? "password" : "text") : type)) ||
           "text"
         }
-        value={props.value ? props.value : null}
-        placeholder={props.placeholder ? props.placeholder : ""}
-        onChange={props.onChange}
+        placeholder={placeholder ? placeholder : ""}
+        onChange={onChange}
+        {...others}
       />
       {isPassword && (
         <button
@@ -49,7 +50,7 @@ export default function FormInput(props) {
 
 FormInput.propTypes = {
   type: PropTypes.string,
-  value: PropTypes.string,
+  className: PropTypes.string,
   placeholder: PropTypes.string,
   error: PropTypes.string,
   onChange: PropTypes.func,

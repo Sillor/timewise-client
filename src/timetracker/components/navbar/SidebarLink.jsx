@@ -1,13 +1,13 @@
 import { Link } from "react-router-dom";
 
-export default function SidebarLink({ to, name, icon, handleToggle }) {
+export default function SidebarLink({ to, name, icon, open, handleToggle }) {
   return (
     <Link
       to={to}
       className={
         "flex items-center rounded-e-md pe-2 hover:bg-zinc-700 focus:bg-zinc-700"
       }
-      tabIndex={2}
+      tabIndex={open ? 1 : -1}
       onClick={() => {
         handleToggle(false);
       }}

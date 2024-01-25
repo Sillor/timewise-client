@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import FormInput from '../../components/form-components/FormInput';
+import { useNavigate, Link } from 'react-router-dom';
+import PasswordInput from './Password';
 import { login } from '../../utils/authHandler';
+import Button from "../../components/button-component/Button";
+import FormInput from "../../components/form-components/FormInput";
 import './Login.css';
 
 function SignIn() {
@@ -27,27 +29,26 @@ function SignIn() {
 
   return (
     <div className="text-center">
-      <h1 className="text-4xl mb-8 lg:text-6xl lg:mb-10">Sign In</h1>
-      <FormInput type="text" placeholder="Email address" onChange={handleEmailOnChange}/>
-      <FormInput type="password" placeholder="Password" onChange={handlePasswordOnChange}/>
+      <h1 className="text-5xl mb-8 font-bold">Sign In</h1>
+      <div className="flex flex-col gap-4">
+        <FormInput type="email" placeholder="Email address" value={email} onChange={handleEmailOnChange}/>
+        <FormInput type="password" placeholder="Password" value={password} onChange={handlePasswordOnChange}/>
+      </div>
       <h2>
         <Link
-          className="text-xs lg:text-xs text-sky-500 underline pl-28 lg:pl-28"
+          className="text-xs lg:text-xs text-primary underline pl-28 lg:pl-28"
           to="/resetpassword"
         >
           Forgot your password?
         </Link>
       </h2>
       {errorMessage && <p className="text-red-500">{errorMessage}</p>}
-      <button
-        className="bg-amber-500 rounded-md px-24 py-2.5 mt-5 mb-1.5"
-        onClick={handleSubmitOnClick}
-      >
+      <Button className="w-full py-2.5 mt-5 mb-1.5 font-bold" onClick={handleSignIn}>
         Sign In
-      </button>
+      </Button>
       <h2 className="mt-2.5">
-        New user?{' '}
-        <Link className="text-sky-500 underline" to="/register">
+        New user?{" "}
+        <Link className="text-primary underline" to="/register">
           Sign Up
         </Link>
       </h2>
