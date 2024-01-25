@@ -7,7 +7,7 @@ function App() {
   return (
     <>
       <Navbar />
-      <div className="app-bg overflow-scroll text-light bg-dark h-full mt-16 [&>*:first-child]:min-h-full [&>*:first-child]:min-w-fit">
+      <div className="app-bg text-light bg-dark h-full mt-16 [&>*:first-child]:min-h-full [&>*:first-child]:min-w-min">
         <Outlet />
       </div>
     </>
