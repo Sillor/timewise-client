@@ -23,6 +23,7 @@ export default function Sidebar({ open, handleToggle, focusMenu }) {
       to={link.to}
       name={link.name}
       icon={link.icon}
+      open={open}
       handleToggle={handleToggle}
     />
   ));
