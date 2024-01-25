@@ -26,7 +26,7 @@ export default function PasswordResetForm({ inputData, setInputData }) {
   }
 
   return (
-    <div>
+    <>
       <FormInput
         type="password"
         placeholder="Password"
@@ -40,6 +40,6 @@ export default function PasswordResetForm({ inputData, setInputData }) {
         error={inputData.confirmPasswordError}
         onChange={handleConfirmPasswordOnChange}
       />
-    </div>
+    </>
   );
 }

@@ -30,8 +30,22 @@ export default function AccountPopupMenu({open, handleToggle, focusMenu}) {
     >
       <div className='text-sm px-10 pb-5 text-zinc-300'>email@example.com</div>
       {/* <Link to="/account" className='flex items-center px-10 text-base py-2 cursor-pointer hover:bg-zinc-700 focus:bg-zinc-700'>Account Settings</Link> */}
-      <AccountPopupLink to={"/account"} name="Account Settings" isSidebarOpen={open} closeSidebarFunc={()=>handleToggle(false)}/>
-      <div className='flex items-center px-10 text-base py-2 cursor-pointer border-t-[1px] border-zinc-600 hover:bg-zinc-700 focus:bg-zinc-700' onClick={()=>handleToggle(false)}>Log out</div>
+      <AccountPopupLink
+        to={"/account"}
+        name="Account Settings"
+        isSidebarOpen={open}
+        closeSidebarFunc={() => handleToggle(false)}
+      />
+      <div
+        className="flex items-center px-10 text-base py-2 cursor-pointer border-t-[1px] border-zinc-600 hover:bg-zinc-700 focus:bg-zinc-700"
+        tabIndex={open ? 0 : -1}
+        onClick={() => handleToggle(false)}
+        onKeyDown={(event) =>
+          event.key === "Enter" && event.currentTarget.click()
+        }
+      >
+        Log out
+      </div>
     </div>
   )
 }

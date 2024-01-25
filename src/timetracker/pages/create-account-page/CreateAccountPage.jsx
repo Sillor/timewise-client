@@ -1,8 +1,10 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import FormInput from '../../components/form-components/FormInput';
-import PasswordResetForm from '../../components/password-reset-form/PasswordResetForm';
-import './CreateAccountPage.css';
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import FormInput from "../../components/form-components/FormInput";
+import Button from "../../components/button-component/Button";
+import PasswordResetForm from "../../components/password-reset-form/PasswordResetForm";
+import "./CreateAccountPage.css";
+import Greeting from "../../components/greeting/Greeting";
 
 export default function CreateAccountPage() {
   const [inputData, setInputData] = useState({
@@ -23,11 +25,11 @@ export default function CreateAccountPage() {
       setInputData((prev) => ({
         ...prev,
         emailValue: value,
-        emailError: 'Invalid Email Format',
+        emailError: "Invalid Email Format",
       }));
       return;
     } else {
-      setInputData((prev) => ({ ...prev, emailValue: value, emailError: '' }));
+      setInputData((prev) => ({ ...prev, emailValue: value, emailError: "" }));
     }
   }
 
@@ -46,22 +48,23 @@ export default function CreateAccountPage() {
       passwordError ||
       confirmPasswordError ||
       emailError ||
-      !emailValue || 
+      !emailValue ||
       !passwordValue ||
-      !confirmPasswordValue){
+      !confirmPasswordValue
+    ) {
       return;
     }
     try {
-      const response = await fetch('http://localhost:5000/register', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: emailValue, password: passwordValue}),
+      const response = await fetch("http://localhost:5000/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: emailValue, password: passwordValue }),
       });
 
       const data = await response.json();
       setServerResponse({ message: data.message, success: data.success });
 
-      if (data.success) navigate('/tracker');
+      if (data.success) navigate("/tracker");
     } catch (error) {
       setServerResponse({
         message: `An error occurred: ${error.message}`,
@@ -71,42 +74,35 @@ export default function CreateAccountPage() {
   }
 
   return (
-    <div className="create-account min-h-full min-w-full flex items-center justify-center flex-col lg:flex-row lg:justify-evenly">
-      <div className="create-account--greeting-container">
-        <div className="greeting-text-shadow text-3xl font-bold lg:text-6xl text-center">
-          <span className="lg:block">Welcome To </span>
-          <span className="text-secondary">TimeWise</span>!
-        </div>
-      </div>
-
-      <div className="create-account--spacer hidden rounded w-[1px] h-[50vh] bg-purple-50 lg:block"></div>
-
-      <div className="create-account--body-container flex flex-col items-center">
-        <h1 className="text-5xl font-bold text-center mt-14">
+    <div className="flex items-center justify-center flex-col lg:flex-row lg:justify-evenly">
+      <Greeting start="Welcome To " highlight="TimeWise" end="!"/>
+      
+      <div className=" flex flex-col items-center">
+        <h1 className="text-5xl font-bold text-center">
           <div className="text-secondary">Create</div> Account
         </h1>
-        <form className="create-account--form flex flex-col mt-8">
+        <form className="flex flex-col mt-8 gap-4">
           <FormInput
-            type="text"
+            type="email"
             placeholder="Email Address"
             error={inputData.emailError}
             onChange={handleEmailOnChange}
           />
-          <PasswordResetForm inputData={inputData} setInputData={setInputData}/>
-          <button
-            className="bg-secondary create-account--form-button font-semibold hover:bg-amber-500"
-            type="submit"
-            action="api/register"
-            method="post"
+          <PasswordResetForm
+            inputData={inputData}
+            setInputData={setInputData}
+          />
+          <Button
+            className="mt-4 h-12 w-[242px] font-semibold"
             onClick={handleSubmit}
           >
             Create Account
-          </button>
+          </Button>
           <div className="mt-4 h-5">
             {serverResponse && (
               <div
                 className={`${
-                  serverResponse.success ? 'text-green-500' : 'text-red-500'
+                  serverResponse.success ? "text-green-500" : "text-red-500"
                 } text-center`}
               >
                 {serverResponse.message}
@@ -116,12 +112,12 @@ export default function CreateAccountPage() {
         </form>
         <div className="text-center mt-4">
           <span>Already Have An Account?</span>
-          <a
+          <Link
+            to="/login"
             className="ps-1 underline text-primary hover:text-cyan-300"
-            href="/login"
           >
             Sign In
-          </a>
+          </Link>
         </div>
       </div>
     </div>

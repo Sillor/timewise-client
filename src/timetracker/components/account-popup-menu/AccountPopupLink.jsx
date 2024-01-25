@@ -7,7 +7,7 @@ export default function AccountPopupLink({to, name, isSidebarOpen, closeSidebarF
     <Link
       to={to}
       className={"flex items-center px-10 text-base py-2 cursor-pointer hover:bg-zinc-700 focus:bg-zinc-700"}
-      tabIndex={isSidebarOpen ? 2 : -1}
+      tabIndex={isSidebarOpen ? 0 : -1}
       onClick={closeSidebarFunc}
     >
       {name}

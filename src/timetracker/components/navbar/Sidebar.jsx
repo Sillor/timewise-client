@@ -24,6 +24,7 @@ export default function Sidebar({ open, handleToggle, focusMenu }) {
       to={link.to}
       name={link.name}
       icon={link.icon}
+      open={open}
       handleToggle={handleToggle}
     />
   ));
@@ -50,7 +51,7 @@ export default function Sidebar({ open, handleToggle, focusMenu }) {
     <menu
       className={`bg-dark text-white text-xl h-[calc(100vh-64px)] 
       fixed overflow-y-auto flex flex-col transition-all pt-3 z-10 
-      shadow-dark border-r-[1px] border-gray-500 
+      shadow-dark border-r-[1px] border-gray-500 pb-10
       pe-10 [&>:not([aria-hidden])]:py-3 [&>:not([aria-hidden])]:ps-5 
       [&:has(>:focus)]:shadow-2xl
       ${open ? 'translate-x-0' : '-translate-x-full'}

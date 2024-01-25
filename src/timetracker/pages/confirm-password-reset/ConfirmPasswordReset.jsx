@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import './ConfirmPasswordReset.css';
 import { Link, useLocation } from 'react-router-dom';
 import PasswordResetForm from '../../components/password-reset-form/PasswordResetForm.jsx';
+import Button from '../../components/button-component/Button.jsx';
+import Greeting from '../../components/greeting/Greeting.jsx';
 
 function ConfirmPasswordReset() {
   const [password, setPassword] = useState('');
@@ -54,26 +56,14 @@ function ConfirmPasswordReset() {
   });
 
   return (
-    <div className="app flex justify-center items-center h-screen md:pt-30">
-      <h1 className="text-7xl text-shadow hidden md:block">
-        Forgot your
-        <br /> password?
-      </h1>
-      <hr className="border-l mx-40 h-80 hidden md:block" />
+    <div className="flex items-center justify-center flex-col lg:flex-row lg:justify-evenly lg:pt-30">
+      <Greeting start="Forgot Your " highlight="Password" end="?" />
       <div>
-        <h2 className="text-5xl mb-9 font-bold justify-center">
-          Reset
-          <br /> Password
-        </h2>
-        <form className="max-w-md w-full mx-auto" onSubmit={handleSubmit}>
-          <PasswordResetForm
-            inputData={inputData}
-            setInputData={setInputData}
-          />
-          <button type="submit" className="submit-button w-45 bg-secondary">
-            Confirm
-          </button>
-          <p
+      <h2 className="text-5xl mb-9 font-bold justify-center text-center">Reset<br /> Password</h2>
+        <form className="flex flex-col gap-4 max-w-md w-full mx-auto" onSubmit={handleSubmit}>
+                    <PasswordResetForm inputData={inputData} setInputData={setInputData}/>
+                    <Button type="submit" className="w-45 h-12 mt-4">Confirm</Button>
+                    <p
             className={
               'text-center ' +
               (message.success ? 'text-green-500' : 'text-red-500')
@@ -82,11 +72,9 @@ function ConfirmPasswordReset() {
             {message.text}
           </p>
           <div className="flex justify-center">
-            <h5>New user? </h5>
-            <Link to="/register" className="ml-1 text-blue-400 underline">
-              {' '}
-              Sign Up
-            </Link>
+          <div className="flex justify-center">
+                        <h5>New user? </h5>
+                        <Link to="/register" className="ml-1 text-primary underline"> Sign Up</Link>
           </div>
         </form>
       </div>
