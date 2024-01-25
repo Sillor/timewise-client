@@ -22,7 +22,7 @@ export default function FormInput(props) {
     </div>
   );
   return (
-    <div className={`form-input flex items-center w-[242px] h-[34px] bg-white rounded-md ${className}`}>
+    <div className={`form-input relative flex items-center w-[242px] h-[34px] bg-white rounded-md ${className}`}>
       {error && errorDiv}
       <input
         className={`w-full h-full text-dark rounded-l-md indent-[11px] outline-secondary outline-2 ${!isPassword?"rounded-r-md":""} focus-visible:outline`}
