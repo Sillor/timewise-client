@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from  "react";
 import "./MainContent.css";
 import EntryItem from "../../components/entry-item-component/EntryItem";
+import Button from "../../components/button-component/Button";
 
 function MainContent() {
   const [inputs, setInputs] = useState({
@@ -139,12 +140,7 @@ function randomNumber(){
             </div>
           </div>
           <div className="w-full flex justify-center">
-            <button
-              type="submit"
-              className="py-2 w-10/12 lg:py-2 lg:px-4 lg:w-2/5 bg-yellow-500 hover:bg-yellow-600 text-white rounded-lg"
-            >
-              Submit
-            </button>
+            <Button type="submit" className="py-2 w-10/12 h-10 lg:py-2 lg:px-4 lg:w-2/5 !font-normal">Submit</Button>
           </div>
         </form>
         <div>

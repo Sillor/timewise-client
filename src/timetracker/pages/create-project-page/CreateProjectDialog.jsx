@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 import { useState, useEffect } from "react";
+import Button from "../../components/button-component/Button";
 
 const CreateProjectDialog = (props) => {
   useEffect(() => {
@@ -54,19 +55,19 @@ const CreateProjectDialog = (props) => {
         </div>
         <div className="flex justify-between space-x-5">
           {/* Cancel button */}
-          <button
-            className="bg-[#303036] text-light py-2 px-2 md:px-4 rounded-md font-semibold shadow-md w-full"
+          <Button
+            className="!bg-[#303036] hover:!bg-[#3c3c3f] py-2 px-2 md:px-4 font-semibold shadow-md w-full"
             onClick={props.handleClose}
           >
             Cancel
-          </button>
+          </Button>
           {/* Create project button */}
-          <button
-            className="bg-secondary text-light px-2 py-2 md:px-4 rounded-md font-semibold shadow-md w-full"
+          <Button
+            className="px-2 py-2 md:px-4 font-semibold shadow-md w-full"
             onClick={submitHandler}
           >
             Create Project
-          </button>
+          </Button>
         </div>
       </div>
     </div>
