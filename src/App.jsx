@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import { Outlet, useNavigate } from "react-router";
 import Navbar from "./timetracker/components/navbar/Navbar.jsx";
-import { history } from "./timetracker/utils/authHandler.js";
+import { authData, getEmail } from "./timetracker/utils/authHandler.js";
 import "./App.css";
 
 function App() {
-  history.navigate = useNavigate();
+  authData.navigate = useNavigate();
+  [authData.email, authData.setEmail] = useState(getEmail())
   return (
     <>
       <Navbar />

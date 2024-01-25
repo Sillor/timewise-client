@@ -73,7 +73,7 @@ const router = createBrowserRouter([
           },
           {
             path: "/account",
-            element: <div>account <button onClick={async ()=>(await import("./timetracker/utils/authHandler.js")).logout()}>logout</button></div>,
+            element: <div>account</div>,
           },
           {
             path: "/projects",

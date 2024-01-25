@@ -1,21 +1,25 @@
-export const history = {
+export const authData = {
   navigate: null,
+  email: null,
+  setEmail: null,
 };
 
-function setIsAuthenticated(value) {
-  if (value) {
-    sessionStorage.setItem("timewise_is_authenticated", true);
+function setEmail(email) {
+  if (email) {
+    localStorage.setItem("timewise_email", email);
+    authData.setEmail(email);
   } else {
-    sessionStorage.removeItem("timewise_is_authenticated");
+    localStorage.removeItem("timewise_email");
+    authData.setEmail(null);
   }
 }
 
-function getIsAuthenticated() {
-  return !!sessionStorage.getItem("timewise_is_authenticated");
+export function getEmail() {
+  return localStorage.getItem("timewise_email") || null;
 }
 
 export function isLoggedIn() {
-  return getIsAuthenticated();
+  return !!getEmail();
 }
 
 export async function register(email, password) {
@@ -28,8 +32,8 @@ export async function register(email, password) {
 
     const data = await response.json();
     if (data.success) {
-      setIsAuthenticated(true);
-      history.navigate("/tracker");
+      setEmail(email);
+      authData.navigate("/tracker");
     }
     return data;
   } catch (error) {
@@ -50,8 +54,8 @@ export async function login(email, password) {
     });
     const data = await response.json();
     if (data.success) {
-      setIsAuthenticated(true);
-      history.navigate("/tracker");
+      setEmail(email);
+      authData.navigate("/tracker");
     }
     return data;
   } catch (error) {
@@ -65,11 +69,29 @@ export async function login(email, password) {
 export async function logout() {
   try {
     await fetch("http://localhost:5000/logout", {
-      method: "POST"
-    })
-    setIsAuthenticated(false);
-    return history.navigate("/login");
+      method: "POST",
+    });
+    setEmail(null);
+    return authData.navigate("/login");
+  } catch (error) {
+    return {
+      success: false,
+      message: `An error occurred: ${error.message}`,
+    };
+  }
+}
 
+export async function resetPassword(data) {
+  try {
+    const response = await fetch('http://localhost:5000/reset', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    });
+  
+    return response.json();
   } catch (error) {
     return {
       success: false,

@@ -2,19 +2,8 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Button from "../../components/button-component/Button"
 import FormInput from '../../components/form-components/FormInput';
+import { resetPassword } from '../../utils/authHandler';
 import './ResetPassword.css';
-
-async function resetPassword(data) {
-  const response = await fetch('http://localhost:5000/reset', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(data),
-  });
-
-  return response.json();
-}
 
 function ResetPassword() {
   const [message, setMessage] = useState(null);
@@ -41,8 +30,8 @@ function ResetPassword() {
             Enter the email address associated with your account and a link will
             be sent to reset your password.
           </p>
-          <label className="text-black">
-            <FormInput type="email" placeholder="Email address" pattern="^[a-zA-Z0-9._\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}$" required className="!w-full mb-4"/>
+          <label className="text-black" htmlFor='email'>
+            <FormInput type="email" placeholder="Email address" name="email" pattern="^[a-zA-Z0-9._\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}$" required className="!w-full mb-4"/>
           </label>
           <Button type="submit" className="w-full h-12 my-4">Submit</Button>
           {message && (

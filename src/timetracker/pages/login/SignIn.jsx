@@ -43,7 +43,7 @@ function SignIn() {
         </Link>
       </h2>
       {errorMessage && <p className="text-red-500">{errorMessage}</p>}
-      <Button className="w-full py-2.5 mt-5 mb-1.5 font-bold" onClick={handleSignIn}>
+      <Button className="w-full py-2.5 mt-5 mb-1.5 font-bold" onClick={handleSubmitOnClick}>
         Sign In
       </Button>
       <h2 className="mt-2.5">
