@@ -9,7 +9,7 @@ import AccountPopupMenu from "../account-popup-menu/AccountPopupMenu.jsx";
 
 export default function Navbar() {
   const menuIcon = useRef(null);
-  const accountIcon = useRef(null)
+  const accountIcon = useRef(null);
   const isLoggedIn = true;
   const [openSidebar, setOpenSidebar] = useState(false);
   const [openAccountMenu, setOpenAccountMenu] = useState(false);
@@ -28,7 +28,10 @@ export default function Navbar() {
         {isLoggedIn ? (
           <>
             <div
-              onClick={toggleSidebar}
+              onClick={() => {
+                toggleSidebar();
+                openAccountMenu && setOpenAccountMenu(false);
+              }}
               tabIndex="1"
               onKeyDown={(event) =>
                 event.key === "Enter" && event.currentTarget.click()
@@ -39,19 +42,28 @@ export default function Navbar() {
             </div>
             <div className="text-xl lg:text-2xl font-bold flex flex-grow items-center ms-5">
               <Link
+                tabIndex="0"
                 to="/"
                 onClick={() => {
+                  // openAccountMenu && setOpenAccountMenu(false);
                   openSidebar && setOpenSidebar(false);
                 }}
               >
                 TimeWise
               </Link>
             </div>
-            <div onClick={()=>{
-              openSidebar && setOpenSidebar(false)
+            <div
+              tabIndex="0"
+              onClick={() => {
+                openSidebar && setOpenSidebar(false);
 
-              toggleAccountMenu()
-              }} tabIndex="2" ref={accountIcon}>
+                toggleAccountMenu();
+              }}
+              onKeyDown={(event) =>
+                event.key === "Enter" && event.currentTarget.click()
+              }
+              ref={accountIcon}
+            >
               <AvatarIcon className="w-9 h-9 text-primary" />
               {/* <Link to="/account">
               </Link> */}

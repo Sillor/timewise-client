@@ -12,6 +12,9 @@ export default {
         dark: '#1A1A1A',
         light: '#FFFAFF'
       },
+      backgroundImage: {
+        perlin: "url(src/timetracker/assets/background.png)"
+      },
       // Add your custom animation here
       animation: {
         slideDown: 'slideDown 2s ease-in-out'
