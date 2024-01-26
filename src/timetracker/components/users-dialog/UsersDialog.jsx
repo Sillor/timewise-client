@@ -42,20 +42,6 @@ const UsersDialog = (props) => {
             props.handleClose();
           }}
         >
-          {/* Name field */}
-          <input
-            id="name"
-            type="text"
-            name="name"
-            placeholder="Name"
-            className="text-black rounded-md p-3 outline-none w-full mb-5"
-            value={props.form.name}
-            onKeyDown={handleKeyPress}
-            required
-            onChange={(event) =>
-              props.setForm({ ...props.form, name: event.target.value })
-            }
-          />
           {/* Email field */}
           <input
             id="email"
