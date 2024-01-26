@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 import { useState, useEffect } from "react";
 import Button from "../../components/button-component/Button";
+import { createProject } from "../../utils/dbHandler";
 
 const CreateProjectDialog = (props) => {
   useEffect(() => {
@@ -13,15 +14,25 @@ const CreateProjectDialog = (props) => {
     }
   }, []);
 
-  const [projectname, setProjectName] = useState({ projectname: "" });
+const { setOpen } = props;
 
-  const changeHandler = (e) => {
-    setProjectName({ [e.target.name]: e.target.value });
-  };
+const [errormsg, setErrormsg] = useState();
+const [projectname, setProjectName] = useState({ projectName: "" });
 
-  const submitHandler = (e) => {
-    e.preventDefault();
-  };
+const changeHandler = (e) => {
+  setProjectName({ [e.target.name]: e.target.value });
+};
+const submitHandler = async (e) => {
+  e.preventDefault();
+  const data = await createProject(projectname)
+  const messageData = data.message;
+  if (data.success) {
+    setOpen(false);
+    props.updateProjects()
+  } else {
+    setErrormsg(messageData);
+  }
+};
 
   function handleClick(event) {
     const dialog = document.querySelector(".dialog")
@@ -46,13 +57,22 @@ const CreateProjectDialog = (props) => {
           <input
             id="projectname"
             type="text"
-            name="projectname"
+            name="projectName"
             placeholder="Project Name"
-            className="text-black rounded-md p-3 outline-none w-full mb-5"
+            className="text-black rounded-md p-3 outline-none w-full"
             onChange={(e) => changeHandler(e)}
           ></input>
         </div>
-        <div className="flex justify-between space-x-5">
+        {/* Error message */}
+        {
+              (errormsg)?
+              <div>
+              <p className="text-red-600">{errormsg}</p>
+            </div>
+            :
+            ''
+             }
+        <div className="flex justify-between space-x-5 mt-5">
           {/* Cancel button */}
           <Button
             className="!bg-[#303036] hover:!bg-[#3c3c3f] py-2 px-2 md:px-4 font-semibold shadow-md w-full"
