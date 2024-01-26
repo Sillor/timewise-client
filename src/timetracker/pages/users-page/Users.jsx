@@ -25,9 +25,6 @@ const Users = () => {
     try {
       const response = await fetch("http://localhost:3002/loadUsers", {
         method: "GET",
-        headers: {
-          "Authorization": `Bearer ${document.cookie}`
-        },
         credentials: "include"
       })
 
@@ -50,8 +47,7 @@ const Users = () => {
       await fetch("http://localhost:3002/createUser", {
         method: "POST",
         headers: {
-          "Content-type": "application/json; charset=UTF-8",
-          "Authorization": `Bearer ${document.cookie}`
+          "Content-type": "application/json; charset=UTF-8"
         },
         body: JSON.stringify(newUser),
         credentials: "include"
@@ -70,9 +66,6 @@ const Users = () => {
     try {
       await fetch(`http://localhost:3002/deleteUser/${id}`, {
         method: "DELETE",
-        headers: {
-          "Authorization": `Bearer ${document.cookie}`
-        },
         credentials: "include"
       })
 
