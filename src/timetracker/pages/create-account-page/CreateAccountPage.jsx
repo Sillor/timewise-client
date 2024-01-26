@@ -5,6 +5,8 @@ import Button from "../../components/button-component/Button";
 import PasswordResetForm from "../../components/password-reset-form/PasswordResetForm";
 import "./CreateAccountPage.css";
 import Greeting from "../../components/greeting/Greeting";
+import { register } from "../../utils/authHandler";
+import StatusMessage from "../../components/form-components/StatusMessage";
 
 export default function CreateAccountPage() {
   const [inputData, setInputData] = useState({
@@ -15,17 +17,17 @@ export default function CreateAccountPage() {
     confirmPasswordValue: null,
     confirmPasswordError: null,
   });
-  const navigate = useNavigate();
-  const [serverResponse, setServerResponse] = useState(null);
+  const [serverResponse, setServerResponse] = useState({success: false, message: ""});
 
   function handleEmailOnChange(event) {
-    const value = event.target.value;
-    const isValidEmail = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g.test(value);
-    if (!isValidEmail) {
+
+    const value = event.currentTarget.value;
+
+    if (event.error) {
       setInputData((prev) => ({
         ...prev,
         emailValue: value,
-        emailError: "Invalid Email Format",
+        emailError: event.error,
       }));
       return;
     } else {
@@ -52,25 +54,11 @@ export default function CreateAccountPage() {
       !passwordValue ||
       !confirmPasswordValue
     ) {
+      setServerResponse({ success: false, message: "Invalid Fields" });
       return;
     }
-    try {
-      const response = await fetch("http://localhost:5000/register", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: emailValue, password: passwordValue }),
-      });
-
-      const data = await response.json();
-      setServerResponse({ message: data.message, success: data.success });
-
-      if (data.success) navigate("/tracker");
-    } catch (error) {
-      setServerResponse({
-        message: `An error occurred: ${error.message}`,
-        success: false,
-      });
-    }
+    const data = await register(emailValue, passwordValue)
+    if (!data.success) setServerResponse({success: data.success ,message: data.message})
   }
 
   return (
@@ -87,6 +75,7 @@ export default function CreateAccountPage() {
             placeholder="Email Address"
             error={inputData.emailError}
             onChange={handleEmailOnChange}
+            validate
           />
           <PasswordResetForm
             inputData={inputData}
@@ -99,15 +88,7 @@ export default function CreateAccountPage() {
             Create Account
           </Button>
           <div className="mt-4 h-5">
-            {serverResponse && (
-              <div
-                className={`${
-                  serverResponse.success ? "text-green-500" : "text-red-500"
-                } text-center`}
-              >
-                {serverResponse.message}
-              </div>
-            )}
+            <StatusMessage message={serverResponse.message} success={serverResponse.success}/>
           </div>
         </form>
         <div className="text-center mt-4">

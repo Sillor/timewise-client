@@ -4,13 +4,14 @@ import { Link } from "react-router-dom";
 import Logo from "../../assets/logo.png";
 import HamburgerMenu from "../../assets/HamburgerIcon.jsx";
 import AvatarIcon from "../../assets/AvatarIcon.jsx";
+import { isLoggedIn as checkLoggedIn } from "../../utils/authHandler.js";
 import Sidebar from "./Sidebar.jsx";
 import AccountPopupMenu from "../account-popup-menu/AccountPopupMenu.jsx";
 
-export default function Navbar() {
+export default function Navbar() {  
   const menuIcon = useRef(null);
   const accountIcon = useRef(null);
-  const isLoggedIn = true;
+  const isLoggedIn = checkLoggedIn();
   const [openSidebar, setOpenSidebar] = useState(false);
   const [openAccountMenu, setOpenAccountMenu] = useState(false);
 
