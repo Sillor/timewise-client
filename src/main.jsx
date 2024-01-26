@@ -15,6 +15,7 @@ import CreateProjectPage from "./timetracker/pages/create-project-page/CreatePro
 import PageNotFound from "./timetracker/pages/404-page/404-page.jsx";
 import ConfirmPasswordReset from "./timetracker/pages/confirm-password-reset/ConfirmPasswordReset.jsx";
 import LoginComponent from "./timetracker/pages/login/LoginComponent.jsx";
+import AccountPage from './timetracker/pages/account-page/AccountPage.jsx';
 
 function checkLoggedIn() {
   const loggedIn = isLoggedIn();
@@ -73,7 +74,7 @@ const router = createBrowserRouter([
           },
           {
             path: "/account",
-            element: <div>account</div>,
+            element: <AccountPage/>,
           },
           {
             path: "/projects",
