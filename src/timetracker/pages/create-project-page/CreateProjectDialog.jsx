@@ -21,7 +21,6 @@ const CreateProjectDialog = (props) => {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    console.log(projectname);
   };
 
   function handleClick(event) {

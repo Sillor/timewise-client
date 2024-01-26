@@ -61,7 +61,7 @@ const router = createBrowserRouter([
             }
           },
           {
-            path: "/resetpassword",
+            path: "/request-password-reset",
             element: <ResetPassword />,
           },
           {
@@ -83,7 +83,7 @@ const router = createBrowserRouter([
             }
           },
           {
-            path: "/confirmresetpassword",
+            path: "/reset-password",
             element: <ConfirmPasswordReset />,
           },
           {

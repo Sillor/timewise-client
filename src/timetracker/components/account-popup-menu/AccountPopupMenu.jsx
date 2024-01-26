@@ -1,5 +1,6 @@
 import React, {useEffect, useRef} from 'react'
 import { Link } from 'react-router-dom'
+import { authData, logout } from '../../utils/authHandler';
 import AccountPopupLink from './AccountPopupLink'
 
 export default function AccountPopupMenu({open, handleToggle, focusMenu}) {

@@ -14,8 +14,8 @@ export default function Sidebar({ open, handleToggle, focusMenu }) {
     { to: "/users", name: "Users", icon: <UsersIcon /> },
     { to: "/register", name: "Register" },
     { to: "/login", name: "Login" },
-    { to: "/resetpassword", name: "Reset Password" },
-    { to: "/confirmresetpassword", name: "Confirm password reset" },
+    { to: "/request-password-reset", name: "Reset Password" },
+    { to: "/reset-password", name: "Confirm password reset" },
     { to: "/pagenotfound", name: "Page Not Found" },
   ].map((link, i) => (
     <SidebarLink

@@ -83,19 +83,42 @@ export async function logout() {
 
 export async function resetPassword(data) {
   try {
-    const response = await fetch('http://localhost:5000/reset', {
-      method: 'POST',
+    const response = await fetch("http://localhost:5000/reset", {
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify(data),
     });
-  
+
     return response.json();
   } catch (error) {
     return {
       success: false,
-      message: `An error occurred: ${error.message}`
+      message: `An error occurred: ${error.message}`,
+    };
+  }
+}
+
+export async function confirmPasswordReset(token, password) {
+  try {
+    const response = await fetch("http://localhost:5000/reset-confirm", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ token, password: password }),
+    });
+    
+    if (response.status === 200) {
+      setTimeout(()=>{logout()},1000)
+      return { success: true, message: "Password has been reset.\nRedirecting..." };
     }
+    return { success: false, message: "Password Reset Failed" };
+  } catch (error) {
+    return {
+      success: false,
+      message: `Password Reset Failed`,
+    };
   }
 }
