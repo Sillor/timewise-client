@@ -2,31 +2,22 @@ import { useEffect, useState } from "react";
 import "./CreateProjectPage.css";
 import CreateProjectDialog from "./CreateProjectDialog";
 import Button from "../../components/button-component/Button";
+import { getProjects } from "../../utils/dbHandler";
 
 const CreateProjectPage = () => {
 
- let [open,setOpen] = useState(false)
- let [projectlist,setProjectlist] = useState()
- let clickHandler=()=>{
-  (open)?setOpen(false):setOpen(true)
- }
- useEffect(()=>{
-  let fetchData = async ()=>{
-    const response = await fetch("http://localhost:3002/loadProjects", {
-      method: "PUT",
-      headers: new Headers({
-        "Content-type": "application/json; charset=UTF-8",
-        "Authorization": `Bearer ${document.cookie}`
-      })
-    
-    })
-    let data = await response.json()
-    let projectData = data.data
-    setProjectlist(projectData)
+  const [open, setOpen] = useState(false);
+  const [projectList, setProjectList] = useState();
+  const clickHandler = () => {
+    open ? setOpen(false) : setOpen(true);
+  };
+  async function updateProjects() {
+    const projectData = await getProjects();
+    setProjectList(projectData.data);
   }
-    fetchData() 
-    
- },[])
+  useEffect(() => {
+    updateProjects();
+  }, []);
   return (
     <div className="flex flex-col items-center">
       {open && (
@@ -34,6 +25,7 @@ const CreateProjectPage = () => {
           open={open}
           setOpen={setOpen}
           handleClose={clickHandler}
+          updateProjects={updateProjects}
         />
       )}
       <div className="mt-28">
@@ -56,7 +48,7 @@ const CreateProjectPage = () => {
           </thead>
           <tbody className="text-center">
           {
-           (projectlist) && projectlist.map((item,index)=>
+           (projectList) && projectList.map((item,index)=>
               <tr key={index} className="border-t border-[#5B5B5B] bg-[#303036]">
                 <td className="px-5 py-3">{item.projectName}</td>
                 <td className="px-5 py-3">{item.totalTime.substring(0,item.totalTime.length-4).concat(':',(item.totalTime.substring(item.totalTime.length-4,item.totalTime.length-2)).concat(':',item.totalTime.substring(item.totalTime.length-2,item.totalTime.length)))}</td>

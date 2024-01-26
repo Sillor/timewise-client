@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 import { useState, useEffect } from "react";
 import Button from "../../components/button-component/Button";
+import { createProject } from "../../utils/dbHandler";
 
 const CreateProjectDialog = (props) => {
   useEffect(() => {
@@ -13,32 +14,25 @@ const CreateProjectDialog = (props) => {
     }
   }, []);
 
-const{setOpen} = props
- 
- let [errormsg,setErrormsg] = useState()
- let [projectname,setProjectName]=useState({projectName:''})
+const { setOpen } = props;
 
- let changeHandler=(e)=>{
-   setProjectName({[e.target.name]:e.target.value})
- }
- let submitHandler= async (e)=>{
-   e.preventDefault()
-   const response = await fetch("http://localhost:3002/createProject", {
-   method: "PUT",
-   body: JSON.stringify(projectname),
-   headers: new Headers({
-     "Content-type": "application/json; charset=UTF-8",
-     "Authorization": `Bearer ${document.cookie}`
-   })
- })
-   let data = await response.json()
-   let messageData = data.message
-   setErrormsg (messageData)
-   if(!messageData){
-     setOpen(false)
-     location.reload(true)
-   }
- }
+const [errormsg, setErrormsg] = useState();
+const [projectname, setProjectName] = useState({ projectName: "" });
+
+const changeHandler = (e) => {
+  setProjectName({ [e.target.name]: e.target.value });
+};
+const submitHandler = async (e) => {
+  e.preventDefault();
+  const data = await createProject(projectname)
+  const messageData = data.message;
+  if (data.success) {
+    setOpen(false);
+    props.updateProjects()
+  } else {
+    setErrormsg(messageData);
+  }
+};
 
   function handleClick(event) {
     const dialog = document.querySelector(".dialog")
