@@ -18,26 +18,26 @@ const Users = () => {
 
   // Retrieve data from database
   useEffect(() => {
-    const fetchUsers = async () => {
-      try {
-        const response = await fetch("http://localhost:3002/loadUsers", {
-          method: "GET",
-          headers: {
-            "Authorization": `Bearer ${document.cookie}`
-          },
-          credentials: "include"
-        })
-
-        const data = await response.json();
-        const usersData = data.data;
-        setUsers(usersData);
-      } catch (error) {
-        console.error("Error fetching data: ", error);
-      }
-    }
-
     fetchUsers();
   }, []);
+
+  const fetchUsers = async () => {
+    try {
+      const response = await fetch("http://localhost:3002/loadUsers", {
+        method: "GET",
+        headers: {
+          "Authorization": `Bearer ${document.cookie}`
+        },
+        credentials: "include"
+      })
+
+      const data = await response.json();
+      const usersData = data.data;
+      setUsers(usersData);
+    } catch (error) {
+      console.error("Error fetching data: ", error);
+    }
+  }
 
   const handleCreateUser = async (event) => {
     event.preventDefault();
@@ -56,7 +56,9 @@ const Users = () => {
         body: JSON.stringify(newUser),
         credentials: "include"
       });
-      window.location.reload() // TEMPORARY CODE FOR REFRESHING USERS LIST
+
+      // Update users state
+      fetchUsers();
     } catch (error) {
       console.error(error)
     }
@@ -73,7 +75,10 @@ const Users = () => {
         },
         credentials: "include"
       })
-      window.location.reload() // TEMPORARY CODE FOR REFRESHING USERS LIST
+
+      // Update users state
+      const updatedUsers = users.filter(user => user.ID != id);
+      setUsers(updatedUsers);
     } catch (error) {
       console.error(error);
     }
