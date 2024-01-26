@@ -2,15 +2,6 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
-* {
-  font-family: 'Inter', sans-serif;
-}
-
-html {
-  height: 100%;
-}
-
-
 .dialog{
   background-image: url(../../assets/background.png),
   linear-gradient(

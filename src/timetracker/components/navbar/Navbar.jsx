@@ -3,16 +3,24 @@ import { Link } from "react-router-dom";
 
 import Logo from "../../assets/logo.png";
 import HamburgerMenu from "../../assets/HamburgerIcon.jsx";
-import Sidebar from "./Sidebar.jsx";
 import AvatarIcon from "../../assets/AvatarIcon.jsx";
+import { isLoggedIn as checkLoggedIn } from "../../utils/authHandler.js";
+import Sidebar from "./Sidebar.jsx";
+import AccountPopupMenu from "../account-popup-menu/AccountPopupMenu.jsx";
 
-export default function Navbar() {
+export default function Navbar() {  
   const menuIcon = useRef(null);
-  const isLoggedIn = true;
+  const accountIcon = useRef(null);
+  const isLoggedIn = checkLoggedIn();
   const [openSidebar, setOpenSidebar] = useState(false);
+  const [openAccountMenu, setOpenAccountMenu] = useState(false);
 
   function toggleSidebar() {
     setOpenSidebar(!openSidebar);
+  }
+
+  function toggleAccountMenu() {
+    setOpenAccountMenu(!openAccountMenu);
   }
 
   return (
@@ -21,7 +29,10 @@ export default function Navbar() {
         {isLoggedIn ? (
           <>
             <div
-              onClick={toggleSidebar}
+              onClick={() => {
+                toggleSidebar();
+                openAccountMenu && setOpenAccountMenu(false);
+              }}
               tabIndex="1"
               onKeyDown={(event) =>
                 event.key === "Enter" && event.currentTarget.click()
@@ -32,37 +43,57 @@ export default function Navbar() {
             </div>
             <div className="text-xl lg:text-2xl font-bold flex flex-grow items-center ms-5">
               <Link
+                tabIndex="0"
                 to="/"
                 onClick={() => {
+                  // openAccountMenu && setOpenAccountMenu(false);
                   openSidebar && setOpenSidebar(false);
                 }}
               >
                 TimeWise
               </Link>
             </div>
-            <div className="text-primary">
-              <Link to="/account">
-                <AvatarIcon className="w-9 h-9" />
-              </Link>
+            <div
+              tabIndex="0"
+              onClick={() => {
+                openSidebar && setOpenSidebar(false);
+
+                toggleAccountMenu();
+              }}
+              onKeyDown={(event) =>
+                event.key === "Enter" && event.currentTarget.click()
+              }
+              ref={accountIcon}
+            >
+              <AvatarIcon className="w-9 h-9 text-primary" />
+              {/* <Link to="/account">
+              </Link> */}
             </div>
           </>
         ) : (
           <>
-            <Link to="/" className="flex items-center">
+            <div className="flex items-center">
               <img src={Logo} className="h-8 w-8 inline"></img>
               <span className="text-xl lg:text-2xl font-bold ms-5">
                 TimeWise
               </span>
-            </Link>
+            </div>
           </>
         )}
       </div>
       {isLoggedIn && (
-        <Sidebar
-          open={openSidebar}
-          handleToggle={setOpenSidebar}
-          focusMenu={menuIcon}
-        />
+        <>
+          <Sidebar
+            open={openSidebar}
+            handleToggle={setOpenSidebar}
+            focusMenu={menuIcon}
+          />
+          <AccountPopupMenu
+            open={openAccountMenu}
+            handleToggle={setOpenAccountMenu}
+            focusMenu={accountIcon}
+          />
+        </>
       )}
     </nav>
   );
