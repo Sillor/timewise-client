@@ -22,10 +22,10 @@ const Users = () => {
       try {
         const response = await fetch("http://localhost:3002/loadUsers", {
           method: "GET",
-          headers: new Headers({
-            "Content-type": "application/json; charset=UTF-8",
+          headers: {
             "Authorization": `Bearer ${document.cookie}`
-          })
+          },
+          credentials: "include"
         })
 
         const data = await response.json();
@@ -49,12 +49,14 @@ const Users = () => {
 
       await fetch("http://localhost:3002/createUser", {
         method: "POST",
-        body: JSON.stringify(newUser),
-        headers: new Headers({
+        headers: {
           "Content-type": "application/json; charset=UTF-8",
           "Authorization": `Bearer ${document.cookie}`
-        })
+        },
+        body: JSON.stringify(newUser),
+        credentials: "include"
       });
+      window.location.reload() // TEMPORARY CODE FOR REFRESHING USERS LIST
     } catch (error) {
       console.error(error)
     }
@@ -66,10 +68,10 @@ const Users = () => {
     try {
       await fetch(`http://localhost:3002/deleteUser/${id}`, {
         method: "DELETE",
-        headers: new Headers({
-          "Content-type": "application/json; charset=UTF-8",
+        headers: {
           "Authorization": `Bearer ${document.cookie}`
-        })
+        },
+        credentials: "include"
       })
       window.location.reload() // TEMPORARY CODE FOR REFRESHING USERS LIST
     } catch (error) {
