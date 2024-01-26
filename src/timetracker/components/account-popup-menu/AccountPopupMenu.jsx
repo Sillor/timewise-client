@@ -1,5 +1,6 @@
 import React, {useEffect, useRef} from 'react'
 import { Link } from 'react-router-dom'
+import { authData, logout } from '../../utils/authHandler';
 import AccountPopupLink from './AccountPopupLink'
 
 export default function AccountPopupMenu({open, handleToggle, focusMenu}) {
@@ -28,7 +29,7 @@ export default function AccountPopupMenu({open, handleToggle, focusMenu}) {
         shadow-dark ${!open ? "translate-x-[calc(100%+1px)]" : "shadow-lg"}`}
         ref={menuElement}
     >
-      <div className='text-sm px-10 pb-5 text-zinc-300'>email@example.com</div>
+      <div className="text-sm px-10 pb-5 text-zinc-300">{authData.email}</div>
       {/* <Link to="/account" className='flex items-center px-10 text-base py-2 cursor-pointer hover:bg-zinc-700 focus:bg-zinc-700'>Account Settings</Link> */}
       <AccountPopupLink
         to={"/account"}
@@ -39,7 +40,10 @@ export default function AccountPopupMenu({open, handleToggle, focusMenu}) {
       <div
         className="flex items-center px-10 text-base py-2 cursor-pointer border-t-[1px] border-zinc-600 hover:bg-zinc-700 focus:bg-zinc-700"
         tabIndex={open ? 0 : -1}
-        onClick={() => handleToggle(false)}
+        onClick={() => {
+          handleToggle(false);
+          logout()
+        }}
         onKeyDown={(event) =>
           event.key === "Enter" && event.currentTarget.click()
         }
