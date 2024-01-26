@@ -1,20 +1,13 @@
+export default function Button(props) {
+  const { className, type, text, children, ...other } = props;
 
-
-const Button = ({backgroundColor, border, borderRadius, padding, textColor, text}) => {
-    
-    const buttonStyle = {
-        backgroundColor: backgroundColor || '#E78B13',
-        border: border || 'none',
-        borderRadius: borderRadius || '10px',
-        padding: padding || '5px 15px',
-        color: textColor || 'white',
-        boxShadow: '0 2px 4px rgba(0,0,0,0.2)'
-    }
   return (
-    <button style={buttonStyle}>
-      {text || 'Button'}
+    <button
+      type={type || "button"}
+      className={` ${className} bg-secondary text-light rounded-md hover:bg-amber-500 active:bg-amber-600`}
+      {...other}
+    >
+      {children || text || "Button"}
     </button>
-  )
+  );
 }
-
-export default Button

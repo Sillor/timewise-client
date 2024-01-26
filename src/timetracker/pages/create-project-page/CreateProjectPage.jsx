@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import "./CreateProjectPage.css";
 import CreateProjectDialog from "./CreateProjectDialog";
+import Button from "../../components/button-component/Button";
 
 const CreateProjectPage = () => {
 
@@ -41,12 +42,7 @@ const CreateProjectPage = () => {
         </h1>
       </div>
       <div className="flex flex-col items-center md:w-3/4 md:flex-none md:items-start">
-        <button
-          className="md:ms-3 bg-secondary text-light py-2 px-4 rounded-md font-semibold md:text-[24px] m-8 shadow-md "
-          onClick={clickHandler}
-        >
-          Create New Project
-        </button>
+        <Button className="md:ms-3 py-2 px-4 font-semibold m-8 shadow-md" onClick={clickHandler}>Create New Project</Button>
     
    
       <div className="md:w-full">

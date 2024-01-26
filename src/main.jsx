@@ -5,31 +5,38 @@ import {
   redirect,
   RouterProvider,
 } from "react-router-dom";
+import { isLoggedIn } from "./timetracker/utils/authHandler.js";
 import App from "./App.jsx";
 import CreateAccountPage from "./timetracker/pages/create-account-page/CreateAccountPage.jsx";
 import MainContent from "./timetracker/pages/MainContent/MainContent.jsx"
 import ResetPassword from "./timetracker/pages/reset-password/ResetPassword.jsx";
 import Users from "./timetracker/pages/users-page/Users.jsx";
 import CreateProjectPage from "./timetracker/pages/create-project-page/CreateProjectPage.jsx";
-import PageNotFound from './timetracker/pages/404-page/404-page.jsx'
+import PageNotFound from "./timetracker/pages/404-page/404-page.jsx";
 import ConfirmPasswordReset from "./timetracker/pages/confirm-password-reset/ConfirmPasswordReset.jsx";
 import LoginComponent from "./timetracker/pages/login/LoginComponent.jsx";
+
+function checkLoggedIn() {
+  const loggedIn = isLoggedIn();
+  if (loggedIn) return { loggedIn };
+  return redirect("/login");
+}
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
-    errorElement: <PageNotFound/>,
+    errorElement: <PageNotFound />,
     children: [
       {
-        errorElement: <PageNotFound/>,
+        errorElement: <PageNotFound />,
         children: [
           {
             index: true,
             loader: async () => {
-              const isLoggedIn = true;
-              if (isLoggedIn) return redirect("/tracker");
-              else return redirect("/login");
+              const loggedIn = isLoggedIn();
+              if (loggedIn) return redirect("/tracker");
+              return redirect("/login");
             },
             // possibly replace with splash page
             element: (
@@ -48,15 +55,21 @@ const router = createBrowserRouter([
           },
           {
             path: "/users",
-            element: <Users />
+            element: <Users />,
+            loader: () => {
+              return checkLoggedIn();
+            }
           },
           {
-            path: "/resetpassword",
+            path: "/request-password-reset",
             element: <ResetPassword />,
           },
           {
             path: "/tracker",
             element: <MainContent/>,
+            loader: () => {
+              return checkLoggedIn();
+            },
           },
           {
             path: "/account",
@@ -65,14 +78,17 @@ const router = createBrowserRouter([
           {
             path: "/projects",
             element: <CreateProjectPage />,
+            loader: () => {
+              return checkLoggedIn();
+            }
           },
           {
-            path: "/confirmresetpassword",
+            path: "/reset-password",
             element: <ConfirmPasswordReset />,
           },
           {
             path: "/*",
-            element: <PageNotFound/>
+            element: <PageNotFound />,
           },
         ],
       },
@@ -80,7 +96,7 @@ const router = createBrowserRouter([
   },
 ]);
 
-ReactDOM.createRoot(document.getElementById('root')).render(
+ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <RouterProvider router={router} />
   </React.StrictMode>
