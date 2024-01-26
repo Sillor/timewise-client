@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import Button from "../../components/button-component/Button"
+import FormInput from '../../components/form-components/FormInput';
 import './ResetPassword.css';
 
 async function resetPassword(data) {
@@ -40,21 +42,9 @@ function ResetPassword() {
             be sent to reset your password.
           </p>
           <label className="text-black">
-            <input
-              name="email"
-              type="email"
-              placeholder="Email address"
-              pattern="^[a-zA-Z0-9._\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}$"
-              required
-              className="w-full h-[34px] mb-4 rounded-md px-2 text-dark"
-            />
+            <FormInput type="email" placeholder="Email address" pattern="^[a-zA-Z0-9._\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}$" required className="!w-full mb-4"/>
           </label>
-          <button
-            type="submit"
-            className="bg-secondary text-light w-full h-[48px] mb-4 rounded-md active:bg-yellow-700"
-          >
-            Submit
-          </button>
+          <Button type="submit" className="w-full h-12 my-4">Submit</Button>
           {message && (
             <p
               className={`text-center mx-auto ${messageSuccess ? 'text-green-500' : 'text-red-500'

@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import UsersDialog from "../../components/users-dialog/UsersDialog";
+import Button from "../../components/button-component/Button";
 
 const Users = () => {
   const [open, setOpen] = useState(false);
@@ -80,13 +81,13 @@ const Users = () => {
     <div className="min-h-screen text-white p-4">
       <div className="flex flex-col items-center">
         <h1 className="text-[48px] font-bold mt-[43px] mb-[36px]">Users</h1>
-        <button
-          className="text-base font-semibold bg-orange-500 hover:bg-orange-600 w-[216px] h-[48px] rounded-[6px] shadow-[0_4px_4px_0_rgba(0,0,0,0.3)] mb-4"
+        <Button
+          className="text-base font-semibold w-[216px] h-12 shadow-md mb-4"
           onClick={clickHandler}
         >
           Create New User
-        </button>
-
+        </Button>
+        
         {open && (
           <UsersDialog
             handleClose={clickHandler}

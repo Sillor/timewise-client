@@ -1,13 +1,12 @@
 import React from 'react';
 import './Login.css'
-import LogInWords from './loginwords.jsx';
 import SignIn from './SignIn.jsx';
+import Greeting from '../../components/greeting/Greeting.jsx';
 
 function LoginComponent() {
   return (
-    <div className='lg:flex lg:flex-row lg:justify-evenly lg:items-center lg:pb-0 flex flex-col justify-center items-center pb-64'>
-      <LogInWords/>
-      <span className="lg:h-96 lg:w-px lg:bg-white"></span>
+    <div className='flex items-center justify-center flex-col lg:flex-row lg:justify-evenly'>
+      <Greeting start="Welcome To " highlight="TimeWise" end="!"/>
       <SignIn/>
     </div>
   );

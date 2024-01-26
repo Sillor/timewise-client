@@ -11,15 +11,16 @@ body {
   flex-direction: column;
   height: 100%;
   background-attachment: fixed;
-  
+  background-color: #1A1A1A;  
 }
 
 body {
   margin: 0;
 }
 
-.app-bg,
-body {
+html,
+body,
+.app-bg {
   background-image: url(./timetracker/assets/background.png),
     linear-gradient(
       to bottom,
