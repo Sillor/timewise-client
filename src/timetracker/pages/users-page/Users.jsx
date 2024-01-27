@@ -99,11 +99,11 @@ const Users = () => {
           />
         )}
 
-        <table className="table-auto text-left max-w-72 sm:min-w-96 md:min-w-[650px] lg:min-w-[950px] rounded-[4px] overflow-hidden">
+        <table className="table-auto text-left max-w-72 sm:min-w-96 md:min-w-[450px] lg:min-w-[550px] rounded-[4px] overflow-hidden">
           <thead className="text-sm bg-gray-700">
             <tr>
               <th className="px-6 py-3">Email Address</th>
-              <th className="px-6 py-3 text-center">Actions</th>
+              <th className="px-6 md:px-0 py-3 text-center">Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -113,7 +113,7 @@ const Users = () => {
                 className="border-t bg-gray-800 border-gray-700"
               >
                 <td className="px-6 py-3 break-all">{user.email}</td>
-                <td className="px-6 py-3 text-center">
+                <td className="px-6 md:px-0 py-3 text-center">
                   <span
                     className="material-symbols-outlined cursor-pointer select-none"
                     onClick={() => handleDeleteUser(user.ID)}
