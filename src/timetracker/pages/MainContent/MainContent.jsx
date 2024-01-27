@@ -1,85 +1,141 @@
-import React, { useState, useEffect } from  "react";
+import React, { useState, useEffect } from "react";
 import "./MainContent.css";
 import EntryItem from "../../components/entry-item-component/EntryItem";
 import Button from "../../components/button-component/Button";
+import StatusMessage from "../../components/form-components/StatusMessage";
+import { createEntry, getEntries, getProjects } from "../../utils/dbHandler";
+import {
+  getSqlDatetime,
+  joinDateAndTime,
+  shortDate,
+  shortTime,
+} from "../../utils/dateFormatter";
 
 function MainContent() {
   const [inputs, setInputs] = useState({
     Summary: "",
     Project: "",
-    TimeStart: "",
-    TimeEnd: "",
+    TimeStart: getCurrentTime(),
+    TimeEnd: getCurrentTime(),
     Date: "",
-    id: 12312414
   });
   const [submittedData, setSubmittedData] = useState([]);
+  const [projects, setProjects] = useState([])
+  const [animateNewItem, setAnimateNewItem] = useState(false);
+  const [errorMessage, setErrorMessage] = useState({
+    success: false,
+    message: "",
+  });
+
+  useEffect(() => {
+    const dateInput = document.getElementById("dateInput");
+    if (dateInput.value === "") {
+      dateInput.type = "text";
+    }
+    updateEntires();
+    updateProjects();
+  }, []);
+
+  async function updateEntires() {
+    const res = await getEntries();
+    const data = res.data.toReversed();
+    const entries = data.map((entry, i) => {
+      const start = new Date(entry.start);
+      const end = new Date(entry.end);
+      return {
+        key: i,
+        Date: shortDate(start, true),
+        Project: entry.parentProject,
+        Hours: `${shortTime(start)} - ${shortTime(end)}`,
+        Description: entry.summary,
+        id: entry.localID,
+      };
+    });
+    setSubmittedData(entries);
+  }
+
+  async function updateProjects() {
+    const res = await getProjects()
+    const projectNames = res.data.map(project=>project.projectName)
+    setProjects(projectNames)
+  }
+
+  function getCurrentTime() {
+    return new Date().toTimeString().split(":").slice(0, 2).join(":");
+  }
 
   const handleFocus = (e) => {
     e.target.placeholder = "";
     e.target.type = "date";
     e.target.style.color = "black";
-}
+  };
 
-const handleBlur = (e) => {
-    if (!e.target.value){
-      e.target.placeholder = "Today"
-       e.target.type = "text"
-      }
-}
-
-useEffect(() => {
-    const dateInput = document.getElementById("dateInput");
-    if (dateInput.value === "") {
-        dateInput.type = "text";
+  const handleBlur = (e) => {
+    if (!e.target.value) {
+      e.target.placeholder = "Today";
+      e.target.type = "text";
     }
-}, []);
+  };
 
   const handleInputChange = (e) => {
-    setInputs({ ...inputs, [e.target.name]: e.target.value });
+    let { name, value } = e.target;
+    if (!value && name === "Date") {
+      value = new Date().toLocaleDateString();
+    }
+    setInputs({ ...inputs, [e.target.name]: value });
   };
 
-
-
-
-  const [animateNewItem, setAnimateNewItem] = useState(false)
-
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setAnimateNewItem(true);     //trigger animation
-    const newEntry = {
-      key: new Date().getTime(), 
-      Date: inputs.Date,
-      Project: inputs.Project,
-      Hours: `${inputs.TimeStart} - ${inputs.TimeEnd}`,
-      Description: inputs.Summary,
-      id: randomNumber(),
-  };
-    
-    setSubmittedData([...submittedData, newEntry]);
+    setAnimateNewItem(true); //trigger animation
+
+    const validFields = Object.entries(inputs).every(([key, val]) => {
+      if (val || key === "Date") return true;
+      setErrorMessage({ success: false, message: key + " Field Empty" });
+    });
+
+    if (!validFields) return;
+
+    const date = inputs.Date || new Date().toLocaleDateString();
+    const startTime = getSqlDatetime(joinDateAndTime(date, inputs.TimeStart));
+    const endTime = getSqlDatetime(joinDateAndTime(date, inputs.TimeEnd));
+
+    const res = await createEntry({
+      summary: inputs.Summary,
+      parentProject: inputs.Project,
+      start: startTime,
+      end: endTime,
+    });
+
+    if (!res.success) {
+      setErrorMessage({ success: res.success, message: res.message });
+      return;
+    }
+
+    // setSubmittedData([newEntry, ...submittedData]);
+    updateEntires();
     setInputs({
       Summary: "",
       Project: "",
-      TimeStart: "",
-      TimeEnd: "",
+      TimeStart: getCurrentTime(),
+      TimeEnd: getCurrentTime(),
       Date: "",
-      id: "",
     });
+    setErrorMessage({ success: false, message: "" });
 
     setTimeout(() => setAnimateNewItem(false), 2000);
   };
 
-
-function deleteProject(id) {
-    if(id) {
-            setSubmittedData(prevData => prevData.filter(item => item.id !== id))
+  function deleteProject(id) {
+    if (id) {
+      setSubmittedData((prevData) => prevData.filter((item) => item.id !== id));
     }
-}
+  }
 
-function randomNumber(){
+  function randomNumber() {
     const number = Math.ceil(Math.random() * 10000000);
-    return number
-}
+    return number;
+  }
 
   return (
     <div className="appContainer">
@@ -100,13 +156,23 @@ function randomNumber(){
               />
             </div>
             <div className="Project w-[25%] lg:w-1/5">
-              <input
+              {/* <input
                 className="w-full p-2 rounded-lg hover:shadow-lg"
                 name="Project"
                 value={inputs.Project}
                 onChange={handleInputChange}
                 placeholder="Project"
-              />
+              /> */}
+              <label htmlFor="Project"></label>
+              <select defaultValue={""} name="Project" className="w-full p-2 rounded-lg hover:shadow-lg text-dark" onChange={handleInputChange}>
+                <option disabled value="" className="hidden">Project</option>
+                {
+                  projects.length ?
+                  projects.map((project)=>{
+                    return <option key={project} value={project}>{project}</option>
+                  }) : <option disabled value="">You Have No Projects</option>
+                }
+              </select>
             </div>
           </div>
           <div className="TimeFields flex justify-between items-center gap-[2px] lg:gap-[14px]">
@@ -139,19 +205,35 @@ function randomNumber(){
               />
             </div>
           </div>
-          <div className="w-full flex justify-center">
-            <Button type="submit" className="py-2 w-10/12 h-10 lg:py-2 lg:px-4 lg:w-2/5 !font-normal">Submit</Button>
+          <StatusMessage
+            success={errorMessage.success}
+            message={errorMessage.message}
+            className={"!text-black"}
+          />
+          <div className="w-full flex justify-center ">
+            <Button
+              type="submit"
+              className="py-2 w-10/12 h-10 lg:py-2 lg:px-4 lg:w-2/5 !font-normal"
+            >
+              Submit
+            </Button>
           </div>
         </form>
         <div>
-        {submittedData.map((value, index) => {
-  return <EntryItem 
-    props={value} 
-    deleteFn={deleteProject} 
-    key={value.key}
-    className={index === submittedData.length - 1 && animateNewItem ? 'animate-slideDown' : ""}  //handles animation placement
-  />;
-})}
+          {submittedData.map((value, index) => {
+            return (
+              <EntryItem
+                props={value}
+                deleteFn={deleteProject}
+                key={value.key}
+                className={
+                  index === submittedData.length - 1 && animateNewItem
+                    ? "animate-slideDown"
+                    : ""
+                } //handles animation placement
+              />
+            );
+          })}
         </div>
       </div>
     </div>
