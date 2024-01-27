@@ -23,7 +23,7 @@ const Users = () => {
 
   const fetchUsers = async () => {
     try {
-      const response = await fetch("http://localhost:3002/loadUsers", {
+      const response = await fetch("http://localhost:5001/loadUsers", {
         method: "GET",
         credentials: "include"
       })
@@ -36,15 +36,13 @@ const Users = () => {
     }
   }
 
-  const handleCreateUser = async (event) => {
-    event.preventDefault();
-
+  const handleCreateUser = async () => {
     try {
       const newUser = {
         email: form.email,
       };
 
-      await fetch("http://localhost:3002/createUser", {
+      const response = await fetch("http://localhost:5001/createUser", {
         method: "POST",
         headers: {
           "Content-type": "application/json; charset=UTF-8"
@@ -53,18 +51,22 @@ const Users = () => {
         credentials: "include"
       });
 
-      // Update users state
-      fetchUsers();
+      const data = await response.json();
+
+      if (data.success) {
+        // Update users state
+        fetchUsers();
+      } 
+
+      return data;
     } catch (error) {
       console.error(error)
     }
-
-    setForm(initializeForm());
   }
 
   const handleDeleteUser = async (id) => {
     try {
-      await fetch(`http://localhost:3002/deleteUser/${id}`, {
+      await fetch(`http://localhost:5001/deleteUser/${id}`, {
         method: "DELETE",
         credentials: "include"
       })
