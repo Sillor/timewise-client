@@ -1,0 +1,12 @@
+.entry-item--input {
+  background-color: transparent;
+  outline: 1px solid transparent;
+  margin-block: .2rem;
+}
+
+.entry-item:hover .entry-item--input,
+.entry-item:focus-within .entry-item--input {
+  transition: 0.3s;
+  outline-color:  #30BCED;
+}
+

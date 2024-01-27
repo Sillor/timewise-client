@@ -38,10 +38,18 @@ function MainContent() {
 
   async function updateEntires() {
     const res = await getEntries();
-    const data = res.data.toReversed();
+    const data = res.data;
     const entries = data.map((entry, i) => {
       const start = new Date(entry.start);
       const end = new Date(entry.end);
+      return {
+        key: i,
+        id: entry.localID,
+        summary: entry.summary,
+        start: entry.start,
+        end: entry.end,
+        parentProject: entry.parentProject,
+      }
       return {
         key: i,
         Date: shortDate(start, true),
@@ -51,7 +59,7 @@ function MainContent() {
         id: entry.localID,
       };
     });
-    setSubmittedData(entries);
+    setSubmittedData(entries.toReversed());
   }
 
   async function updateProjects() {

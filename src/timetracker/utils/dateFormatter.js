@@ -53,3 +53,13 @@ export function joinDateAndTime(date, timeStr) {
   d.setMinutes(m);
   return getSqlDatetime(d);
 }
+
+export function timeDifference(start, end) {
+  const diff = Math.abs(parseDate(end) - parseDate(start));
+
+  const h = Math.floor(diff / 3600000) + "";
+  const m = Math.floor((diff % 3600000) / 60000) + "";
+  const s = Math.floor((diff % 60000) / 1000) + "";
+
+  return `${h.padStart(2, "0")}:${m.padStart(2, "0")}:${s.padStart(2, "0")}`;
+}

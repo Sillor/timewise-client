@@ -37,6 +37,10 @@ export async function createProject(projectName) {
 
 
 // BUG backend doesn't throw if project doesn't exist
+/**
+ * 
+ * @returns {{success: boolean, message?: string, data?: {localID: string, summary: string, start: string, end: string, parentProject: string}[]}}
+ */
 export async function getEntries() {
   try {
     const response = await fetch("http://localhost:5001/loadEntries", {
