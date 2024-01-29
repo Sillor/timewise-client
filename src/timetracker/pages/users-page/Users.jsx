@@ -1,52 +1,84 @@
 import { useState, useEffect } from "react";
 import UsersDialog from "../../components/users-dialog/UsersDialog";
-import Button from "../../components/button-component/Button"
-import { usersData } from "../../../UsersData";
+import Button from "../../components/button-component/Button";
 
 const Users = () => {
   const [open, setOpen] = useState(false);
-  const [users, setUsers] = useState(usersData);
+  const [users, setUsers] = useState([]);
   const [form, setForm] = useState(initializeForm());
 
-  useEffect(() => {
-    // Retrieve data from session storage
-    const storedUsers = JSON.parse(sessionStorage.getItem("users"));
-    if (storedUsers) {
-      setUsers(storedUsers);
-    }
-  }, [setUsers]);
-
-  useEffect(() => {
-    // Save data to session storage
-    sessionStorage.setItem("users", JSON.stringify(users));
-  }, [users]);
-
   const clickHandler = () => {
-    open ? setOpen(false) : setOpen(true);
+    setOpen(!open);
+    setForm(initializeForm());
   };
 
   function initializeForm() {
-    return { name: "", email: "" }
+    return { email: "" }
   }
 
-  function handleCreateUser(event) {
-    event.preventDefault();
+  // Retrieve data from database
+  useEffect(() => {
+    fetchUsers();
+  }, []);
 
-    const newUser = {
-      id: users.length + 1,
-      name: form.name,
-      email: form.email
-    };
-    
-    setUsers([...users, newUser]);
-    setForm(initializeForm());
+  const fetchUsers = async () => {
+    try {
+      const response = await fetch("http://localhost:5001/loadUsers", {
+        method: "GET",
+        credentials: "include"
+      })
+
+      const data = await response.json();
+      const usersData = data.data;
+      setUsers(usersData);
+    } catch (error) {
+      console.error("Error fetching data: ", error);
+    }
+  }
+
+  const handleCreateUser = async () => {
+    try {
+      const newUser = {
+        email: form.email,
+      };
+
+      const response = await fetch("http://localhost:5001/createUser", {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json; charset=UTF-8"
+        },
+        body: JSON.stringify(newUser),
+        credentials: "include"
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        // Update users state
+        fetchUsers();
+      } 
+
+      return data;
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  const handleDeleteUser = async (id) => {
+    try {
+      await fetch(`http://localhost:5001/deleteUser/${id}`, {
+        method: "DELETE",
+        credentials: "include"
+      })
+
+      // Update users state
+      const updatedUsers = users.filter(user => user.ID != id);
+      setUsers(updatedUsers);
+    } catch (error) {
+      console.error(error);
+    }
   }
   
-  function handleDeleteUser(id) {
-    const updatedUsers = users.filter((user) => user.id !== id);
-    setUsers(updatedUsers);
-  }  
-
   return (
     <div className="min-h-screen text-white p-4">
       <div className="flex flex-col items-center">
@@ -57,6 +89,7 @@ const Users = () => {
         >
           Create New User
         </Button>
+        
         {open && (
           <UsersDialog
             handleClose={clickHandler}
@@ -66,26 +99,24 @@ const Users = () => {
           />
         )}
 
-        <table className="table-auto text-left max-w-72 sm:min-w-96 md:min-w-[650px] lg:min-w-[950px] rounded-[4px] overflow-hidden">
+        <table className="table-auto text-left max-w-72 sm:min-w-96 md:min-w-[450px] lg:min-w-[550px] rounded-[4px] overflow-hidden">
           <thead className="text-sm bg-gray-700">
             <tr>
-              <th className="px-6 py-3">Name</th>
               <th className="px-6 py-3">Email Address</th>
-              <th className="px-6 py-3 text-center">Actions</th>
+              <th className="px-6 md:px-0 py-3 text-center">Actions</th>
             </tr>
           </thead>
           <tbody>
             {users.map((user) => (
               <tr
-                key={user.id}
+                key={user.ID}
                 className="border-t bg-gray-800 border-gray-700"
               >
-                <td className="px-6 py-3 break all">{user.name}</td>
                 <td className="px-6 py-3 break-all">{user.email}</td>
-                <td className="px-6 py-3 text-center">
+                <td className="px-6 md:px-0 py-3 text-center">
                   <span
                     className="material-symbols-outlined cursor-pointer select-none"
-                    onClick={() => handleDeleteUser(user.id)}
+                    onClick={() => handleDeleteUser(user.ID)}
                   >
                     delete
                   </span>
