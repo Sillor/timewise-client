@@ -1,16 +1,27 @@
 import { useState, useEffect } from "react";
 import UsersDialog from "../../components/users-dialog/UsersDialog";
+import DeleteUserDialog from "../../components/users-dialog/DeleteUserDialog";
 import Button from "../../components/button-component/Button";
 
 const Users = () => {
-  const [open, setOpen] = useState(false);
+  const [openCreateUser, setOpenCreateUser] = useState(false);
+  const [openDeleteUser, setOpenDeleteUser] = useState(false);
   const [users, setUsers] = useState([]);
   const [form, setForm] = useState(initializeForm());
+  const [userID, setUserID] = useState(null);
 
-  const clickHandler = () => {
-    setOpen(!open);
+  const handleClickCreate = () => {
+    setOpenCreateUser(!openCreateUser);
     setForm(initializeForm());
   };
+
+  const handleClickDelete = () => {
+    setOpenDeleteUser(!openDeleteUser);
+  }
+
+  const handleSetUser = (id) => {
+    setUserID(id);
+  }
 
   function initializeForm() {
     return { email: "" }
@@ -85,14 +96,14 @@ const Users = () => {
         <h1 className="text-[48px] font-bold mt-[43px] mb-[36px]">Users</h1>
         <Button
           className="text-base font-semibold w-[216px] h-12 shadow-md mb-4"
-          onClick={clickHandler}
+          onClick={handleClickCreate}
         >
           Create New User
         </Button>
-        
-        {open && (
+
+        {openCreateUser && (
           <UsersDialog
-            handleClose={clickHandler}
+            handleClose={handleClickCreate}
             handleCreateUser={handleCreateUser}
             form={form}
             setForm={setForm}
@@ -116,7 +127,10 @@ const Users = () => {
                 <td className="px-6 md:px-0 py-3 text-center">
                   <span
                     className="material-symbols-outlined cursor-pointer select-none"
-                    onClick={() => handleDeleteUser(user.ID)}
+                    onClick={() => {
+                      handleClickDelete();
+                      handleSetUser(user.ID);
+                    }}
                   >
                     delete
                   </span>
@@ -125,6 +139,14 @@ const Users = () => {
             ))}
           </tbody>
         </table>
+
+        {openDeleteUser && (
+          <DeleteUserDialog
+            handleClose={handleClickDelete}
+            handleDeleteUser={handleDeleteUser}
+            userID={userID}
+          />
+        )}
       </div>
     </div>
   );
