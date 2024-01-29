@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-const UsersDialog = (props) => {
+const CreateUserDialog = (props) => {
   const [error, setError] = useState("");
 
   useEffect(() => {
@@ -100,4 +100,4 @@ const UsersDialog = (props) => {
   );
 };
 
-export default UsersDialog;
+export default CreateUserDialog;

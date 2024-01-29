@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import UsersDialog from "../../components/users-dialog/UsersDialog";
-import DeleteUserDialog from "../../components/users-dialog/DeleteUserDialog";
+import CreateUserDialog from "../../components/users-page-components/CreateUserDialog";
+import DeleteUserDialog from "../../components/users-page-components/DeleteUserDialog";
 import Button from "../../components/button-component/Button";
 
 const Users = () => {
@@ -102,7 +102,7 @@ const Users = () => {
         </Button>
 
         {openCreateUser && (
-          <UsersDialog
+          <CreateUserDialog
             handleClose={handleClickCreate}
             handleCreateUser={handleCreateUser}
             form={form}
