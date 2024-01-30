@@ -102,6 +102,7 @@ const EntryItem = ({ props, changeEntry, projects }) => {
                   e.currentTarget.value = startStr;
                   return;
                 }
+                e.currentTarget.value = time.replaceAll(" ", "")
                 const startTime = new Date(
                   new Date(inputs.start).toDateString() + " " + time
                 );
@@ -120,6 +121,7 @@ const EntryItem = ({ props, changeEntry, projects }) => {
                   e.currentTarget.value = endStr;
                   return;
                 }
+                e.currentTarget.value = time.replaceAll(" ", "")
                 const endTime = new Date(
                   new Date(inputs.start).toDateString() + " " + time
                 );

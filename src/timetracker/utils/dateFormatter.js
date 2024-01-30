@@ -71,6 +71,7 @@ export function formatTime(time) {
   const match = time.match(/^(\d{1,2})\s*:?\s*([012345]\d)\s*([pPaA]{1}[mM]{0,1})?$/)
   if (!match) return null
   let [,h,m,clock] = match
+  m = m ? m : "0"
   if (clock) {
     if (h>12) return null
   } else {
@@ -80,7 +81,8 @@ export function formatTime(time) {
     } else {
       clock = "AM"
     }
-    if (h===0) h =12
+    if (h==0) h = 12
   }
-  return `${h}:${m.padStart(2,"0")} ${(clock.length == 1 ? clock+"M" : clock).toUpperCase()}`
+  const timeStr = `${h}:${m.padStart(2,"0")} ${(clock.length == 1 ? clock+"M" : clock).toUpperCase()}`
+  return timeStr
 }
