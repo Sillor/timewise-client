@@ -1,6 +1,8 @@
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 
 const UsersDialog = (props) => {
+  const [error, setError] = useState("")
+
   useEffect(() => {
     // Add 'overflow-hidden' to body when the dialog is open
     document.body.classList.add("overflow-hidden");
@@ -26,9 +28,23 @@ const UsersDialog = (props) => {
     }
   }
 
+  async function handleSubmit(event) {
+    event.preventDefault();
+    const data = await props.handleCreateUser();
+
+    if (data.success) {
+      props.handleClose();
+    } else {
+      setError(data.message);
+    }
+  }
+
   return (
     // Container for dialog panel
-    <div className="fixed z-50 inset-0 bg-black bg-opacity-50 w-screen h-screen flex justify-center items-center" onClick={handleClick}>
+    <div
+      className="fixed z-50 inset-0 bg-black bg-opacity-50 w-screen h-screen flex justify-center items-center"
+      onClick={handleClick}
+    >
       {/* Dialog panel */}
       <div className="dialog rounded-md shadow-md p-8 sm:w-[428px]">
         {/* Dialog header */}
@@ -36,26 +52,7 @@ const UsersDialog = (props) => {
           Create New User
         </h1>
         {/* Form */}
-        <form
-          onSubmit={(event) => {
-            props.handleCreateUser(event);
-            props.handleClose();
-          }}
-        >
-          {/* Name field */}
-          <input
-            id="name"
-            type="text"
-            name="name"
-            placeholder="Name"
-            className="text-black rounded-md p-3 outline-none w-full mb-5"
-            value={props.form.name}
-            onKeyDown={handleKeyPress}
-            required
-            onChange={(event) =>
-              props.setForm({ ...props.form, name: event.target.value })
-            }
-          />
+        <form onSubmit={(event) => handleSubmit(event)}>
           {/* Email field */}
           <input
             id="email"
@@ -70,6 +67,17 @@ const UsersDialog = (props) => {
               props.setForm({ ...props.form, email: event.target.value })
             }
           />
+          {/* Error message */}
+          {error && (
+            <div className="flex flex-row gap-2 ">
+              <div className="w-6 h-6 bg-red-500 rounded-full flex items-center justify-center group select-none">
+                <span>!</span>
+              </div>
+              <div className="mb-5">
+                <p className="text-red-900">{error}</p>
+              </div>
+            </div>
+          )}
           <div className="flex justify-between space-x-5">
             {/* Cancel button */}
             <button
