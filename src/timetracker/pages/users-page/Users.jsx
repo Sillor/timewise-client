@@ -1,16 +1,29 @@
 import { useState, useEffect } from "react";
-import UsersDialog from "../../components/users-dialog/UsersDialog";
+import CreateUserDialog from "../../components/users-page-components/CreateUserDialog";
+import DeleteUserDialog from "../../components/users-page-components/DeleteUserDialog";
 import Button from "../../components/button-component/Button";
+import { logout } from "../../utils/authHandler";
 
 const Users = () => {
-  const [open, setOpen] = useState(false);
+  const [openCreateUser, setOpenCreateUser] = useState(false);
+  const [openDeleteUser, setOpenDeleteUser] = useState(false);
   const [users, setUsers] = useState([]);
   const [form, setForm] = useState(initializeForm());
+  const [currentUserID, setCurrentUserID] = useState(null);
+  const [userID, setUserID] = useState(null);
 
-  const clickHandler = () => {
-    setOpen(!open);
+  const handleClickCreate = () => {
+    setOpenCreateUser(!openCreateUser);
     setForm(initializeForm());
   };
+
+  const handleClickDelete = () => {
+    setOpenDeleteUser(!openDeleteUser);
+  }
+
+  const handleSetUser = (id) => {
+    setUserID(id);
+  }
 
   function initializeForm() {
     return { email: "" }
@@ -30,7 +43,9 @@ const Users = () => {
 
       const data = await response.json();
       const usersData = data.data;
+
       setUsers(usersData);
+      setCurrentUserID(data.currentUserID)
     } catch (error) {
       console.error("Error fetching data: ", error);
     }
@@ -71,6 +86,10 @@ const Users = () => {
         credentials: "include"
       })
 
+      if (id === currentUserID) {
+        logout();
+      }
+
       // Update users state
       const updatedUsers = users.filter(user => user.ID != id);
       setUsers(updatedUsers);
@@ -83,22 +102,26 @@ const Users = () => {
     <div className="min-h-screen text-white p-4">
       <div className="flex flex-col items-center">
         <h1 className="text-[48px] font-bold mt-[43px] mb-[36px]">Users</h1>
+
+        {/* Create new user button */}
         <Button
           className="text-base font-semibold w-[216px] h-12 shadow-md mb-4"
-          onClick={clickHandler}
+          onClick={handleClickCreate}
         >
           Create New User
         </Button>
-        
-        {open && (
-          <UsersDialog
-            handleClose={clickHandler}
+
+        {/* Create user dialog */}
+        {openCreateUser && (
+          <CreateUserDialog
+            handleClose={handleClickCreate}
             handleCreateUser={handleCreateUser}
             form={form}
             setForm={setForm}
           />
         )}
 
+        {/* Users table */}
         <table className="table-auto text-left max-w-72 sm:min-w-96 md:min-w-[450px] lg:min-w-[550px] rounded-[4px] overflow-hidden">
           <thead className="text-sm bg-gray-700">
             <tr>
@@ -114,9 +137,13 @@ const Users = () => {
               >
                 <td className="px-6 py-3 break-all">{user.email}</td>
                 <td className="px-6 md:px-0 py-3 text-center">
+                  {/* Delete icon */}
                   <span
                     className="material-symbols-outlined cursor-pointer select-none"
-                    onClick={() => handleDeleteUser(user.ID)}
+                    onClick={() => {
+                      handleClickDelete();
+                      handleSetUser(user.ID);
+                    }}
                   >
                     delete
                   </span>
@@ -125,6 +152,15 @@ const Users = () => {
             ))}
           </tbody>
         </table>
+
+        {/* Delete user dialog */}
+        {openDeleteUser && (
+          <DeleteUserDialog
+            handleClose={handleClickDelete}
+            handleDeleteUser={handleDeleteUser}
+            userID={userID}
+          />
+        )}
       </div>
     </div>
   );

@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 
-const UsersDialog = (props) => {
-  const [error, setError] = useState("")
+const CreateUserDialog = (props) => {
+  const [error, setError] = useState("");
 
   useEffect(() => {
     // Add 'overflow-hidden' to body when the dialog is open
@@ -9,8 +9,8 @@ const UsersDialog = (props) => {
 
     // Remove 'overflow-hidden' from body when the dialog is closed
     return () => {
-      document.body.classList.remove("overflow-hidden")
-    }
+      document.body.classList.remove("overflow-hidden");
+    };
   }, []);
 
   function handleKeyPress(event) {
@@ -20,7 +20,7 @@ const UsersDialog = (props) => {
   }
 
   function handleClick(event) {
-    const dialog = document.querySelector(".dialog")
+    const dialog = document.querySelector(".dialog");
 
     // Close dialog if the click target is not a descendant of dialog
     if (!dialog.contains(event.target)) {
@@ -42,11 +42,11 @@ const UsersDialog = (props) => {
   return (
     // Container for dialog panel
     <div
-      className="fixed z-50 inset-0 bg-black bg-opacity-50 w-screen h-screen flex justify-center items-center"
+      className="fixed z-50 inset-0 bg-black bg-opacity-30 w-screen h-screen flex justify-center items-center"
       onClick={handleClick}
     >
       {/* Dialog panel */}
-      <div className="dialog rounded-md shadow-md p-8 sm:w-[428px]">
+      <div className="dialog rounded-md shadow-md p-8 w-80 sm:w-[428px]">
         {/* Dialog header */}
         <h1 className="text-light text-center text-[20px] font-bold lg:text-[32px] mb-5">
           Create New User
@@ -100,4 +100,4 @@ const UsersDialog = (props) => {
   );
 };
 
-export default UsersDialog;
+export default CreateUserDialog;
