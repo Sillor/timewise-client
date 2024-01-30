@@ -6,6 +6,10 @@
 //overflow scroll or pagination -> set max height?
 import { useRef, useState } from "react";
 import {
+  formatTime,
+  getSqlDatetime,
+  isoDate,
+  joinDateAndTime,
   shortDate,
   shortTime,
   timeDifference,
@@ -14,26 +18,37 @@ import TrashIcon from "../../assets/TrashIcon";
 import "./EntryItem.css";
 import CalendarIcon from "../../assets/CalendarIcon";
 
-const EntryItem = ({ props, deleteFn }) => {
-  // const {summary, parentProject, start, end, id } = props
+const EntryItem = ({ props, changeEntry, projects }) => {
   const [inputs, setInputs] = useState(props);
   const dateElement = useRef(null);
   const dateStr = shortDate(inputs.start, true);
+  const isoDateStr = isoDate(inputs.start);
   const startStr = shortTime(inputs.start);
   const endStr = shortTime(inputs.end);
   const hoursStr = timeDifference(inputs.start, inputs.end);
+
+  function updateThisEntry(obj, del) {
+    changeEntry(
+      {
+        localID: inputs.id,
+        summary: inputs.summary,
+        parentProject: inputs.parentProject,
+        start: getSqlDatetime(inputs.start),
+        end: getSqlDatetime(inputs.end),
+        ...obj,
+      },
+      del
+    );
+    setInputs((prev) => ({ ...prev, ...obj }));
+  }
 
   return (
     <div className="entry-item w-full flex justify-between max-w-[95%] md:w-full mx-auto my-3 bg-darkBlue rounded-md group p-4">
       <div className="w-full">
         <div className="flex items-center">
-          <input
-            className="entry-item--input inline text-xl font-bold w-32"
-            value={dateStr}
-          />
-          <div className="inline flex-grow text-right text-lg">{hoursStr}</div>
+          <div className="inline text-xl font-bold">{dateStr}</div>
         </div>
-        <div>
+        <div className="flex flex-col">
           <input
             className="entry-item--input inline w-full sm:w-40"
             defaultValue={inputs.summary}
@@ -41,86 +56,109 @@ const EntryItem = ({ props, deleteFn }) => {
             onBlur={(e) => {
               const val = e.currentTarget.value;
               if (inputs.summary == val) return;
-              setInputs((prev) => ({ ...prev, summary: val }));
+              updateThisEntry({ summary: val });
             }}
           />
-          <div className="sm:inline flex flex-grow items-center sm:text-center sm:ml-10">
+          <div className="flex flex-grow items-center sm:text-center">
+            <span
+              onClick={() => {
+                dateElement.current.showPicker();
+              }}
+              tabIndex={0}
+              className="mr-5 flex"
+            >
+              <CalendarIcon className="w-5 h-5 inline" />
+            </span>
             <input
-              defaultValue="26:26PM"
+              tabIndex={-1}
+              type="date"
+              defaultValue={isoDateStr}
+              ref={dateElement}
+              className="w-0 h-0"
+              onChange={(e) => {
+                const date = e.currentTarget.value + " 00:00";
+                const startTime = joinDateAndTime(
+                  date,
+                  shortTime(inputs.start, false)
+                );
+                const endTime = joinDateAndTime(
+                  date,
+                  shortTime(inputs.end, false)
+                );
+                updateThisEntry({
+                  start: getSqlDatetime(startTime),
+                  end: getSqlDatetime(endTime),
+                });
+              }}
+            />
+            <input
+              defaultValue={shortTime(inputs.start)}
               className="entry-item--input text-base w-20 text-center"
+              onBlur={(e) => {
+                const val = e.currentTarget.value;
+                const time = formatTime(val);
+                if (val == startStr) return;
+                if (!time) {
+                  e.currentTarget.value = startStr;
+                  return;
+                }
+                const startTime = new Date(
+                  new Date(inputs.start).toDateString() + " " + time
+                );
+                updateThisEntry({ start: getSqlDatetime(startTime) });
+              }}
             />
             <span className="p-1"> - </span>
             <input
-              defaultValue="1:11PM"
-              className="entry-item--input w-20 text-center "
-            />
-            <span onClick={() => {dateElement.current.showPicker()}} tabIndex={0}>
-              <CalendarIcon className="w-5 h-5 inline mx-5"/>
-            </span>
-            <input
-              type="date"
-              id="dater"
-              ref={dateElement}
-              className="w-0 h-0"
+              defaultValue={shortTime(inputs.end)}
+              className="entry-item--input w-20 text-center"
+              onBlur={(e) => {
+                const val = e.currentTarget.value;
+                const time = formatTime(val);
+                if (val == endStr) return;
+                if (!time) {
+                  e.currentTarget.value = endStr;
+                  return;
+                }
+                const endTime = new Date(
+                  new Date(inputs.start).toDateString() + " " + time
+                );
+                updateThisEntry({ end: getSqlDatetime(endTime) });
+              }}
             />
           </div>
         </div>
       </div>
-      <div className="flex flex-col justify-between items-end w-28">
+      <div className="flex flex-col justify-between items-end w-52">
+        <div className="flex justify-between w-full">
+        <div className="inline text-lg">{hoursStr}</div>
         <div>
           <TrashIcon
             className="hover:cursor-pointer w-7 h-7 lg:w-8 lg:h-8"
             onClick={() => {
-              deleteFn(inputs.id);
+              updateThisEntry({}, true);
             }}
           />
         </div>
-        <div className="">project</div>
+        </div>
+        <select
+          defaultValue={inputs.parentProject}
+          className="bg-transparent text-right"
+          onChange={(e) => {
+            const val = e.currentTarget.value;
+            updateThisEntry({ parentProject: val });
+          }}
+        >
+          {projects.map((project, i) => {
+            return (
+              <option key={i} value={project} className="text-black">
+                {project}
+              </option>
+            );
+          })}
+        </select>
       </div>
     </div>
-  );
-  return (
-    <table className="w-full max-w-[95%] md:w-full mx-auto my-3 bg-darkBlue rounded-md group">
-      <tbody>
-        <tr>
-          <td className="px-3 pt-3">
-            <h2 className="text-2xl font-bold">{dateStr}</h2>
-          </td>
-          <td align="right" className="p-3  ">
-            <span className=" sm:w-[1.2rem] sm:h-[1.2rem]">
-              <TrashIcon
-                className="hover:cursor-pointer w-7 h-7 lg:w-8 lg:h-8"
-                onClick={() => deleteFn(inputs.id)}
-              />
-            </span>
-          </td>
-        </tr>
-        <tr>
-          <td className="px-3 text-xl font-medium">
-            <input
-              value={startStr}
-              className="bg-transparent outline-1 outline-black group-hover:outline inline-block w-min"
-            />
-            <div className="inline-block">-</div>
-            <input
-              value={endStr}
-              className="inline-block bg-transparent outline-1 group-hover:outline"
-            />
-          </td>
-        </tr>
-        <tr>
-          <td className="px-3 max-w-4 h-min text-xl font-medium">
-            <span>{inputs.summary}</span>
-          </td>
-        </tr>
-        <tr>
-          <td></td>
-          <td align="right" className="px-3 pb-1 font-medium">
-            {inputs.parentProject}
-          </td>
-        </tr>
-      </tbody>
-    </table>
   );
 };
 

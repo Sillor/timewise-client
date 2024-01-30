@@ -3,12 +3,14 @@ import "./MainContent.css";
 import EntryItem from "../../components/entry-item-component/EntryItem";
 import Button from "../../components/button-component/Button";
 import StatusMessage from "../../components/form-components/StatusMessage";
-import { createEntry, getEntries, getProjects } from "../../utils/dbHandler";
 import {
-  getSqlDatetime,
+  createEntry,
+  getEntries,
+  getProjects,
+  updateEntry,
+} from "../../utils/dbHandler";
+import {
   joinDateAndTime,
-  shortDate,
-  shortTime,
 } from "../../utils/dateFormatter";
 
 function MainContent() {
@@ -20,7 +22,7 @@ function MainContent() {
     Date: "",
   });
   const [submittedData, setSubmittedData] = useState([]);
-  const [projects, setProjects] = useState([])
+  const [projects, setProjects] = useState([]);
   const [animateNewItem, setAnimateNewItem] = useState(false);
   const [errorMessage, setErrorMessage] = useState({
     success: false,
@@ -39,9 +41,8 @@ function MainContent() {
   async function updateEntires() {
     const res = await getEntries();
     const data = res.data;
+    if (data.success === false) return;
     const entries = data.map((entry, i) => {
-      const start = new Date(entry.start);
-      const end = new Date(entry.end);
       return {
         key: i,
         id: entry.localID,
@@ -49,23 +50,21 @@ function MainContent() {
         start: entry.start,
         end: entry.end,
         parentProject: entry.parentProject,
-      }
-      return {
-        key: i,
-        Date: shortDate(start, true),
-        Project: entry.parentProject,
-        Hours: `${shortTime(start)} - ${shortTime(end)}`,
-        Description: entry.summary,
-        id: entry.localID,
       };
     });
-    setSubmittedData(entries.toReversed());
+    setSubmittedData(entries.toSorted((a,b)=>new Date(b.start)-new Date(a.start)));
+  }
+
+  function changeEntry(obj, del) {
+    updateEntry(obj, del);
+    updateEntires()
+    if (del) deleteProject(obj.localID);
   }
 
   async function updateProjects() {
-    const res = await getProjects()
-    const projectNames = res.data.map(project=>project.projectName)
-    setProjects(projectNames)
+    const res = await getProjects();
+    const projectNames = res.data.map((project) => project.projectName);
+    setProjects(projectNames);
   }
 
   function getCurrentTime() {
@@ -98,15 +97,15 @@ function MainContent() {
     setAnimateNewItem(true); //trigger animation
 
     const validFields = Object.entries(inputs).every(([key, val]) => {
-      if (val || key === "Date") return true;
+      if (val || key === "Date" || key === "Summary") return true;
       setErrorMessage({ success: false, message: key + " Field Empty" });
     });
 
     if (!validFields) return;
 
     const date = inputs.Date || new Date().toLocaleDateString();
-    const startTime = getSqlDatetime(joinDateAndTime(date, inputs.TimeStart));
-    const endTime = getSqlDatetime(joinDateAndTime(date, inputs.TimeEnd));
+    const startTime = joinDateAndTime(date, inputs.TimeStart);
+    const endTime = joinDateAndTime(date, inputs.TimeEnd);
 
     const res = await createEntry({
       summary: inputs.Summary,
@@ -120,7 +119,6 @@ function MainContent() {
       return;
     }
 
-    // setSubmittedData([newEntry, ...submittedData]);
     updateEntires();
     setInputs({
       Summary: "",
@@ -138,11 +136,6 @@ function MainContent() {
     if (id) {
       setSubmittedData((prevData) => prevData.filter((item) => item.id !== id));
     }
-  }
-
-  function randomNumber() {
-    const number = Math.ceil(Math.random() * 10000000);
-    return number;
   }
 
   return (
@@ -164,22 +157,29 @@ function MainContent() {
               />
             </div>
             <div className="Project w-[25%] lg:w-1/5">
-              {/* <input
-                className="w-full p-2 rounded-lg hover:shadow-lg"
-                name="Project"
-                value={inputs.Project}
-                onChange={handleInputChange}
-                placeholder="Project"
-              /> */}
               <label htmlFor="Project"></label>
-              <select defaultValue={""} name="Project" className="w-full p-2 rounded-lg hover:shadow-lg text-dark" onChange={handleInputChange}>
-                <option disabled value="" className="hidden">Project</option>
-                {
-                  projects.length ?
-                  projects.map((project)=>{
-                    return <option key={project} value={project}>{project}</option>
-                  }) : <option disabled value="">You Have No Projects</option>
-                }
+              <select
+                value={inputs.Project}
+                name="Project"
+                className="Project w-full p-2 rounded-lg hover:shadow-lg text-dark"
+                onChange={handleInputChange}
+              >
+                <option disabled value="" className="hidden">
+                  Project
+                </option>
+                {projects.length ? (
+                  projects.map((project) => {
+                    return (
+                      <option key={project} value={project}>
+                        {project}
+                      </option>
+                    );
+                  })
+                ) : (
+                  <option disabled value="">
+                    You Have No Projects
+                  </option>
+                )}
               </select>
             </div>
           </div>
@@ -228,11 +228,12 @@ function MainContent() {
           </div>
         </form>
         <div>
-          {submittedData.map((value, index) => {
+          {submittedData.length ? submittedData.map((value, index) => {
             return (
               <EntryItem
                 props={value}
-                deleteFn={deleteProject}
+                changeEntry={changeEntry}
+                projects={projects}
                 key={value.key}
                 className={
                   index === submittedData.length - 1 && animateNewItem
@@ -241,7 +242,7 @@ function MainContent() {
                 } //handles animation placement
               />
             );
-          })}
+          }): <div className="w-full text-center mt-4 mb-1 italic">No Entries</div>}
         </div>
       </div>
     </div>
