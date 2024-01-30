@@ -55,10 +55,11 @@ function MainContent() {
     setSubmittedData(entries.toSorted((a,b)=>new Date(b.start)-new Date(a.start)));
   }
 
-  function changeEntry(obj, del) {
-    updateEntry(obj, del);
-    updateEntires()
+  async function changeEntry(obj, del) {
+    const res = await updateEntry(obj, del);
+    if (!res.success) return
     if (del) deleteProject(obj.localID);
+    await updateEntires()
   }
 
   async function updateProjects() {
