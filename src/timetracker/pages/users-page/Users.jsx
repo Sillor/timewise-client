@@ -2,13 +2,17 @@ import { useState, useEffect } from "react";
 import CreateUserDialog from "../../components/users-page-components/CreateUserDialog";
 import DeleteUserDialog from "../../components/users-page-components/DeleteUserDialog";
 import Button from "../../components/button-component/Button";
+import { useNavigate } from "react-router-dom";
 
 const Users = () => {
   const [openCreateUser, setOpenCreateUser] = useState(false);
   const [openDeleteUser, setOpenDeleteUser] = useState(false);
   const [users, setUsers] = useState([]);
   const [form, setForm] = useState(initializeForm());
+  const [currentUserID, setCurrentUserID] = useState(null);
   const [userID, setUserID] = useState(null);
+
+  const navigate = useNavigate();
 
   const handleClickCreate = () => {
     setOpenCreateUser(!openCreateUser);
@@ -41,11 +45,15 @@ const Users = () => {
 
       const data = await response.json();
       const usersData = data.data;
+
       setUsers(usersData);
+      setCurrentUserID(data.currentUserID)
     } catch (error) {
       console.error("Error fetching data: ", error);
     }
   }
+
+  console.log(currentUserID);
 
   const handleCreateUser = async () => {
     try {
@@ -81,6 +89,10 @@ const Users = () => {
         method: "DELETE",
         credentials: "include"
       })
+
+      if (id === currentUserID) {
+        navigate("/login");
+      }
 
       // Update users state
       const updatedUsers = users.filter(user => user.ID != id);
