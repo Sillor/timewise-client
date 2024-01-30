@@ -53,8 +53,6 @@ const Users = () => {
     }
   }
 
-  console.log(currentUserID);
-
   const handleCreateUser = async () => {
     try {
       const newUser = {
