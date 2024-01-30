@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import CreateUserDialog from "../../components/users-page-components/CreateUserDialog";
 import DeleteUserDialog from "../../components/users-page-components/DeleteUserDialog";
 import Button from "../../components/button-component/Button";
-import { useNavigate } from "react-router-dom";
+import { logout } from "../../utils/authHandler";
 
 const Users = () => {
   const [openCreateUser, setOpenCreateUser] = useState(false);
@@ -11,8 +11,6 @@ const Users = () => {
   const [form, setForm] = useState(initializeForm());
   const [currentUserID, setCurrentUserID] = useState(null);
   const [userID, setUserID] = useState(null);
-
-  const navigate = useNavigate();
 
   const handleClickCreate = () => {
     setOpenCreateUser(!openCreateUser);
@@ -89,7 +87,7 @@ const Users = () => {
       })
 
       if (id === currentUserID) {
-        navigate("/login");
+        logout();
       }
 
       // Update users state
