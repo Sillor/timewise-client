@@ -35,6 +35,17 @@ input[type="date"]:before {
     color: black;
 }
 
+.Project:has(option[value=""]:checked) {
+  color: #999
+}
+
+.Project > option {
+  color: black;
+}
+
+.Project > option:disabled {
+  color: grey;
+}
 
 
 

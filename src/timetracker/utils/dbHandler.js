@@ -35,7 +35,6 @@ export async function createProject(projectName) {
   }
 }
 
-
 // BUG backend doesn't throw if project doesn't exist
 /**
  * 
@@ -63,6 +62,26 @@ export async function createEntry(entryData) {
       method: "PUT",
       credentials: "include",
       body: JSON.stringify(entryData),
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+      },
+    });
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    return {
+      success: false,
+      message: error.message,
+    };
+  }
+}
+
+export async function updateEntry(entryData, del = null) {
+  try {
+    const response = await fetch("http://localhost:5001/updateEntry", {
+      method: "PUT",
+      credentials: "include",
+      body: JSON.stringify({ ...entryData, deleted: del }),
       headers: {
         "Content-type": "application/json; charset=UTF-8",
       },

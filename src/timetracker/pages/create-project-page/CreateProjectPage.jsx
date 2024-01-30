@@ -51,7 +51,7 @@ const CreateProjectPage = () => {
            (projectList.length) ? projectList.map((item,index)=>
               <tr key={index} className="border-t border-[#5B5B5B] bg-[#303036]">
                 <td className="px-5 py-3">{item.projectName}</td>
-                <td className="px-5 py-3">{item.totalTime.substring(0,item.totalTime.length-4).concat(':',(item.totalTime.substring(item.totalTime.length-4,item.totalTime.length-2)).concat(':',item.totalTime.substring(item.totalTime.length-2,item.totalTime.length)))}</td>
+                <td className="px-5 py-3">{item.totalTime}</td>
               </tr>
            ) : <tr className="bg-dark italic font-thin"><td colSpan={2}>No Projects</td></tr>}
             </tbody>

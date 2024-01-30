@@ -1,5 +1,3 @@
-import { parse } from "postcss";
-
 function parseDate(date = null) {
   return date ? new Date(date) : new Date();
 }
@@ -15,13 +13,13 @@ export function getSqlDatetime(date = null) {
   return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
 }
 
-export function shortTime(date = null) {
+export function shortTime(date = null, hour12=true) {
   const d = parseDate(date);
   return d
     .toLocaleTimeString("en-US", {
       hour: "numeric",
       minute: "2-digit",
-      hour12: true,
+      hour12,
     })
     .replace(" ", "");
 }
@@ -62,4 +60,27 @@ export function timeDifference(start, end) {
   const s = Math.floor((diff % 60000) / 1000) + "";
 
   return `${h.padStart(2, "0")}:${m.padStart(2, "0")}:${s.padStart(2, "0")}`;
+}
+
+export function isoDate(date) {
+  const d = parseDate(date)
+  return d.toISOString().slice(0,10)
+}
+
+export function formatTime(time) {
+  const match = time.match(/^(\d{1,2})\s*:?\s*([012345]\d)\s*([pPaA]{1}[mM]{0,1})?$/)
+  if (!match) return null
+  let [,h,m,clock] = match
+  if (clock) {
+    if (h>12) return null
+  } else {
+    if (h>12){
+      h -= 12
+      clock = "PM"
+    } else {
+      clock = "AM"
+    }
+    if (h===0) h =12
+  }
+  return `${h}:${m.padStart(2,"0")} ${(clock.length == 1 ? clock+"M" : clock).toUpperCase()}`
 }
