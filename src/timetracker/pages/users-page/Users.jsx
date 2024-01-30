@@ -94,6 +94,8 @@ const Users = () => {
     <div className="min-h-screen text-white p-4">
       <div className="flex flex-col items-center">
         <h1 className="text-[48px] font-bold mt-[43px] mb-[36px]">Users</h1>
+
+        {/* Create new user button */}
         <Button
           className="text-base font-semibold w-[216px] h-12 shadow-md mb-4"
           onClick={handleClickCreate}
@@ -101,6 +103,7 @@ const Users = () => {
           Create New User
         </Button>
 
+        {/* Create user dialog */}
         {openCreateUser && (
           <CreateUserDialog
             handleClose={handleClickCreate}
@@ -110,6 +113,7 @@ const Users = () => {
           />
         )}
 
+        {/* Users table */}
         <table className="table-auto text-left max-w-72 sm:min-w-96 md:min-w-[450px] lg:min-w-[550px] rounded-[4px] overflow-hidden">
           <thead className="text-sm bg-gray-700">
             <tr>
@@ -125,6 +129,7 @@ const Users = () => {
               >
                 <td className="px-6 py-3 break-all">{user.email}</td>
                 <td className="px-6 md:px-0 py-3 text-center">
+                  {/* Delete icon */}
                   <span
                     className="material-symbols-outlined cursor-pointer select-none"
                     onClick={() => {
@@ -140,6 +145,7 @@ const Users = () => {
           </tbody>
         </table>
 
+        {/* Delete user dialog */}
         {openDeleteUser && (
           <DeleteUserDialog
             handleClose={handleClickDelete}
