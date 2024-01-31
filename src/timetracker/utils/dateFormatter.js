@@ -55,7 +55,7 @@ export function rollTime(start, end) {
   const sM = s.getMinutes();
   const eH = e.getHours();
   const eM = e.getMinutes();
-  if (sH > eH || (sH <= eH && sM > eM)) {
+  if (sH > eH || (sH === eH && sM > eM)) {
     e.setDate(e.getDate() + 1)
     return e
   }
