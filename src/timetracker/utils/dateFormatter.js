@@ -13,7 +13,7 @@ export function getSqlDatetime(date = null) {
   return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
 }
 
-export function shortTime(date = null, hour12=true) {
+export function shortTime(date = null, hour12 = true) {
   const d = parseDate(date);
   return d
     .toLocaleTimeString("en-US", {
@@ -43,6 +43,25 @@ export function shortDate(date = null, relative = false) {
     day: "numeric",
   });
 }
+/**
+ *
+ * @param {string} start start time
+ * @param {string} end end time
+ */
+export function rollTime(start, end) {
+  const s = parseDate(start);
+  const e = parseDate(end);
+  const sH = s.getHours();
+  const sM = s.getMinutes();
+  const eH = e.getHours();
+  const eM = e.getMinutes();
+  if (sH > eH || (sH <= eH && sM > eM)) {
+    e.setDate(e.getDate() + 1)
+    return e
+  }
+  e.setDate(s.getDate())
+  return e
+}
 
 export function joinDateAndTime(date, timeStr) {
   const d = parseDate(date);
@@ -53,7 +72,7 @@ export function joinDateAndTime(date, timeStr) {
 }
 
 export function timeDifference(start, end) {
-  const diff = Math.abs(parseDate(end) - parseDate(start));
+  const diff = parseDate(end) - parseDate(start);
 
   const h = Math.floor(diff / 3600000) + "";
   const m = Math.floor((diff % 3600000) / 60000) + "";
@@ -63,26 +82,31 @@ export function timeDifference(start, end) {
 }
 
 export function isoDate(date) {
-  const d = parseDate(date)
-  return d.toISOString().slice(0,10)
+  const d = parseDate(date);
+  return d.toISOString().slice(0, 10);
 }
 
 export function formatTime(time) {
-  const match = time.match(/^(\d{1,2})\s*:?\s*([012345]\d)\s*([pPaA]{1}[mM]{0,1})?$/)
-  if (!match) return null
-  let [,h,m,clock] = match
-  m = m ? m : "0"
+  const match = time.match(
+    /^(\d{1,2})\s*:?\s*([012345]\d)\s*([pPaA]{1}[mM]{0,1})?$/
+  );
+  if (!match) return null;
+  let [, h, m, clock] = match;
+  m = m ? m : "0";
   if (clock) {
-    if (h>12) return null
+    if (h > 12) return null;
   } else {
-    if (h>12){
-      h -= 12
-      clock = "PM"
+    if (h > 12) {
+      h -= 12;
+      clock = "PM";
     } else {
-      clock = "AM"
+      clock = "AM";
     }
-    if (h==0) h = 12
+    if (h == 0) h = 12;
   }
-  const timeStr = `${h}:${m.padStart(2,"0")} ${(clock.length == 1 ? clock+"M" : clock).toUpperCase()}`
-  return timeStr
+  const timeStr = `${h}:${m.padStart(2, "0")} ${(clock.length == 1
+    ? clock + "M"
+    : clock
+  ).toUpperCase()}`;
+  return timeStr;
 }

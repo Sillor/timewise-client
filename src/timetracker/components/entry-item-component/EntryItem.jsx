@@ -10,6 +10,7 @@ import {
   getSqlDatetime,
   isoDate,
   joinDateAndTime,
+  rollTime,
   shortDate,
   shortTime,
   timeDifference,
@@ -106,7 +107,8 @@ const EntryItem = ({ props, changeEntry, projects }) => {
                 const startTime = new Date(
                   new Date(inputs.start).toDateString() + " " + time
                 );
-                updateThisEntry({ start: getSqlDatetime(startTime) });
+                const endTime = rollTime(startTime, inputs.end)
+                updateThisEntry({ start: getSqlDatetime(startTime), end: getSqlDatetime(endTime) });
               }}
             />
             <span className="p-1"> - </span>
@@ -122,9 +124,9 @@ const EntryItem = ({ props, changeEntry, projects }) => {
                   return;
                 }
                 e.currentTarget.value = time.replaceAll(" ", "")
-                const endTime = new Date(
+                const endTime = rollTime(inputs.start, new Date(
                   new Date(inputs.start).toDateString() + " " + time
-                );
+                ));
                 updateThisEntry({ end: getSqlDatetime(endTime) });
               }}
             />
